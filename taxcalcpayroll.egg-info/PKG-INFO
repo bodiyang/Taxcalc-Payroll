@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: taxcalcpayroll
+Version: 0.0.0
+Summary: taxcalcpayroll
+Home-page: https://github.com/bodiyang/Taxcalc-Payroll
+Download-URL: https://github.com/bodiyang/Taxcalc-Payroll
+License: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

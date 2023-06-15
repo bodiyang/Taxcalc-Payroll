@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+setup.py
+taxcalcpayroll/__init__.py
+taxcalcpayroll/payrollfunctions.py
+taxcalcpayroll.egg-info/PKG-INFO
+taxcalcpayroll.egg-info/SOURCES.txt
+taxcalcpayroll.egg-info/dependency_links.txt
+taxcalcpayroll.egg-info/requires.txt
+taxcalcpayroll.egg-info/top_level.txt
