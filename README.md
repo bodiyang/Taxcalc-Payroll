@@ -3,7 +3,7 @@
 [![Codecov](https://codecov.io/gh/PSLmodels/Tax-Calculator/branch/master/graph/badge.svg)](https://codecov.io/gh/PSLmodels/Tax-Calculator)
 
 
-Tax-Calculator
+Taxcalc-Payroll
 ==============
 
 Taxcalc-Payroll is an open-source microsimulation model for static
