@@ -30,9 +30,9 @@ config = {
         'Programming Language :: Python :: 3.9',
         'Topic :: Software Development :: Libraries :: Python Modules'],
     'tests_require': ['pytest'],
-    #'entry_points': {
-    #    'console_scripts': ['tc=taxcalc.cli.tc:cli_tc_main']
-    #}
+    'entry_points': {
+        'console_scripts': ['tc=taxcalcpayroll.cli.tc:cli_tc_main']
+    }
 }
 
 setup(**config)

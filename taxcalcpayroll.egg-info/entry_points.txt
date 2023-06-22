@@ -1,0 +1,2 @@
+[console_scripts]
+tc = taxcalcpayroll.cli.tc:cli_tc_main
