@@ -5,4 +5,4 @@ from taxcalcpayroll.calcfunctions import *
 from taxcalcpayroll.calculator import *
 from taxcalcpayroll.cli import *
 
-__version__ = '0.0.0'
+__version__ = '0.1.0'
