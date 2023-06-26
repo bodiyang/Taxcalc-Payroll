@@ -1,4 +1,4 @@
 """
-Specify what is available to import from taxcalcpayroll.cli.tc.
+Specify what is available to import from taxcalcpayroll.cli.tcp.
 """
-from taxcalcpayroll.cli.tc import cli_tc_main
+from taxcalcpayroll.cli.tcp import cli_tcp_main

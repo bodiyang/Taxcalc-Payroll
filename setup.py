@@ -31,7 +31,7 @@ config = {
         'Topic :: Software Development :: Libraries :: Python Modules'],
     'tests_require': ['pytest'],
     'entry_points': {
-        'console_scripts': ['tc=taxcalcpayroll.cli.tc:cli_tc_main']
+        'console_scripts': ['tcp=taxcalcpayroll.cli.tcp:cli_tcp_main']
     }
 }
 

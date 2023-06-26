@@ -1,30 +1,30 @@
 """
-Command-line interface (CLI) to Tax-Calculator,
-which can be accessed as 'tc' from an installed taxcalc conda package.
+Command-line interface (CLI) to Taxcalc-Payroll,
+which can be accessed as 'tcp' from an installed taxcalcpayroll conda package.
 """
 # CODING-STYLE CHECKS:
-# pycodestyle tc.py
-# pylint --disable=locally-disabled tc.py
+# pycodestyle tcp.py
+# pylint --disable=locally-disabled tcp.py
 
 import os
 import sys
 import argparse
 import difflib
-import taxcalc as tc
+import taxcalcpayroll as tcp
 
 
 TEST_INPUT_FILENAME = 'test.csv'
 TEST_TAXYEAR = 2018
 
 
-def cli_tc_main():
+def cli_tcp_main():
     """
     Contains command-line interface (CLI) to Tax-Calculator TaxCalcIO class.
     """
     # pylint: disable=too-many-statements,too-many-branches
     # pylint: disable=too-many-return-statements
     # parse command-line arguments:
-    usage_str = 'tc INPUT TAXYEAR {}{}{}{}{}'.format(
+    usage_str = 'tcp INPUT TAXYEAR {}{}{}{}{}'.format(
         '[--help]\n',
         ('          '
          '[--baseline BASELINE] [--reform REFORM] [--assump  ASSUMP]\n'),
@@ -133,7 +133,7 @@ def cli_tc_main():
     args = parser.parse_args()
     # show Tax-Calculator version and quit if --version option specified
     if args.version:
-        sys.stdout.write('Tax-Calculator {}\n'.format(tc.__version__))
+        sys.stdout.write('Tax-Calculator {}\n'.format(tcp.__version__))
         return 0
     # write test input and expected output files if --test option specified
     if args.test:
@@ -144,41 +144,41 @@ def cli_tc_main():
         inputfn = args.INPUT
         taxyear = args.TAXYEAR
     # instantiate TaxCalcIO object and do tax analysis
-    tcio = tc.TaxCalcIO(input_data=inputfn, tax_year=taxyear,
+    tcpio = tcp.TaxCalcIO(input_data=inputfn, tax_year=taxyear,
                         baseline=args.baseline,
                         reform=args.reform, assump=args.assump,
                         outdir=args.outdir)
-    if tcio.errmsg:
-        sys.stderr.write(tcio.errmsg)
-        sys.stderr.write('USAGE: tc --help\n')
+    if tcpio.errmsg:
+        sys.stderr.write(tcpio.errmsg)
+        sys.stderr.write('USAGE: tcp --help\n')
         return 1
     aging = inputfn.endswith('puf.csv') or inputfn.endswith('cps.csv')
-    tcio.init(input_data=inputfn, tax_year=taxyear,
+    tcpio.init(input_data=inputfn, tax_year=taxyear,
               baseline=args.baseline,
               reform=args.reform, assump=args.assump,
               aging_input_data=aging,
               exact_calculations=args.exact)
-    if tcio.errmsg:
-        sys.stderr.write(tcio.errmsg)
-        sys.stderr.write('USAGE: tc --help\n')
+    if tcpio.errmsg:
+        sys.stderr.write(tcpio.errmsg)
+        sys.stderr.write('USAGE: tcp --help\n')
         return 1
     dumpvar_set = None
     if args.dvars and (args.dump or args.sqldb):
         if os.path.exists(args.dvars):
             with open(args.dvars) as dfile:
                 dump_vars_str = dfile.read()
-            dumpvar_set = tcio.custom_dump_variables(dump_vars_str)
-            if tcio.errmsg:
-                sys.stderr.write(tcio.errmsg)
-                sys.stderr.write('USAGE: tc --help\n')
+            dumpvar_set = tcpio.custom_dump_variables(dump_vars_str)
+            if tcpio.errmsg:
+                sys.stderr.write(tcpio.errmsg)
+                sys.stderr.write('USAGE: tcp --help\n')
                 return 1
         else:
             msg = 'ERROR: DVARS file {} does not exist\n'
             sys.stderr.write(msg.format(args.dvars))
-            sys.stderr.write('USAGE: tc --help\n')
+            sys.stderr.write('USAGE: tcp --help\n')
             return 1
     # conduct tax analysis
-    tcio.analyze(writing_output_file=True,
+    tcpio.analyze(writing_output_file=True,
                  output_tables=args.tables,
                  output_graphs=args.graphs,
                  dump_varset=dumpvar_set,
@@ -189,7 +189,7 @@ def cli_tc_main():
         retcode = _compare_test_output_files()
         return retcode
     return 0
-# end of cli_tc_main function code
+# end of cli_tcp_main function code
 
 
 EXPECTED_TEST_OUTPUT_FILENAME = 'test-{}-out.csv'.format(str(TEST_TAXYEAR)[2:])
@@ -198,7 +198,7 @@ ACTUAL_TEST_OUTPUT_FILENAME = 'test-{}-#-#-#.csv'.format(str(TEST_TAXYEAR)[2:])
 
 def _write_expected_test_output():
     """
-    Private function that writes tc --test input and expected output files.
+    Private function that writes tcp --test input and expected output files.
     """
     input_data = (
         'RECID,MARS,XTOT,EIC,e00200,e00200p,e00200s,p23250,e18400,e19800\n'
@@ -218,7 +218,7 @@ def _write_expected_test_output():
 
 def _compare_test_output_files():
     """
-    Private function that compares expected and actual tc --test output files;
+    Private function that compares expected and actual tcp --test output files;
     returns 0 if pass test, otherwise returns 1.
     """
     explines = open(EXPECTED_TEST_OUTPUT_FILENAME, 'U').readlines()
@@ -237,4 +237,4 @@ def _compare_test_output_files():
 
 
 if __name__ == '__main__':
-    sys.exit(cli_tc_main())
+    sys.exit(cli_tcp_main())
