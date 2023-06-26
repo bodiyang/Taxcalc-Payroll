@@ -1,0 +1,41 @@
+package:
+  name: taxcalcpayroll
+  version: 0.0.0
+
+build:
+  entry_points:
+    - tcp = taxcalcpayroll.cli.tcp:cli_tcp_main
+
+requirements:
+  build:
+    - python
+    - "numpy>=1.14"
+    - "pandas>=1.2.0"
+    - "bokeh>=1.4.0, <3.0.0"
+    - requests
+    - numba
+    - "paramtools>=0.18.0"
+    - behresp
+    - aiohttp
+    - curl
+
+  run:
+    - python
+    - "numpy>=1.14"
+    - "pandas>=1.2.0"
+    - "bokeh>=1.4.0, <3.0.0"
+    - requests
+    - numba
+    - "paramtools>=0.18.0"
+    - behresp
+    - aiohttp
+    - curl
+
+test:
+  commands:
+    - which tcp  # [unix]
+    - where tcp  # [win]
+    - tcp --help
+
+about:
+  home: https://github.com/bodiyang/Taxcalc-Payroll
