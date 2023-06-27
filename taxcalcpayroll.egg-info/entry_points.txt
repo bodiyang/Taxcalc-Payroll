@@ -1,2 +1,2 @@
 [console_scripts]
-tcp = taxcalcpayroll.cli.tcp:cli_tcp_main
+tcp = taxcalcpayroll.tcp:cli_tcp_main
