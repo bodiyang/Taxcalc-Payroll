@@ -4,7 +4,7 @@ package:
 
 build:
   entry_points:
-    - tcp = taxcalcpayroll.cli.tcp:cli_tcp_main
+    - tcp = taxcalcpayroll.tcp:cli_tcp_main
 
 requirements:
   build:
