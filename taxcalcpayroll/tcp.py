@@ -19,7 +19,7 @@ TEST_TAXYEAR = 2018
 
 def cli_tcp_main():
     """
-    Contains command-line interface (CLI) to Tax-Calculator TaxCalcIO class.
+    Contains command-line interface (CLI) to Taxcalc-Payroll TaxCalcIO class.
     """
     # pylint: disable=too-many-statements,too-many-branches
     # pylint: disable=too-many-return-statements
@@ -37,10 +37,10 @@ def cli_tcp_main():
     parser = argparse.ArgumentParser(
         prog='',
         usage=usage_str,
-        description=('Writes to a file the federal income and payroll tax '
+        description=('Writes to a file the federal payroll tax '
                      'OUTPUT for each filing unit specified in the INPUT '
                      'file, with the OUTPUT computed from the INPUT for the '
-                     'TAXYEAR using Tax-Calculator. The OUTPUT file is a '
+                     'TAXYEAR using Taxcalc-Payroll. The OUTPUT file is a '
                      'CSV-formatted file that contains tax information for '
                      'each INPUT filing unit under the reform(s).'))
     parser.add_argument('INPUT', nargs='?',
@@ -93,7 +93,7 @@ def cli_tcp_main():
                               'all INPUT variables (extrapolated to TAXYEAR) '
                               'and all calculated tax variables for the '
                               'reform, where all the variables are named '
-                              'using their internal Tax-Calculator names. '
+                              'using their internal Taxcalc-Payroll names. '
                               'No --dump option implies OUTPUT contains '
                               'minimal tax output for the reform.  NOTE: '
                               'use the --dvars option to point to a file '
@@ -126,14 +126,14 @@ def cli_tcp_main():
                         default=False,
                         action="store_true")
     parser.add_argument('--version',
-                        help=('optional flag that writes Tax-Calculator '
+                        help=('optional flag that writes Taxcalc-Payroll '
                               'release version to stdout and quits.'),
                         default=False,
                         action="store_true")
     args = parser.parse_args()
-    # show Tax-Calculator version and quit if --version option specified
+    # show Taxcalc-Payroll version and quit if --version option specified
     if args.version:
-        sys.stdout.write('Tax-Calculator {}\n'.format(tcp.__version__))
+        sys.stdout.write('Taxcalc-Payroll {}\n'.format(tcp.__version__))
         return 0
     # write test input and expected output files if --test option specified
     if args.test:
