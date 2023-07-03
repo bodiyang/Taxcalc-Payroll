@@ -1,0 +1,63 @@
+MTR computed using POSITIVE finite_diff for tax year 2013
+Total number of data records = 252868
+PTAX mtr histogram bin edges:
+     [0.0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 1.0]
+ITAX mtr histogram bin edges:
+     [-1.0, -0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0]
+PTAX and ITAX mtr histogram bin counts for e00200p:
+252868 :      0  31688      0      0      0      0      0 212978   8202      0
+252868 :   7375     73   1968  13075  45788  75970  50475  32283  25081    780
+PTAX and ITAX mtr histogram bin counts for e00200s:
+119177 :      0  20320      0      0      0      0      0  89689   9168      0
+119177 :   1449     22    766   2748  11478  31188  26118  24102  20739    567
+PTAX and ITAX mtr histogram bin counts for e00900p:
+252868 : 213350   6583      0      0      0      0      0  32935      0      0
+252868 :   7375     73   1967  12885  47672  74880  51674  32975  22724    643
+PTAX and ITAX mtr histogram bin counts for e00300:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      0      0  67629  76854  46561  31869  29137    818
+PTAX and ITAX mtr histogram bin counts for e00400:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      0      0 249271   3332    262      3      0      0
+PTAX and ITAX mtr histogram bin counts for e00600:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      0      0  67629  76854  46561  31869  29137    818
+PTAX and ITAX mtr histogram bin counts for e00650:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      5     62 145112  46819  59773    658    412     27
+PTAX and ITAX mtr histogram bin counts for e01400:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      0      0  67630  76881  50252  32349  24978    778
+PTAX and ITAX mtr histogram bin counts for e01700:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      0      0  67630  76881  50252  32349  24978    778
+PTAX and ITAX mtr histogram bin counts for e02000:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      0      0  67629  76854  46561  31869  29137    818
+PTAX and ITAX mtr histogram bin counts for e02400:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      0      0 114130  44782  59366  33592    965     33
+PTAX and ITAX mtr histogram bin counts for p22250:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      1      1  79195  76757  53030  24966  18408    510
+PTAX and ITAX mtr histogram bin counts for p23250:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      1     48 152420  43642  51311   2837   2560     49
+PTAX and ITAX mtr histogram bin counts for e18500:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :  25489  25944  19603   7736 174096      0      0      0      0      0
+PTAX and ITAX mtr histogram bin counts for e19200:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :  39723  32895  19901   4939 155410      0      0      0      0      0
+PTAX and ITAX mtr histogram bin counts for e26270:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :      0      0      0      0  67630  76881  50252  32349  24978    778
+PTAX and ITAX mtr histogram bin counts for e19800:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :  39575  32461  19826   4910 156096      0      0      0      0      0
+PTAX and ITAX mtr histogram bin counts for e20100:
+252868 : 252868      0      0      0      0      0      0      0      0      0
+252868 :  39490  32426  19767   4904 156281      0      0      0      0      0
+PTAX and ITAX mtr histogram bin counts for k1bx14p:
+252868 : 213350   6583      0      0      0      0      0  32935      0      0
+252868 :   7375     73   1967  12885  47672  74880  51674  32975  22724    643
