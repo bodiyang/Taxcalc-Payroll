@@ -48,7 +48,7 @@ def cli_tcp_main():
                               'contains for each filing unit variables used '
                               'to compute taxes for TAXYEAR. Specifying '
                               '"cps.csv" uses CPS input files included in '
-                              'the taxcalc package.'),
+                              'the taxcalcpayroll package.'),
                         default='')
     parser.add_argument('TAXYEAR', nargs='?',
                         help=('TAXYEAR is calendar year for which taxes '
