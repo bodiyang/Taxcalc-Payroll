@@ -32,6 +32,8 @@ from taxcalc.growdiff import GrowDiff
 # The following pytest fixture specifies the JSON DEFAULTS file for the
 # Params class, which is defined in the test_params_class function.
 
+# test_parameters_mentioned is adjusted for taxcalcpayroll, since 
+# calcfuntions.py only contains the payroll tax functions
 
 PARAMS_JSON = json.dumps({
     "schema": {
@@ -257,10 +259,9 @@ def test_json_file_contents(tests_path, fname):
     if failures:
         raise ValueError(failures)
 
-
+# ("policy_current_law.json", "calcfunctions.py") is deleated 
 @pytest.mark.parametrize("jfname, pfname",
                          [("consumption.json", "consumption.py"),
-                          ("policy_current_law.json", "calcfunctions.py"),
                           ("growdiff.json", "growdiff.py")])
 def test_parameters_mentioned(tests_path, jfname, pfname):
     """
