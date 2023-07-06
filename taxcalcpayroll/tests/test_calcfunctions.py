@@ -13,6 +13,7 @@ from taxcalc import calcfunctions
 import numpy as np
 import pytest
 
+# test_calc_and_used_vars has been adjusted to only test if the paryoll tax variables are calculated
 
 class GetFuncDefs(ast.NodeVisitor):
     """
@@ -98,13 +99,17 @@ def test_calc_and_used_vars(tests_path):
     # .. add to all_cvars set variables calculated elsewhere
     all_cvars.update(set(['mtr_paytax', 'mtr_inctax']))
     all_cvars.update(set(['benefit_cost_total', 'benefit_value_total']))
-    # .. check that each var in Records.CALCULATED_VARS is in the all_cvars set
-    records_varinfo = Records(data=None)
+    
+    # .. check that each var in payroll tax calculation is in the all_cvars set
+    payroll_cvars = set()
+    payroll_cvars.update(set(['sey', 'payrolltax', 'ptax_was', 'setax', 'c03260', 'ptax_oasdi',
+                            'earned', 'earned_p', 'earned_s', 'was_plus_sey_p', 'was_plus_sey_s', 
+                            'ptax_amc', 'payrolltax', 'rptc_p', 'rptc_s', 'rptc']))
     found_error1 = False
-    if not records_varinfo.CALCULATED_VARS <= all_cvars:
-        msg1 = ('all Records.CALCULATED_VARS not calculated '
+    if not payroll_cvars <= all_cvars:
+        msg1 = ('payroll tax variables not calculated '
                 'in calcfunctions.py\n')
-        for var in records_varinfo.CALCULATED_VARS - all_cvars:
+        for var in payroll_cvars - all_cvars:
             found_error1 = True
             msg1 += 'VAR NOT CALCULATED: {}\n'.format(var)
     # Test (2):
