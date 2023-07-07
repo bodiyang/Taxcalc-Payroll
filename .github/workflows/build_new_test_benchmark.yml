@@ -16,7 +16,7 @@ jobs:
       - name: Setup Miniconda using Python
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: taxcalc-dev
+          activate-environment: taxcalcpayroll-dev
           environment-file: environment.yml
           python-version: 3.9
           auto-activate-base: false
@@ -36,7 +36,7 @@ jobs:
           
       - name: Commit new test stats benchmark
         shell: bash -l {0}
-        working-directory: ./taxcalc/tests
+        working-directory: ./taxcalcpayroll/tests
         run: |
           rm test_stats_benchmark.csv
           mv test_stats_current.csv test_stats_benchmark.csv
