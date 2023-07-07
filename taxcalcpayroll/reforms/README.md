@@ -6,11 +6,11 @@ combined and modified to create your own policy reform files that
 are stored on your local computer.
 
 Such policy reform files can be analyzed on your local computer by
-using the `tc` command-line interface to Tax-Calculator as described
+using the `tcp` command-line interface to Taxcalc-Payroll as described
 in the [user
 guide](https://PSLmodels.github.io/Tax-Calculator/uguide.html) or by
-writing your own Python programs that import the Tax-Calculator
-`taxcalc` package as described in the
+writing your own Python programs that import the Taxcalc-Payroll
+`taxcalcpayroll` package as described in the
 [cookbook](https://PSLmodels.github.io/Tax-Calculator/cookbook.html).
 
 [This
