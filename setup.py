@@ -16,7 +16,7 @@ config = {
     'packages': ['taxcalcpayroll'],
     'include_package_data': True,
     'name': 'taxcalcpayroll',
-    'install_requires': ['numpy', 'pandas', 'bokeh', 'numba', 'taxcalc'],
+    'install_requires': ['setuptools', 'numpy', 'pandas', 'bokeh', 'numba'],
     'classifiers': [
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
