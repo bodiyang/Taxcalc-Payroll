@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>taxcalc.growfactors &#8212; Taxcalc-Payroll</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/taxcalc/growfactors';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Taxcalc-Payroll</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Tax-Calculator
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../usage/starting.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/overview.html">Structural overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/data.html">Data for Tax-Calculator</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../recipes/index.html">Recipes</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../recipes/recipe00.html">Basic Recipe: Static Analysis of a Simple Reform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recipes/recipe01.html">Recipe 1: Directly Comparing Two Reforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recipes/recipe02.html">Recipe 2: Estimating Behavioral Response to Reform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recipes/recipe03.html">Recipe 3: Creating a Custom Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recipes/recipe04.html">Recipe 4: Estimating Differential Reform Response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recipes/recipe04_pandas.html">Recipe 4: Estimating Differential Reform Response - pandas version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recipes/recipe05.html">Recipe 5: Redefining Expanded Income</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recipes/recipe06.html">Recipe 6: Analyzing a Non-Parametric Reform</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../about/history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/roadmap.html">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/releases.html">Release history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/license.html">License</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/contributor_guide.html">Contributor guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/pr_workflow.html">Pull request workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/param_naming.html">Policy parameter naming and placing conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/RELEASING.html">Releasing Tax-Caclculator Packages</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/public_api.html">Tax-Calculator Python API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Tax-Calculator CalcFunctions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/calculator.html">Tax-Calculator Calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/consumption.html">Tax-Calculator Consumption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/data.html">Tax-Calculator Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/decorators.html">Tax-Calculator Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/growdiff.html">Tax-Calculator GrowDiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/growfactors.html">Tax-Calculator GrowFactors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/parameters.html">Tax-Calculator Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Tax-Calculator Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Tax-Calculator Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/taxcalcio.html">Tax-Calculator IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utils.html">Tax-Calculator Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utilsprvt.html">Tax-Calculator Private Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Tax-Calculator CalcFunctions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/calculator.html">Tax-Calculator Calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/consumption.html">Tax-Calculator Consumption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/data.html">Tax-Calculator Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/decorators.html">Tax-Calculator Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/growdiff.html">Tax-Calculator GrowDiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/growfactors.html">Tax-Calculator GrowFactors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/parameters.html">Tax-Calculator Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Tax-Calculator Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Tax-Calculator Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/taxcalcio.html">Tax-Calculator IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utils.html">Tax-Calculator Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utilsprvt.html">Tax-Calculator Private Utilities</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tax-Calculator use cases</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../use_cases.html">Recorded use cases</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bodiyang/Taxcalc-Payroll" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bodiyang/Taxcalc-Payroll/issues/new?title=Issue%20on%20page%20%2F_modules/taxcalc/growfactors.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for taxcalc.growfactors</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Tax-Calculator GrowFactors class.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># CODING-STYLE CHECKS:</span>
+<span class="c1"># pycodestyle growfactors.py</span>
+<span class="c1"># pylint --disable=locally-disabled growfactors.py</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">taxcalc.utils</span> <span class="kn">import</span> <span class="n">read_egg_csv</span>
+
+
+<div class="viewcode-block" id="GrowFactors"><a class="viewcode-back" href="../../api/growfactors.html#taxcalc.growfactors.GrowFactors">[docs]</a><span class="k">class</span> <span class="nc">GrowFactors</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructor for the GrowFactors class.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    growfactors_filename: string</span>
+<span class="sd">        string is name of CSV file in which grow factors reside;</span>
+<span class="sd">        default value is name of file containing baseline grow factors.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError:</span>
+<span class="sd">        if growfactors_filename is not a string.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    class instance: GrowFactors</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Typical usage is &quot;gfactor = GrowFactors()&quot;, which produces an object</span>
+<span class="sd">    containing the default growth factors in the GrowFactors.FILE_NAME file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">FILE_NAME</span> <span class="o">=</span> <span class="s1">&#39;growfactors.csv&#39;</span>
+    <span class="n">FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+    <span class="n">VALID_NAMES</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;ABOOK&#39;</span><span class="p">,</span> <span class="s1">&#39;ACGNS&#39;</span><span class="p">,</span> <span class="s1">&#39;ACPIM&#39;</span><span class="p">,</span> <span class="s1">&#39;ACPIU&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ADIVS&#39;</span><span class="p">,</span> <span class="s1">&#39;AINTS&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;AIPD&#39;</span><span class="p">,</span> <span class="s1">&#39;ASCHCI&#39;</span><span class="p">,</span> <span class="s1">&#39;ASCHCL&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ASCHEI&#39;</span><span class="p">,</span> <span class="s1">&#39;ASCHEL&#39;</span><span class="p">,</span> <span class="s1">&#39;ASCHF&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ASOCSEC&#39;</span><span class="p">,</span> <span class="s1">&#39;ATXPY&#39;</span><span class="p">,</span> <span class="s1">&#39;AUCOMP&#39;</span><span class="p">,</span> <span class="s1">&#39;AWAGE&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ABENOTHER&#39;</span><span class="p">,</span> <span class="s1">&#39;ABENMCARE&#39;</span><span class="p">,</span> <span class="s1">&#39;ABENMCAID&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ABENSSI&#39;</span><span class="p">,</span> <span class="s1">&#39;ABENSNAP&#39;</span><span class="p">,</span> <span class="s1">&#39;ABENWIC&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;ABENHOUSING&#39;</span><span class="p">,</span> <span class="s1">&#39;ABENTANF&#39;</span><span class="p">,</span> <span class="s1">&#39;ABENVET&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">growfactors_filename</span><span class="o">=</span><span class="n">FILE_NAME</span><span class="p">):</span>
+        <span class="c1"># read grow factors from specified growfactors_filename</span>
+        <span class="n">gfdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">growfactors_filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">full_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">GrowFactors</span><span class="o">.</span><span class="n">FILE_PATH</span><span class="p">,</span>
+                                         <span class="n">growfactors_filename</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">full_filename</span><span class="p">):</span>
+                <span class="n">gfdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">full_filename</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;YEAR&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># find file in conda package</span>
+                <span class="n">gfdf</span> <span class="o">=</span> <span class="n">read_egg_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">growfactors_filename</span><span class="p">),</span>
+                                    <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;YEAR&#39;</span><span class="p">)</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;growfactors_filename is not a string&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gfdf</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+        <span class="c1"># check validity of gfdf column names</span>
+        <span class="n">gfdf_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">gfdf</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">gfdf_names</span> <span class="o">!=</span> <span class="n">GrowFactors</span><span class="o">.</span><span class="n">VALID_NAMES</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;missing names are: </span><span class="si">{}</span><span class="s1"> and invalid names are: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">missing</span> <span class="o">=</span> <span class="n">GrowFactors</span><span class="o">.</span><span class="n">VALID_NAMES</span> <span class="o">-</span> <span class="n">gfdf_names</span>
+            <span class="n">invalid</span> <span class="o">=</span> <span class="n">gfdf_names</span> <span class="o">-</span> <span class="n">GrowFactors</span><span class="o">.</span><span class="n">VALID_NAMES</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">missing</span><span class="p">,</span> <span class="n">invalid</span><span class="p">))</span>
+        <span class="c1"># determine first_year and last_year from gfdf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_year</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">gfdf</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_year</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">gfdf</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="c1"># set gfdf as attribute of class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gfdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;gfdf&#39;</span><span class="p">,</span> <span class="n">gfdf</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+        <span class="k">del</span> <span class="n">gfdf</span>
+        <span class="c1"># specify factors as being unused (that is, not yet accessed)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">first_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        GrowFactors class first_year property.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_year</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        GrowFactors class last_year property.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_year</span>
+
+<div class="viewcode-block" id="GrowFactors.price_inflation_rates"><a class="viewcode-back" href="../../api/growfactors.html#taxcalc.growfactors.GrowFactors.price_inflation_rates">[docs]</a>    <span class="k">def</span> <span class="nf">price_inflation_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstyear</span><span class="p">,</span> <span class="n">lastyear</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return list of price inflation rates rounded to four decimal digits.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">firstyear</span> <span class="o">&gt;</span> <span class="n">lastyear</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;first_year=</span><span class="si">{}</span><span class="s1"> &gt; last_year=</span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">firstyear</span><span class="p">,</span> <span class="n">lastyear</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">firstyear</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_year</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;firstyear=</span><span class="si">{}</span><span class="s1"> &lt; GrowFactors.first_year=</span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">firstyear</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_year</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">lastyear</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_year</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;last_year=</span><span class="si">{}</span><span class="s1"> &gt; GrowFactors.last_year=</span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lastyear</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_year</span><span class="p">))</span>
+        <span class="n">rates</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">gfdf</span><span class="p">[</span><span class="s1">&#39;ACPIU&#39;</span><span class="p">][</span><span class="n">cyr</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">cyr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">firstyear</span><span class="p">,</span> <span class="n">lastyear</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">rates</span></div>
+
+<div class="viewcode-block" id="GrowFactors.wage_growth_rates"><a class="viewcode-back" href="../../api/growfactors.html#taxcalc.growfactors.GrowFactors.wage_growth_rates">[docs]</a>    <span class="k">def</span> <span class="nf">wage_growth_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstyear</span><span class="p">,</span> <span class="n">lastyear</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return list of wage growth rates rounded to four decimal digits.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">firstyear</span> <span class="o">&gt;</span> <span class="n">lastyear</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;firstyear=</span><span class="si">{}</span><span class="s1"> &gt; lastyear=</span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">firstyear</span><span class="p">,</span> <span class="n">lastyear</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">firstyear</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_year</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;firstyear=</span><span class="si">{}</span><span class="s1"> &lt; GrowFactors.first_year=</span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">firstyear</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_year</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">lastyear</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_year</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;lastyear=</span><span class="si">{}</span><span class="s1"> &gt; GrowFactors.last_year=</span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lastyear</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_year</span><span class="p">))</span>
+        <span class="n">rates</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">gfdf</span><span class="p">[</span><span class="s1">&#39;AWAGE&#39;</span><span class="p">][</span><span class="n">cyr</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">cyr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">firstyear</span><span class="p">,</span> <span class="n">lastyear</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">rates</span></div>
+
+<div class="viewcode-block" id="GrowFactors.factor_value"><a class="viewcode-back" href="../../api/growfactors.html#taxcalc.growfactors.GrowFactors.factor_value">[docs]</a>    <span class="k">def</span> <span class="nf">factor_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return value of factor with specified name for specified year.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GrowFactors</span><span class="o">.</span><span class="n">VALID_NAMES</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;name=</span><span class="si">{}</span><span class="s1"> not in GrowFactors.VALID_NAMES&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_year</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;year=</span><span class="si">{}</span><span class="s1"> &lt; GrowFactors.first_year=</span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_year</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_year</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;year=</span><span class="si">{}</span><span class="s1"> &gt; GrowFactors.last_year=</span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_year</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gfdf</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">year</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="GrowFactors.update"><a class="viewcode-back" href="../../api/growfactors.html#taxcalc.growfactors.GrowFactors.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">diff</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add to self.gfdf[name][year] the specified diff amount.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">used</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;cannot update growfactors after they have been used&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">GrowFactors</span><span class="o">.</span><span class="n">VALID_NAMES</span>
+        <span class="k">assert</span> <span class="n">year</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_year</span>
+        <span class="k">assert</span> <span class="n">year</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_year</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gfdf</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">year</span><span class="p">]</span> <span class="o">+=</span> <span class="n">diff</span></div></div>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bodi Yang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
