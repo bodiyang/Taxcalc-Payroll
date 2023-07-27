@@ -39,6 +39,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          version: "v0.1.15"
           file: ./coverage.xml
           flags: unittests
           name: codecov-umbrella
