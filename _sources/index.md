@@ -1,7 +1,7 @@
 Tax-Calculator
 ==============
 
-## What is Taxcalc-Payroll?
+## What is Tax-Calculator?
 
 Tax-Calculator is an open-source microsimulation model for static analysis of
 USA federal income and payroll taxes.
@@ -51,7 +51,7 @@ The cross-model validation work with NBER's TAXSIM-27 model is described
 
 ## Latest release
 
-{doc}`0.1.0 (2023-07-28) <about/releases>`
+{doc}`3.4.0 (2023-05-05) <about/releases>`
 
 If you are already using Tax-Calculator, upgrade using the following command:
 
