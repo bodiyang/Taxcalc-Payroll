@@ -1,7 +1,6 @@
 [run]
 omit =
-    taxcalc/calcfunctions.py
-    taxcalc/cli/*
-    taxcalc/tests/*
-    taxcalc/validation/*
-    docs/cookbook/*
+    taxcalcpayroll/calcfunctions.py
+    taxcalcpayroll/tcp.py
+    taxcalcpayroll/tests/*
+    taxcalcpayroll/validation/*
