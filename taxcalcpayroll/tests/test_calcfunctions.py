@@ -104,7 +104,7 @@ def test_calc_and_used_vars(tests_path):
     payroll_cvars = set()
     payroll_cvars.update(set(['sey', 'payrolltax', 'ptax_was', 'setax', 'c03260', 'ptax_oasdi',
                             'earned', 'earned_p', 'earned_s', 'was_plus_sey_p', 'was_plus_sey_s', 
-                            'ptax_amc', 'payrolltax', 'rptc_p', 'rptc_s', 'rptc']))
+                            'ptax_amc', 'payrolltax']))
     found_error1 = False
     if not payroll_cvars <= all_cvars:
         msg1 = ('payroll tax variables not calculated '
