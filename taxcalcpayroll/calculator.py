@@ -15,7 +15,8 @@ from taxcalc.calcfunctions import (TaxInc, SchXYZTax, GainsTax, AGIsurtax,
                                    NetInvIncTax, AMT, Adj,
                                    DependentCare, ALD_InvInc_ec_base, CapGains,
                                    SSBenefits, UBI, AGI, ItemDedCap, ItemDed,
-                                   StdDed, F2441, EITC,
+                                   StdDed, F2441, EITC, 
+                                   RefundablePayrollTaxCredit,
                                    ChildDepTaxCredit, AdditionalCTC, CTC_new,
                                    PersonalTaxCredit, SchR,
                                    AmOppCreditParts, EducationTaxCredit,
@@ -24,8 +25,7 @@ from taxcalc.calcfunctions import (TaxInc, SchXYZTax, GainsTax, AGIsurtax,
                                    BenefitSurtax, BenefitLimitation,
                                    FairShareTax, LumpSumTax, BenefitPrograms,
                                    ExpandIncome, AfterTaxIncome)
-from taxcalcpayroll.calcfunctions import (EI_PayrollTax, AdditionalMedicareTax, 
-                                          RefundablePayrollTaxCredit)
+from taxcalcpayroll.calcfunctions import (EI_PayrollTax, AdditionalMedicareTax)
 from taxcalc.policy import Policy
 from taxcalc.records import Records
 from taxcalc.consumption import Consumption
