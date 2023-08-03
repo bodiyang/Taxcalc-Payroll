@@ -1,10 +1,10 @@
-Tax-Calculator
+Taxcalc-Payroll
 ==============
 
 ## What is Taxcalc-Payroll?
 
-Tax-Calculator is an open-source microsimulation model for static analysis of
-USA federal income and payroll taxes.
+Taxcalc-Payroll is an open-source microsimulation model for static analysis of
+USA federal payroll taxes.
 You can install it with [Anaconda](https://www.anaconda.com/products/individual)
 via:
 
