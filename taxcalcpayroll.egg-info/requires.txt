@@ -3,4 +3,3 @@ numpy
 pandas
 bokeh
 numba
-taxcalc

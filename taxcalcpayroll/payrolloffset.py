@@ -4,8 +4,7 @@ employer side payroll tax offset function
 import copy
 import numpy as np
 import taxcalc as tc
-from taxcalcpayroll.policy import Policy
-from taxcalcpayroll.records import Records
+import taxcalcpayroll as tcp
 
 def employer_payroll_offset(reform, ccalc, cpolicy, rrecs, dump=False):
     """
@@ -78,10 +77,10 @@ def employer_payroll_offset(reform, ccalc, cpolicy, rrecs, dump=False):
         dpolicy = copy.deepcopy(cpolicy)
         drecs = copy.deepcopy(rrecs)
         # Check function argument types
-        assert isinstance(calc, tc.Calculator)
+        assert isinstance(calc, tc.Calculator)|isinstance(calc, tcp.Calculator)
         assert isinstance(reform, dict)
-        assert isinstance(dpolicy, Policy)
-        assert isinstance(drecs, Records)
+        assert isinstance(dpolicy, tc.Policy)
+        assert isinstance(drecs, tc.Records)
         
         # make copy of the employer side payroll tax rate before the reform
         rate1_FICA_mc_trt_employer = calc.policy_param('FICA_mc_trt_employer')

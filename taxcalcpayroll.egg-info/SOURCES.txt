@@ -4,6 +4,7 @@ setup.py
 taxcalcpayroll/__init__.py
 taxcalcpayroll/calcfunctions.py
 taxcalcpayroll/calculator.py
+taxcalcpayroll/conftest.py
 taxcalcpayroll/payrolloffset.py
 taxcalcpayroll/policy.py
 taxcalcpayroll/records.py
