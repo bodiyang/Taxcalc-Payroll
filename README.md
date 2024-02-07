@@ -10,4 +10,4 @@ analysis of USA federal payroll taxes.
 
 Welcome to join the project as a contributor or maintainer.
 
-contact: Bodi Yang, bodi.yang@aei.org
+Developed by: Bodi Yang, bodi.yang@aei.org
