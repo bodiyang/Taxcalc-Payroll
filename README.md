@@ -5,9 +5,8 @@
 Taxcalc-Payroll
 ==============
 
-Taxcalc-Payroll is an open-source microsimulation model for static
+Taxcalc-Payroll is a microsimulation model for static
 analysis of USA federal payroll taxes.
 
-Welcome to join the project as a contributor or maintainer.
 
 Developed by: Bodi Yang, bodi.yang@aei.org
