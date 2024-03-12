@@ -1,11 +1,13 @@
 """
 Tax-Calculator Input-Output class.
 """
+
 # CODING-STYLE CHECKS:
 # pycodestyle taxcalcio.py
 # pylint --disable=locally-disabled taxcalcio.py
 
 from taxcalc.taxcalcio import TaxCalcIO as tcio
+
 
 class TaxCalcIO(tcio):
     """
@@ -46,6 +48,7 @@ class TaxCalcIO(tcio):
     -------
     class instance: TaxCalcIO
     """
+
     # pylint: disable=too-many-instance-attributes
 
     pass

@@ -1,6 +1,7 @@
 """
 Taxcalc-Payroll tax-filing-unit Records class.
 """
+
 # CODING-STYLE CHECKS:
 # pycodestyle records.py
 # pylint --disable=locally-disabled records.py
@@ -11,7 +12,7 @@ from taxcalc.records import Records as TCRec
 class Records(TCRec):
     """
     Records is a subclass of Tax-Calculator's Records class.
-    In fact, Taxcalc-Payroll's Records class is excatly the same as 
+    In fact, Taxcalc-Payroll's Records class is excatly the same as
     the Tax-Calculator's Records class.
     Therefore, inherits its methods (none of which are shown here).
 
@@ -37,6 +38,7 @@ class Records(TCRec):
     Use Records.cps_constructor() to get a Records object instantiated
     with CPS input data.
     """
+
     # suppress pylint warning about constructor having too many arguments:
     # pylint: disable=too-many-arguments
     # suppress pylint warnings about uppercase variable names:

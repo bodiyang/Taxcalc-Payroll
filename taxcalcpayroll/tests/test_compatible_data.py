@@ -5,6 +5,7 @@ In order to tap into the parallelization capabilities of py.test, this module
 leans heavily on py.tests's `parametrization` method. Once you do so, the
 plug-in pytest-xdist is able to run all parametrized functions in parallel
 """
+
 # CODING-STYLE CHECKS:
 # pycodestyle test_compatible_data.py
 # pylint --disable=locally-disabled test_compatible_data.py
@@ -15,7 +16,7 @@ import numpy as np
 from taxcalc import Policy, Records, Calculator  # pylint: disable=import-error
 
 
-@pytest.fixture(scope='module', name='allparams')
+@pytest.fixture(scope="module", name="allparams")
 def fixture_allparams():
     """
     Return metadata for current-law policy parameters.
@@ -29,7 +30,7 @@ def test_compatible_data_presence(allparams):
     Test that every parameter in the policy_current_law.json file
     has a compatible_data field that is a dictionary.
     """
-    compatible_data_keys_set = set(['puf', 'cps'])
+    compatible_data_keys_set = set(["puf", "cps"])
 
     # Nested function used only in test_compatible_data_presence
     def valid_compatible_data(compatible_data):
@@ -42,8 +43,7 @@ def test_compatible_data_presence(allparams):
         if set(compatible_data.keys()) != compatible_data_keys_set:
             return False
         for key in compatible_data:
-            boolean = (compatible_data[key] is True or
-                       compatible_data[key] is False)
+            boolean = compatible_data[key] is True or compatible_data[key] is False
             if not boolean:
                 return False
         return True
@@ -51,24 +51,24 @@ def test_compatible_data_presence(allparams):
     # Main logic of test_compatible_data_presence function
     problem_pnames = list()
     for pname in allparams:
-        if 'compatible_data' in allparams[pname]:
-            compatible_data = allparams[pname]['compatible_data']
+        if "compatible_data" in allparams[pname]:
+            compatible_data = allparams[pname]["compatible_data"]
         else:
             compatible_data = None
         if not valid_compatible_data(compatible_data):
             problem_pnames.append(pname)
     if problem_pnames:
-        msg = '{} has no or invalid compatible_data field'
+        msg = "{} has no or invalid compatible_data field"
         for pname in problem_pnames:
             print(msg.format(pname))
-        assert 'list of problem_pnames' == 'empty list'
+        assert "list of problem_pnames" == "empty list"
 
 
 XX_YEAR = 2019
 TEST_YEAR = 2020
 
 
-@pytest.fixture(scope='module', name='reform_xx')
+@pytest.fixture(scope="module", name="reform_xx")
 def fixture_reform_xx():
     """
     Fixture for reform dictionary where reform starts before TEST_YEAR.
@@ -88,47 +88,47 @@ def fixture_reform_xx():
     # Set baseline to activate parameters that are inactive under current law.
     _reform_xx = {
         XX_YEAR: {
-            'FST_AGI_trt': 0.5,
-            'CTC_new_rt': 0.5,
-            'CTC_new_c': 5000,
-            'CTC_new_prt': 0.1,
-            'CTC_new_refund_limited': True,
-            'CTC_new_refund_limit_payroll_rt': 1,
-            'ACTC_ChildNum': 1,
-            'ID_BenefitSurtax_trt': 0.1,
-            'ID_BenefitSurtax_crt': 0.1,
-            'UBI_u18': 1000,
-            'UBI_1820': 1000,
-            'UBI_21': 1000,
-            'PT_brk7': [1000000, 1000000, 1000000, 1000000, 1000000],
-            'II_credit_prt': 0.1,
-            'II_credit': [100, 100, 100, 100, 100],
-            'CG_brk3': [1000000, 1000000, 1000000, 1000000, 1000000],
-            'ALD_Dependents_Child_c': 1000,
-            'II_credit_nr': [1000, 1000, 1000, 1000, 1000],
-            'II_credit_nr_prt': 0.1,
-            'AMT_CG_brk3': [500000, 500000, 500000, 500000, 500000],
-            'AGI_surtax_thd': [1000000, 1000000, 1000000, 1000000, 1000000],
-            'AGI_surtax_trt': 0.5,
-            'ID_AmountCap_rt': 0.9,
-            'II_brk7': [1000000, 1000000, 1000000, 1000000, 1000000],
-            'ID_BenefitCap_rt': 0.3,
-            'PT_rt7': 0.35,
-            'II_em': 1000,
-            'ID_Casualty_hc': 0.1,
-            'ID_Miscellaneous_hc': 0.1,
-            'ID_prt': 0.03,
-            'ID_crt': 0.8,
-            'CR_Charity_rt': 0.4,
-            'CR_Charity_f': [5000, 5000, 5000, 5000, 5000],
-            'CR_Charity_frt': 0.5,
-            'CR_SchR_hc': 0.5
+            "FST_AGI_trt": 0.5,
+            "CTC_new_rt": 0.5,
+            "CTC_new_c": 5000,
+            "CTC_new_prt": 0.1,
+            "CTC_new_refund_limited": True,
+            "CTC_new_refund_limit_payroll_rt": 1,
+            "ACTC_ChildNum": 1,
+            "ID_BenefitSurtax_trt": 0.1,
+            "ID_BenefitSurtax_crt": 0.1,
+            "UBI_u18": 1000,
+            "UBI_1820": 1000,
+            "UBI_21": 1000,
+            "PT_brk7": [1000000, 1000000, 1000000, 1000000, 1000000],
+            "II_credit_prt": 0.1,
+            "II_credit": [100, 100, 100, 100, 100],
+            "CG_brk3": [1000000, 1000000, 1000000, 1000000, 1000000],
+            "ALD_Dependents_Child_c": 1000,
+            "II_credit_nr": [1000, 1000, 1000, 1000, 1000],
+            "II_credit_nr_prt": 0.1,
+            "AMT_CG_brk3": [500000, 500000, 500000, 500000, 500000],
+            "AGI_surtax_thd": [1000000, 1000000, 1000000, 1000000, 1000000],
+            "AGI_surtax_trt": 0.5,
+            "ID_AmountCap_rt": 0.9,
+            "II_brk7": [1000000, 1000000, 1000000, 1000000, 1000000],
+            "ID_BenefitCap_rt": 0.3,
+            "PT_rt7": 0.35,
+            "II_em": 1000,
+            "ID_Casualty_hc": 0.1,
+            "ID_Miscellaneous_hc": 0.1,
+            "ID_prt": 0.03,
+            "ID_crt": 0.8,
+            "CR_Charity_rt": 0.4,
+            "CR_Charity_f": [5000, 5000, 5000, 5000, 5000],
+            "CR_Charity_frt": 0.5,
+            "CR_SchR_hc": 0.5,
         }
     }
     return _reform_xx
 
 
-@pytest.fixture(scope='module', name='sorted_param_names')
+@pytest.fixture(scope="module", name="sorted_param_names")
 def fixture_sorted_param_names(allparams):
     """
     Fixture for storing a sorted parameter list
@@ -141,8 +141,9 @@ BATCHSIZE = 10
 BATCHES = int(np.floor(NPARAMS / BATCHSIZE)) + 1
 
 
-@pytest.fixture(scope='module', name='allparams_batch',
-                params=[i for i in range(0, BATCHES)])
+@pytest.fixture(
+    scope="module", name="allparams_batch", params=[i for i in range(0, BATCHES)]
+)
 def fixture_allparams_batch(request, allparams, sorted_param_names):
     """
     Fixture for grouping Tax-Calculator parameters
@@ -191,12 +192,11 @@ def fixture_allparams_batch(request, allparams, sorted_param_names):
     idx = request.param
     idx_start = idx * BATCHSIZE
     idx_end = min((idx + 1) * BATCHSIZE, NPARAMS)
-    pnames = sorted_param_names[idx_start: idx_end]
+    pnames = sorted_param_names[idx_start:idx_end]
     return {pname: allparams[pname] for pname in pnames}
 
 
-@pytest.fixture(scope='module', name='tc_objs',
-                params=[True, False])
+@pytest.fixture(scope="module", name="tc_objs", params=[True, False])
 def fixture_tc_objs(request, reform_xx, puf_subsample, cps_subsample):
     """
     Fixture for creating Tax-Calculator objects that use the PUF and
@@ -219,9 +219,9 @@ def fixture_tc_objs(request, reform_xx, puf_subsample, cps_subsample):
 @pytest.mark.pre_release
 @pytest.mark.compatible_data
 @pytest.mark.requires_pufcsv
-def test_compatible_data(cps_subsample, puf_subsample,
-                         allparams, reform_xx,
-                         tc_objs, allparams_batch):
+def test_compatible_data(
+    cps_subsample, puf_subsample, allparams, reform_xx, tc_objs, allparams_batch
+):
     """
     Test that the compatible_data attribute in policy_current_law.json
     is accurate by implementing the min and max values of each parameter
@@ -242,37 +242,41 @@ def test_compatible_data(cps_subsample, puf_subsample,
     # current law and activating them would deactivate other parameters,
     # or if it is difficult to devise a test for them.
     exempt_from_testing = [
-        'CG_ec', 'CG_reinvest_ec_rt',
-        'II_prt', 'ID_prt', 'ID_crt',
-        'CR_SchR_hc', 'ACTC_ChildNum'
+        "CG_ec",
+        "CG_reinvest_ec_rt",
+        "II_prt",
+        "ID_prt",
+        "ID_crt",
+        "CR_SchR_hc",
+        "ACTC_ChildNum",
     ]
 
     # Loop through the parameters in allparams_batch
-    errmsg = 'ERROR: {} {}\n'
-    errors = ''
+    errmsg = "ERROR: {} {}\n"
+    errors = ""
     for pname in allparams_batch:
         param = allparams_batch[pname]
-        max_listed = param['valid_values']['max']
+        max_listed = param["valid_values"]["max"]
         # handle links to other params or self
         if isinstance(max_listed, str):
-            if isinstance(allparams[max_listed]['value'][0], list):
-                max_val = allparams[max_listed]['value'][0]
+            if isinstance(allparams[max_listed]["value"][0], list):
+                max_val = allparams[max_listed]["value"][0]
             else:
-                max_val = float(allparams[max_listed]['value'][0])
+                max_val = float(allparams[max_listed]["value"][0])
         else:
-            if isinstance(param['value'][0], list):
-                max_val = [max_listed] * len(param['value'][0])
+            if isinstance(param["value"][0], list):
+                max_val = [max_listed] * len(param["value"][0])
             else:
                 max_val = max_listed
-        min_listed = param['valid_values']['min']
+        min_listed = param["valid_values"]["min"]
         if isinstance(min_listed, str):
-            if isinstance(allparams[min_listed]['value'][0], list):
-                min_val = allparams[min_listed]['value'][0]
+            if isinstance(allparams[min_listed]["value"][0], list):
+                min_val = allparams[min_listed]["value"][0]
             else:
-                min_val = float(allparams[min_listed]['value'][0])
+                min_val = float(allparams[min_listed]["value"][0])
         else:
-            if isinstance(param['value'][0], list):
-                min_val = [min_listed] * len(param['value'][0])
+            if isinstance(param["value"][0], list):
+                min_val = [min_listed] * len(param["value"][0])
             else:
                 min_val = min_listed
         # create reform dictionaries
@@ -290,15 +294,13 @@ def test_compatible_data(cps_subsample, puf_subsample,
         c_yy = Calculator(policy=p_yy, records=rec_yy, verbose=False)
         c_yy.advance_to_year(TEST_YEAR)
         c_yy.calc_all()
-        if pname.startswith('BEN') and pname.endswith('_repeal'):
-            max_reform_change = (
-                c_yy.weighted_total('benefit_cost_total') -
-                c_xx.weighted_total('benefit_cost_total')
-            )
+        if pname.startswith("BEN") and pname.endswith("_repeal"):
+            max_reform_change = c_yy.weighted_total(
+                "benefit_cost_total"
+            ) - c_xx.weighted_total("benefit_cost_total")
         else:
-            max_reform_change = (
-                c_yy.weighted_total('combined') -
-                c_xx.weighted_total('combined')
+            max_reform_change = c_yy.weighted_total("combined") - c_xx.weighted_total(
+                "combined"
             )
         min_reform_change = 0
         # assess whether min reform changes results, if max reform did not
@@ -308,31 +310,29 @@ def test_compatible_data(cps_subsample, puf_subsample,
             c_yy = Calculator(policy=p_yy, records=rec_xx)
             c_yy.advance_to_year(TEST_YEAR)
             c_yy.calc_all()
-            if pname.startswith('BEN') and pname.endswith('_repeal'):
-                min_reform_change = (
-                    c_yy.weighted_total('benefit_cost_total') -
-                    c_xx.weighted_total('benefit_cost_total')
-                )
+            if pname.startswith("BEN") and pname.endswith("_repeal"):
+                min_reform_change = c_yy.weighted_total(
+                    "benefit_cost_total"
+                ) - c_xx.weighted_total("benefit_cost_total")
             else:
-                min_reform_change = (
-                    c_yy.weighted_total('combined') -
-                    c_xx.weighted_total('combined')
-                )
+                min_reform_change = c_yy.weighted_total(
+                    "combined"
+                ) - c_xx.weighted_total("combined")
             if min_reform_change == 0 and pname not in exempt_from_testing:
                 if puftest:
-                    if param['compatible_data']['puf'] is True:
-                        errors += errmsg.format(pname, 'is not True for puf')
+                    if param["compatible_data"]["puf"] is True:
+                        errors += errmsg.format(pname, "is not True for puf")
                 else:
-                    if param['compatible_data']['cps'] is True:
-                        errors += errmsg.format(pname, 'is not True for cps')
+                    if param["compatible_data"]["cps"] is True:
+                        errors += errmsg.format(pname, "is not True for cps")
         if max_reform_change != 0 or min_reform_change != 0:
             if puftest:
-                if param['compatible_data']['puf'] is False:
-                    errors += errmsg.format(pname, 'is not False for puf')
+                if param["compatible_data"]["puf"] is False:
+                    errors += errmsg.format(pname, "is not False for puf")
             else:
-                if param['compatible_data']['cps'] is False:
-                    errors += errmsg.format(pname, 'is not False for cps')
+                if param["compatible_data"]["cps"] is False:
+                    errors += errmsg.format(pname, "is not False for cps")
     # test failure if any errors
     if errors:
         print(errors)
-        assert 'compatible_data' == 'invalid'
+        assert "compatible_data" == "invalid"

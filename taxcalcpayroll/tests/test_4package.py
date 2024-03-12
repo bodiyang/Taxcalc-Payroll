@@ -1,6 +1,7 @@
 """
 Tests for package existence and dependencies consistency.
 """
+
 # CODING-STYLE CHECKS:
 # pycodestyle test_4package.py
 # pylint --disable=locally-disabled test_4package.py
@@ -19,10 +20,10 @@ def test_for_package_existence():
     Primarily to help developers catch mistaken installations of taxcalcpayroll;
     the local mark prevents test from running on GitHub.
     """
-    out = subprocess.check_output(['conda', 'list', 'taxcalcpayroll']).decode('ascii')
-    envless_out = out.replace('taxcalcpayroll-dev', 'environment')
-    if re.search('taxcalcpayroll', envless_out) is not None:
-        assert 'taxcalcpayroll package' == 'installed'
+    out = subprocess.check_output(["conda", "list", "taxcalcpayroll"]).decode("ascii")
+    envless_out = out.replace("taxcalcpayroll-dev", "environment")
+    if re.search("taxcalcpayroll", envless_out) is not None:
+        assert "taxcalcpayroll package" == "installed"
 
 
 def test_for_consistency(tests_path):
@@ -30,31 +31,31 @@ def test_for_consistency(tests_path):
     Ensure that there is consistency between environment.yml dependencies
     and conda.recipe/meta.yaml requirements.
     """
-    dev_pkgs = set([
-        'fsspec<=0.8.7',
-        'pytest',
-        'pytest-pep8',
-        'pytest-xdist',
-        'pycodestyle',
-        'pytest_harvest',
-        'pylint',
-        'coverage',
-        "pip",
-        "jupyter-book",
-    ])
+    dev_pkgs = set(
+        [
+            "fsspec<=0.8.7",
+            "pytest",
+            "pytest-pep8",
+            "pytest-xdist",
+            "pycodestyle",
+            "pytest_harvest",
+            "pylint",
+            "coverage",
+            "pip",
+            "jupyter-book",
+        ]
+    )
     # read conda.recipe/meta.yaml requirements
-    meta_file = os.path.join(tests_path, '..', '..',
-                             'conda.recipe', 'meta.yaml')
-    with open(meta_file, 'r') as stream:
+    meta_file = os.path.join(tests_path, "..", "..", "conda.recipe", "meta.yaml")
+    with open(meta_file, "r") as stream:
         meta = yaml.safe_load(stream)
-    bld = set(meta['requirements']['build'])
-    run = set(meta['requirements']['run'])
+    bld = set(meta["requirements"]["build"])
+    run = set(meta["requirements"]["run"])
     # confirm conda.recipe/meta.yaml build and run requirements are the same
     assert bld == run
     # read environment.yml dependencies
-    envr_file = os.path.join(tests_path, '..', '..',
-                             'environment.yml')
-    with open(envr_file, 'r') as stream:
+    envr_file = os.path.join(tests_path, "..", "..", "environment.yml")
+    with open(envr_file, "r") as stream:
         envr = yaml.safe_load(stream)
 
     env = []

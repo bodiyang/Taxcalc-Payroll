@@ -1,6 +1,7 @@
 """
 Tax-Calculator federal income and payroll tax Calculator class.
 """
+
 # CODING-STYLE CHECKS:
 # pycodestyle calculator.py
 # pylint --disable=locally-disabled calculator.py
@@ -11,36 +12,69 @@ import copy
 import numpy as np
 import pandas as pd
 import paramtools
-from taxcalc.calcfunctions import (TaxInc, SchXYZTax, GainsTax, AGIsurtax,
-                                   NetInvIncTax, AMT, Adj,
-                                   DependentCare, ALD_InvInc_ec_base, CapGains,
-                                   SSBenefits, UBI, AGI, ItemDedCap, ItemDed,
-                                   StdDed, F2441, EITC, 
-                                   RefundablePayrollTaxCredit,
-                                   ChildDepTaxCredit, AdditionalCTC, CTC_new,
-                                   PersonalTaxCredit, SchR,
-                                   AmOppCreditParts, EducationTaxCredit,
-                                   CharityCredit,
-                                   NonrefundableCredits, C1040, IITAX,
-                                   BenefitSurtax, BenefitLimitation,
-                                   FairShareTax, LumpSumTax, BenefitPrograms,
-                                   ExpandIncome, AfterTaxIncome)
-from taxcalcpayroll.calcfunctions import (EI_PayrollTax, AdditionalMedicareTax)
+from taxcalc.calcfunctions import (
+    TaxInc,
+    SchXYZTax,
+    GainsTax,
+    AGIsurtax,
+    NetInvIncTax,
+    AMT,
+    Adj,
+    DependentCare,
+    ALD_InvInc_ec_base,
+    CapGains,
+    SSBenefits,
+    UBI,
+    AGI,
+    ItemDedCap,
+    ItemDed,
+    StdDed,
+    F2441,
+    EITC,
+    RefundablePayrollTaxCredit,
+    ChildDepTaxCredit,
+    AdditionalCTC,
+    CTC_new,
+    PersonalTaxCredit,
+    SchR,
+    AmOppCreditParts,
+    EducationTaxCredit,
+    CharityCredit,
+    NonrefundableCredits,
+    C1040,
+    IITAX,
+    BenefitSurtax,
+    BenefitLimitation,
+    FairShareTax,
+    LumpSumTax,
+    BenefitPrograms,
+    ExpandIncome,
+    AfterTaxIncome,
+)
+from taxcalcpayroll.calcfunctions import EI_PayrollTax, AdditionalMedicareTax
 from taxcalc.policy import Policy
 from taxcalc.records import Records
 from taxcalc.consumption import Consumption
 from taxcalc.growdiff import GrowDiff
 from taxcalc.growfactors import GrowFactors
-from taxcalc.utils import (DIST_VARIABLES, create_distribution_table,
-                           DIFF_VARIABLES, create_difference_table,
-                           create_diagnostic_table,
-                           ce_aftertax_expanded_income,
-                           mtr_graph_data, atr_graph_data, xtr_graph_plot,
-                           pch_graph_data, pch_graph_plot)
+from taxcalc.utils import (
+    DIST_VARIABLES,
+    create_distribution_table,
+    DIFF_VARIABLES,
+    create_difference_table,
+    create_diagnostic_table,
+    ce_aftertax_expanded_income,
+    mtr_graph_data,
+    atr_graph_data,
+    xtr_graph_plot,
+    pch_graph_data,
+    pch_graph_plot,
+)
+
 # import pdb
 
 
-class Calculator():
+class Calculator:
     """
     Constructor for the Calculator class.
 
@@ -90,19 +124,26 @@ class Calculator():
     All calculations are done on the internal copies of the Policy and
     Records objects passed to each of the two Calculator constructors.
     """
+
     # pylint: disable=too-many-public-methods
 
-    def __init__(self, policy=None, records=None, verbose=False,
-                 sync_years=True, consumption=None):
+    def __init__(
+        self,
+        policy=None,
+        records=None,
+        verbose=False,
+        sync_years=True,
+        consumption=None,
+    ):
         # pylint: disable=too-many-arguments,too-many-branches
         if isinstance(policy, Policy):
             self.__policy = copy.deepcopy(policy)
         else:
-            raise ValueError('must specify policy as a Policy object')
+            raise ValueError("must specify policy as a Policy object")
         if isinstance(records, Records):
             self.__records = copy.deepcopy(records)
         else:
-            raise ValueError('must specify records as a Records object')
+            raise ValueError("must specify records as a Records object")
         if self.__policy.current_year < self.__records.data_year:
             self.__policy.set_year(self.__records.data_year)
         if consumption is None:
@@ -110,32 +151,35 @@ class Calculator():
         elif isinstance(consumption, Consumption):
             self.__consumption = copy.deepcopy(consumption)
         else:
-            raise ValueError('consumption must be None or Consumption object')
+            raise ValueError("consumption must be None or Consumption object")
         if self.__consumption.current_year < self.__policy.current_year:
             self.__consumption.set_year(self.__policy.current_year)
         if verbose:
             if self.__records.IGNORED_VARS:
-                print('Your data include the following unused ' +
-                      'variables that will be ignored:')
+                print(
+                    "Your data include the following unused "
+                    + "variables that will be ignored:"
+                )
                 for var in self.__records.IGNORED_VARS:
-                    print('  ' +
-                          var)
+                    print("  " + var)
         current_year_is_data_year = (
-            self.__records.current_year == self.__records.data_year)
+            self.__records.current_year == self.__records.data_year
+        )
         if sync_years and current_year_is_data_year:
             if verbose:
-                print('You loaded data for ' +
-                      str(self.__records.data_year) + '.')
+                print("You loaded data for " + str(self.__records.data_year) + ".")
             while self.__records.current_year < self.__policy.current_year:
                 self.__records.increment_year()
             if verbose:
-                print('Tax-Calculator startup automatically ' +
-                      'extrapolated your data to ' +
-                      str(self.__records.current_year) + '.')
+                print(
+                    "Tax-Calculator startup automatically "
+                    + "extrapolated your data to "
+                    + str(self.__records.current_year)
+                    + "."
+                )
         else:
             if verbose:
-                print('Tax-Calculator startup did not ' +
-                      'extrapolate your data.')
+                print("Tax-Calculator startup did not " + "extrapolate your data.")
         assert self.__policy.current_year == self.__records.current_year
         assert self.__policy.current_year == self.__consumption.current_year
         self.__stored_records = None
@@ -157,8 +201,9 @@ class Calculator():
         """
         iteration = year - self.current_year
         if iteration < 0:
-            raise ValueError('New current year must be ' +
-                             'greater than or equal to current year!')
+            raise ValueError(
+                "New current year must be " + "greater than or equal to current year!"
+            )
         for _ in range(iteration):
             self.increment_year()
         assert self.current_year == year
@@ -182,14 +227,14 @@ class Calculator():
         """
         Return all-filing-unit weighted total of named Records variable.
         """
-        return (self.array(variable_name) * self.array('s006')).sum()
+        return (self.array(variable_name) * self.array("s006")).sum()
 
     def total_weight(self):
         """
         Return all-filing-unit total of sampling weights.
         NOTE: var_weighted_mean = calc.weighted_total(var)/calc.total_weight()
         """
-        return self.array('s006').sum()
+        return self.array("s006").sum()
 
     def dataframe(self, variable_list, all_vars=False):
         """
@@ -200,8 +245,9 @@ class Calculator():
         rates) are included in the returned Pandas DataFrame.
         """
         if all_vars:
-            varlist = list(self.__records.USABLE_READ_VARS |
-                           self.__records.CALCULATED_VARS)
+            varlist = list(
+                self.__records.USABLE_READ_VARS | self.__records.CALCULATED_VARS
+            )
         else:
             assert isinstance(variable_list, list)
             varlist = variable_list
@@ -230,18 +276,19 @@ class Calculator():
         Return numpy ndarray containing the number of
         individuals age 65+ in each filing unit.
         """
-        vdf = self.dataframe(['age_head', 'age_spouse', 'elderly_dependents'])
-        return ((vdf['age_head'] >= 65).astype(int) +
-                (vdf['age_spouse'] >= 65).astype(int) +
-                vdf['elderly_dependents'])
+        vdf = self.dataframe(["age_head", "age_spouse", "elderly_dependents"])
+        return (
+            (vdf["age_head"] >= 65).astype(int)
+            + (vdf["age_spouse"] >= 65).astype(int)
+            + vdf["elderly_dependents"]
+        )
 
     def incarray(self, variable_name, variable_add):
         """
         Add variable_add to named variable in embedded Records object.
         """
         assert isinstance(variable_add, np.ndarray)
-        setattr(self.__records, variable_name,
-                self.array(variable_name) + variable_add)
+        setattr(self.__records, variable_name, self.array(variable_name) + variable_add)
 
     def zeroarray(self, variable_name):
         """
@@ -357,8 +404,7 @@ class Calculator():
         del calc
         return create_diagnostic_table(varlist, yearlist)
 
-    def distribution_tables(self, calc, groupby,
-                            pop_quantiles=False, scaling=True):
+    def distribution_tables(self, calc, groupby, pop_quantiles=False, scaling=True):
         """
         Get results from self and calc, sort them by expanded_income into
         table rows defined by groupby, compute grouped statistics, and
@@ -407,6 +453,7 @@ class Calculator():
               positive (denoted by a 0-10p row label) values of the
               specified income_measure.
         """
+
         # nested functions used only by this method
         def distribution_table_dataframe(calcobj):
             """
@@ -416,18 +463,17 @@ class Calculator():
             dframe = calcobj.dataframe(DIST_VARIABLES)
             # weighted count of all people or filing units
             if pop_quantiles:
-                dframe['count'] = np.multiply(dframe['s006'], dframe['XTOT'])
+                dframe["count"] = np.multiply(dframe["s006"], dframe["XTOT"])
             else:
-                dframe['count'] = dframe['s006']
+                dframe["count"] = dframe["s006"]
             # weighted count of those with itemized-deduction returns
-            dframe['count_ItemDed'] = dframe['count'].where(
-                dframe['c04470'] > 0., 0.)
+            dframe["count_ItemDed"] = dframe["count"].where(dframe["c04470"] > 0.0, 0.0)
             # weighted count of those with standard-deduction returns
-            dframe['count_StandardDed'] = dframe['count'].where(
-                dframe['standard'] > 0., 0.)
+            dframe["count_StandardDed"] = dframe["count"].where(
+                dframe["standard"] > 0.0, 0.0
+            )
             # weight count of those with positive Alternative Minimum Tax (AMT)
-            dframe['count_AMT'] = dframe['count'].where(
-                dframe['c09600'] > 0., 0.)
+            dframe["count_AMT"] = dframe["count"].where(dframe["c09600"] > 0.0, 0.0)
             return dframe
 
         def have_same_income_measure(calc1, calc2):
@@ -436,42 +482,44 @@ class Calculator():
             otherwise, return false.  (Note that "same" means nobody's
             expanded_income differs by more than one cent.)
             """
-            im1 = calc1.array('expanded_income')
-            im2 = calc2.array('expanded_income')
+            im1 = calc1.array("expanded_income")
+            im2 = calc2.array("expanded_income")
             return np.allclose(im1, im2, rtol=0.0, atol=0.01)
 
         # main logic of distribution_tables method
         assert calc is None or isinstance(calc, Calculator)
-        assert groupby in ('weighted_deciles', 'standard_income_bins',
-                           'soi_agi_bins')
+        assert groupby in ("weighted_deciles", "standard_income_bins", "soi_agi_bins")
         if calc is not None:
-            assert np.allclose(self.array('s006'),
-                               calc.array('s006'))  # check rows in same order
+            assert np.allclose(
+                self.array("s006"), calc.array("s006")
+            )  # check rows in same order
         var_dataframe = distribution_table_dataframe(self)
-        imeasure = 'expanded_income'
-        dt1 = create_distribution_table(var_dataframe, groupby, imeasure,
-                                        pop_quantiles, scaling)
+        imeasure = "expanded_income"
+        dt1 = create_distribution_table(
+            var_dataframe, groupby, imeasure, pop_quantiles, scaling
+        )
         del var_dataframe
         if calc is None:
             dt2 = None
         else:
             assert calc.current_year == self.current_year
             assert calc.array_len == self.array_len
-            assert np.allclose(self.consump_benval_params(),
-                               calc.consump_benval_params())
+            assert np.allclose(
+                self.consump_benval_params(), calc.consump_benval_params()
+            )
             var_dataframe = distribution_table_dataframe(calc)
             if have_same_income_measure(self, calc):
-                imeasure = 'expanded_income'
+                imeasure = "expanded_income"
             else:
-                imeasure = 'expanded_income_baseline'
-                var_dataframe[imeasure] = self.array('expanded_income')
-            dt2 = create_distribution_table(var_dataframe, groupby, imeasure,
-                                            pop_quantiles, scaling)
+                imeasure = "expanded_income_baseline"
+                var_dataframe[imeasure] = self.array("expanded_income")
+            dt2 = create_distribution_table(
+                var_dataframe, groupby, imeasure, pop_quantiles, scaling
+            )
             del var_dataframe
         return (dt1, dt2)
 
-    def difference_table(self, calc, groupby, tax_to_diff,
-                         pop_quantiles=False):
+    def difference_table(self, calc, groupby, tax_to_diff, pop_quantiles=False):
         """
         Get results from self and calc, sort them by expanded_income into
         table rows defined by groupby, compute grouped statistics, and
@@ -519,32 +567,46 @@ class Calculator():
         assert isinstance(calc, Calculator)
         assert calc.current_year == self.current_year
         assert calc.array_len == self.array_len
-        assert np.allclose(self.consump_benval_params(),
-                           calc.consump_benval_params())
+        assert np.allclose(self.consump_benval_params(), calc.consump_benval_params())
         self_var_dframe = self.dataframe(DIFF_VARIABLES)
         calc_var_dframe = calc.dataframe(DIFF_VARIABLES)
-        diff = create_difference_table(self_var_dframe, calc_var_dframe,
-                                       groupby, tax_to_diff, pop_quantiles)
+        diff = create_difference_table(
+            self_var_dframe, calc_var_dframe, groupby, tax_to_diff, pop_quantiles
+        )
         del self_var_dframe
         del calc_var_dframe
         return diff
 
-    MTR_VALID_VARIABLES = ['e00200p', 'e00200s',
-                           'e00900p', 'e00300',
-                           'e00400', 'e00600',
-                           'e00650', 'e01400',
-                           'e01700', 'e02000',
-                           'e02400', 'p22250',
-                           'p23250', 'e18500',
-                           'e19200', 'e26270',
-                           'e19800', 'e20100',
-                           'k1bx14p']
+    MTR_VALID_VARIABLES = [
+        "e00200p",
+        "e00200s",
+        "e00900p",
+        "e00300",
+        "e00400",
+        "e00600",
+        "e00650",
+        "e01400",
+        "e01700",
+        "e02000",
+        "e02400",
+        "p22250",
+        "p23250",
+        "e18500",
+        "e19200",
+        "e26270",
+        "e19800",
+        "e20100",
+        "k1bx14p",
+    ]
 
-    def mtr(self, variable_str='e00200p',
-            negative_finite_diff=False,
-            zero_out_calculated_vars=False,
-            calc_all_already_called=False,
-            wrt_full_compensation=True):
+    def mtr(
+        self,
+        variable_str="e00200p",
+        negative_finite_diff=False,
+        zero_out_calculated_vars=False,
+        calc_all_already_called=False,
+        wrt_full_compensation=True,
+    ):
         """
         Calculates the marginal payroll, individual income, and combined
         tax rates for every tax filing unit, leaving the Calculator object
@@ -642,65 +704,73 @@ class Calculator():
         self.store_records()
         # extract variable array(s) from embedded records object
         variable = self.array(variable_str)
-        if variable_str == 'e00200p':
-            earnings_var = self.array('e00200')
-        elif variable_str == 'e00200s':
-            earnings_var = self.array('e00200')
-        elif variable_str == 'e00900p':
-            seincome_var = self.array('e00900')
-        elif variable_str == 'e00650':
-            divincome_var = self.array('e00600')
-        elif variable_str == 'e26270':
-            scheincome_var = self.array('e02000')
-        elif variable_str == 'k1bx14p':
-            scheincome_var = self.array('e02000')
-            scorpincome_var = self.array('e26270')
+        if variable_str == "e00200p":
+            earnings_var = self.array("e00200")
+        elif variable_str == "e00200s":
+            earnings_var = self.array("e00200")
+        elif variable_str == "e00900p":
+            seincome_var = self.array("e00900")
+        elif variable_str == "e00650":
+            divincome_var = self.array("e00600")
+        elif variable_str == "e26270":
+            scheincome_var = self.array("e02000")
+        elif variable_str == "k1bx14p":
+            scheincome_var = self.array("e02000")
+            scorpincome_var = self.array("e26270")
         # calculate level of taxes after a marginal increase in income
         self.array(variable_str, variable + finite_diff)
-        if variable_str == 'e00200p':
-            self.array('e00200', earnings_var + finite_diff)
-        elif variable_str == 'e00200s':
-            self.array('e00200', earnings_var + finite_diff)
-        elif variable_str == 'e00900p':
-            self.array('e00900', seincome_var + finite_diff)
-        elif variable_str == 'e00650':
-            self.array('e00600', divincome_var + finite_diff)
-        elif variable_str == 'e26270':
-            self.array('e02000', scheincome_var + finite_diff)
-        elif variable_str == 'k1bx14p':
-            self.array('e02000', scheincome_var + finite_diff)
-            self.array('e26270', scorpincome_var + finite_diff)
+        if variable_str == "e00200p":
+            self.array("e00200", earnings_var + finite_diff)
+        elif variable_str == "e00200s":
+            self.array("e00200", earnings_var + finite_diff)
+        elif variable_str == "e00900p":
+            self.array("e00900", seincome_var + finite_diff)
+        elif variable_str == "e00650":
+            self.array("e00600", divincome_var + finite_diff)
+        elif variable_str == "e26270":
+            self.array("e02000", scheincome_var + finite_diff)
+        elif variable_str == "k1bx14p":
+            self.array("e02000", scheincome_var + finite_diff)
+            self.array("e26270", scorpincome_var + finite_diff)
         if self.__consumption.has_response():
             self.__consumption.response(self.__records, finite_diff)
         self.calc_all(zero_out_calc_vars=zero_out_calculated_vars)
-        payrolltax_chng = self.array('payrolltax')
-        incometax_chng = self.array('iitax')
+        payrolltax_chng = self.array("payrolltax")
+        incometax_chng = self.array("iitax")
         combined_taxes_chng = incometax_chng + payrolltax_chng
         # calculate base level of taxes after restoring records object
         self.restore_records()
         if not calc_all_already_called or zero_out_calculated_vars:
             self.calc_all(zero_out_calc_vars=zero_out_calculated_vars)
-        payrolltax_base = self.array('payrolltax')
-        incometax_base = self.array('iitax')
+        payrolltax_base = self.array("payrolltax")
+        incometax_base = self.array("iitax")
         combined_taxes_base = incometax_base + payrolltax_base
         # compute marginal changes in combined tax liability
         payrolltax_diff = payrolltax_chng - payrolltax_base
         incometax_diff = incometax_chng - incometax_base
         combined_diff = combined_taxes_chng - combined_taxes_base
         # specify optional adjustment for employer (er) OASDI+HI payroll taxes
-        mtr_on_earnings = variable_str in ('e00200p', 'e00200s')
+        mtr_on_earnings = variable_str in ("e00200p", "e00200s")
         if wrt_full_compensation and mtr_on_earnings:
             oasdi_taxed = np.logical_or(
-                variable < self.policy_param('SS_Earnings_c'),
-                variable >= self.policy_param('SS_Earnings_thd')
+                variable < self.policy_param("SS_Earnings_c"),
+                variable >= self.policy_param("SS_Earnings_thd"),
             )
-            adj = np.where(oasdi_taxed,
-                           0.5 * (self.policy_param('FICA_ss_trt_employer') +
-                                  self.policy_param('FICA_ss_trt_employee') +
-                                  self.policy_param('FICA_mc_trt_employer') +
-                                  self.policy_param('FICA_mc_trt_employee')),
-                           0.5 * (self.policy_param('FICA_mc_trt_employer') + 
-                                  self.policy_param('FICA_mc_trt_employee')))
+            adj = np.where(
+                oasdi_taxed,
+                0.5
+                * (
+                    self.policy_param("FICA_ss_trt_employer")
+                    + self.policy_param("FICA_ss_trt_employee")
+                    + self.policy_param("FICA_mc_trt_employer")
+                    + self.policy_param("FICA_mc_trt_employee")
+                ),
+                0.5
+                * (
+                    self.policy_param("FICA_mc_trt_employer")
+                    + self.policy_param("FICA_mc_trt_employee")
+                ),
+            )
         else:
             adj = 0.0
         # compute marginal tax rates
@@ -708,22 +778,22 @@ class Calculator():
         mtr_incometax = incometax_diff / (finite_diff * (1.0 + adj))
         mtr_combined = combined_diff / (finite_diff * (1.0 + adj))
         # if variable_str is e00200s, set MTR to NaN for units without a spouse
-        if variable_str == 'e00200s':
-            mars = self.array('MARS')
+        if variable_str == "e00200s":
+            mars = self.array("MARS")
             mtr_payrolltax = np.where(mars == 2, mtr_payrolltax, np.nan)
             mtr_incometax = np.where(mars == 2, mtr_incometax, np.nan)
             mtr_combined = np.where(mars == 2, mtr_combined, np.nan)
         # delete intermediate variables
         del variable
-        if variable_str in ('e00200p', 'e00200s'):
+        if variable_str in ("e00200p", "e00200s"):
             del earnings_var
-        elif variable_str == 'e00900p':
+        elif variable_str == "e00900p":
             del seincome_var
-        elif variable_str == 'e00650':
+        elif variable_str == "e00650":
             del divincome_var
-        elif variable_str == 'e26270':
+        elif variable_str == "e26270":
             del scheincome_var
-        elif variable_str == 'k1bx14p':
+        elif variable_str == "k1bx14p":
             del scheincome_var
             del scorpincome_var
         del payrolltax_chng
@@ -739,15 +809,18 @@ class Calculator():
         # return the three marginal tax rate arrays
         return (mtr_payrolltax, mtr_incometax, mtr_combined)
 
-    def mtr_graph(self, calc,
-                  mars='ALL',
-                  mtr_measure='combined',
-                  mtr_variable='e00200p',
-                  alt_e00200p_text='',
-                  mtr_wrt_full_compen=False,
-                  income_measure='expanded_income',
-                  pop_quantiles=False,
-                  dollar_weighting=False):
+    def mtr_graph(
+        self,
+        calc,
+        mars="ALL",
+        mtr_measure="combined",
+        mtr_variable="e00200p",
+        alt_e00200p_text="",
+        mtr_wrt_full_compen=False,
+        income_measure="expanded_income",
+        pop_quantiles=False,
+        dollar_weighting=False,
+    ):
         """
         Create marginal tax rate graph that can be written to an HTML
         file (using the write_graph_file utility function) or shown on
@@ -831,54 +904,56 @@ class Calculator():
         assert calc.current_year == self.current_year
         assert calc.array_len == self.array_len
         # check validity of mars parameter
-        assert mars == 'ALL' or 1 <= mars <= 4
+        assert mars == "ALL" or 1 <= mars <= 4
         # check validity of income_measure
-        assert income_measure in ('expanded_income', 'agi', 'wages')
-        if income_measure == 'expanded_income':
-            income_variable = 'expanded_income'
-        elif income_measure == 'agi':
-            income_variable = 'c00100'
-        elif income_measure == 'wages':
-            income_variable = 'e00200'
+        assert income_measure in ("expanded_income", "agi", "wages")
+        if income_measure == "expanded_income":
+            income_variable = "expanded_income"
+        elif income_measure == "agi":
+            income_variable = "c00100"
+        elif income_measure == "wages":
+            income_variable = "e00200"
         # check validity of mtr_measure parameter
-        assert mtr_measure in ('combined', 'itax', 'ptax')
+        assert mtr_measure in ("combined", "itax", "ptax")
         # calculate marginal tax rates
-        (mtr1_ptax, mtr1_itax,
-         mtr1_combined) = self.mtr(variable_str=mtr_variable,
-                                   wrt_full_compensation=mtr_wrt_full_compen)
-        (mtr2_ptax, mtr2_itax,
-         mtr2_combined) = calc.mtr(variable_str=mtr_variable,
-                                   wrt_full_compensation=mtr_wrt_full_compen)
-        if mtr_measure == 'combined':
+        (mtr1_ptax, mtr1_itax, mtr1_combined) = self.mtr(
+            variable_str=mtr_variable, wrt_full_compensation=mtr_wrt_full_compen
+        )
+        (mtr2_ptax, mtr2_itax, mtr2_combined) = calc.mtr(
+            variable_str=mtr_variable, wrt_full_compensation=mtr_wrt_full_compen
+        )
+        if mtr_measure == "combined":
             mtr1 = mtr1_combined
             mtr2 = mtr2_combined
-        elif mtr_measure == 'itax':
+        elif mtr_measure == "itax":
             mtr1 = mtr1_itax
             mtr2 = mtr2_itax
-        elif mtr_measure == 'ptax':
+        elif mtr_measure == "ptax":
             mtr1 = mtr1_ptax
             mtr2 = mtr2_ptax
         # extract datafames needed by mtr_graph_data utility function
-        record_variables = ['s006', 'XTOT']
-        if mars != 'ALL':
-            record_variables.append('MARS')
+        record_variables = ["s006", "XTOT"]
+        if mars != "ALL":
+            record_variables.append("MARS")
         record_variables.append(income_variable)
         vdf = self.dataframe(record_variables)
-        vdf['mtr1'] = mtr1
-        vdf['mtr2'] = mtr2
+        vdf["mtr1"] = mtr1
+        vdf["mtr2"] = mtr2
         # select filing-status subgroup, if any
-        if mars != 'ALL':
-            vdf = vdf[vdf['MARS'] == mars]
+        if mars != "ALL":
+            vdf = vdf[vdf["MARS"] == mars]
         # construct data for graph
-        data = mtr_graph_data(vdf,
-                              year=self.current_year,
-                              mars=mars,
-                              mtr_measure=mtr_measure,
-                              alt_e00200p_text=alt_e00200p_text,
-                              mtr_wrt_full_compen=mtr_wrt_full_compen,
-                              income_measure=income_measure,
-                              pop_quantiles=pop_quantiles,
-                              dollar_weighting=dollar_weighting)
+        data = mtr_graph_data(
+            vdf,
+            year=self.current_year,
+            mars=mars,
+            mtr_measure=mtr_measure,
+            alt_e00200p_text=alt_e00200p_text,
+            mtr_wrt_full_compen=mtr_wrt_full_compen,
+            income_measure=income_measure,
+            pop_quantiles=pop_quantiles,
+            dollar_weighting=dollar_weighting,
+        )
         # delete intermediate variables
         del vdf
         del mtr1_ptax
@@ -891,20 +966,19 @@ class Calculator():
         del mtr2
         del record_variables
         # construct figure from data
-        fig = xtr_graph_plot(data,
-                             width=850,
-                             height=500,
-                             xlabel='',
-                             ylabel='',
-                             title='',
-                             legendloc='bottom_right')
+        fig = xtr_graph_plot(
+            data,
+            width=850,
+            height=500,
+            xlabel="",
+            ylabel="",
+            title="",
+            legendloc="bottom_right",
+        )
         del data
         return fig
 
-    def atr_graph(self, calc,
-                  mars='ALL',
-                  atr_measure='combined',
-                  pop_quantiles=False):
+    def atr_graph(self, calc, mars="ALL", atr_measure="combined", pop_quantiles=False):
         """
         Create average tax rate graph that can be written to an HTML
         file (using the write_graph_file utility function) or shown on
@@ -957,44 +1031,48 @@ class Calculator():
         assert calc.current_year == self.current_year
         assert calc.array_len == self.array_len
         # check validity of function arguments
-        assert mars == 'ALL' or 1 <= mars <= 4
-        assert atr_measure in ('combined', 'itax', 'ptax')
+        assert mars == "ALL" or 1 <= mars <= 4
+        assert atr_measure in ("combined", "itax", "ptax")
         # extract needed output that is assumed unchanged by reform from self
-        record_variables = ['s006', 'XTOT']
-        if mars != 'ALL':
-            record_variables.append('MARS')
-        record_variables.append('expanded_income')
+        record_variables = ["s006", "XTOT"]
+        if mars != "ALL":
+            record_variables.append("MARS")
+        record_variables.append("expanded_income")
         vdf = self.dataframe(record_variables)
         # create 'tax1' and 'tax2' columns given specified atr_measure
-        if atr_measure == 'combined':
-            vdf['tax1'] = self.array('combined')
-            vdf['tax2'] = calc.array('combined')
-        elif atr_measure == 'itax':
-            vdf['tax1'] = self.array('iitax')
-            vdf['tax2'] = calc.array('iitax')
-        elif atr_measure == 'ptax':
-            vdf['tax1'] = self.array('payrolltax')
-            vdf['tax2'] = calc.array('payrolltax')
+        if atr_measure == "combined":
+            vdf["tax1"] = self.array("combined")
+            vdf["tax2"] = calc.array("combined")
+        elif atr_measure == "itax":
+            vdf["tax1"] = self.array("iitax")
+            vdf["tax2"] = calc.array("iitax")
+        elif atr_measure == "ptax":
+            vdf["tax1"] = self.array("payrolltax")
+            vdf["tax2"] = calc.array("payrolltax")
         # select filing-status subgroup, if any
-        if mars != 'ALL':
-            vdf = vdf[vdf['MARS'] == mars]
+        if mars != "ALL":
+            vdf = vdf[vdf["MARS"] == mars]
         # construct data for graph
-        data = atr_graph_data(vdf,
-                              year=self.current_year,
-                              mars=mars,
-                              atr_measure=atr_measure,
-                              pop_quantiles=pop_quantiles)
+        data = atr_graph_data(
+            vdf,
+            year=self.current_year,
+            mars=mars,
+            atr_measure=atr_measure,
+            pop_quantiles=pop_quantiles,
+        )
         # delete intermediate variables
         del vdf
         del record_variables
         # construct figure from data
-        fig = xtr_graph_plot(data,
-                             width=850,
-                             height=500,
-                             xlabel='',
-                             ylabel='',
-                             title='',
-                             legendloc='bottom_right')
+        fig = xtr_graph_plot(
+            data,
+            width=850,
+            height=500,
+            xlabel="",
+            ylabel="",
+            title="",
+            legendloc="bottom_right",
+        )
         del data
         return fig
 
@@ -1030,35 +1108,31 @@ class Calculator():
         assert calc.current_year == self.current_year
         assert calc.array_len == self.array_len
         # extract needed output from baseline and reform Calculator objects
-        vdf1 = self.dataframe(['s006', 'XTOT', 'aftertax_income',
-                               'expanded_income'])
-        vdf2 = calc.dataframe(['s006', 'XTOT', 'aftertax_income'])
-        assert np.allclose(vdf1['s006'], vdf2['s006'])
-        assert np.allclose(vdf1['XTOT'], vdf2['XTOT'])
+        vdf1 = self.dataframe(["s006", "XTOT", "aftertax_income", "expanded_income"])
+        vdf2 = calc.dataframe(["s006", "XTOT", "aftertax_income"])
+        assert np.allclose(vdf1["s006"], vdf2["s006"])
+        assert np.allclose(vdf1["XTOT"], vdf2["XTOT"])
         vdf = pd.DataFrame()
-        vdf['s006'] = vdf1['s006']
-        vdf['XTOT'] = vdf1['XTOT']
-        vdf['expanded_income'] = vdf1['expanded_income']
-        vdf['chg_aftinc'] = vdf2['aftertax_income'] - vdf1['aftertax_income']
+        vdf["s006"] = vdf1["s006"]
+        vdf["XTOT"] = vdf1["XTOT"]
+        vdf["expanded_income"] = vdf1["expanded_income"]
+        vdf["chg_aftinc"] = vdf2["aftertax_income"] - vdf1["aftertax_income"]
         # construct data for graph
-        data = pch_graph_data(vdf, year=self.current_year,
-                              pop_quantiles=pop_quantiles)
+        data = pch_graph_data(vdf, year=self.current_year, pop_quantiles=pop_quantiles)
         del vdf
         del vdf1
         del vdf2
         # construct figure from data
-        fig = pch_graph_plot(data,
-                             width=850,
-                             height=500,
-                             xlabel='',
-                             ylabel='',
-                             title='')
+        fig = pch_graph_plot(
+            data, width=850, height=500, xlabel="", ylabel="", title=""
+        )
         del data
         return fig
 
-    REQUIRED_REFORM_KEYS = set(['policy'])
-    REQUIRED_ASSUMP_KEYS = set(['consumption',
-                                'growdiff_baseline', 'growdiff_response'])
+    REQUIRED_REFORM_KEYS = set(["policy"])
+    REQUIRED_ASSUMP_KEYS = set(
+        ["consumption", "growdiff_baseline", "growdiff_response"]
+    )
 
     @staticmethod
     def read_json_param_objects(reform, assump):
@@ -1103,9 +1177,9 @@ class Calculator():
         """
         # construct the composite dictionary
         param_dict = dict()
-        param_dict['policy'] = Policy.read_json_reform(reform)
-        param_dict['consumption'] = Consumption.read_json_update(assump)
-        for topkey in ['growdiff_baseline', 'growdiff_response']:
+        param_dict["policy"] = Policy.read_json_reform(reform)
+        param_dict["consumption"] = Consumption.read_json_update(assump)
+        for topkey in ["growdiff_baseline", "growdiff_response"]:
             param_dict[topkey] = GrowDiff.read_json_update(assump, topkey)
         # return the composite dictionary
         return param_dict
@@ -1159,7 +1233,7 @@ class Calculator():
                 """
                 if len(text) < max_line_length:
                     # all text fits on one line
-                    line = text + '\n'
+                    line = text + "\n"
                     return [line]
                 # all text does not fix on one line
                 first_line = True
@@ -1167,20 +1241,19 @@ class Calculator():
                 words = text.split()
                 while words:
                     if first_line:
-                        line = ''
+                        line = ""
                         first_line = False
                     else:
-                        line = ' ' * num_indent_spaces
-                    while (words and
-                           (len(words[0]) + len(line)) < max_line_length):
-                        line += words.pop(0) + ' '
-                    line = line[:-1] + '\n'
+                        line = " " * num_indent_spaces
+                    while words and (len(words[0]) + len(line)) < max_line_length:
+                        line += words.pop(0) + " "
+                    line = line[:-1] + "\n"
                     line_list.append(line)
                 return line_list
 
             # begin main logic of nested function param_doc
             # pylint: disable=too-many-nested-blocks
-            doc = ''
+            doc = ""
             assert isinstance(years_list, list)
             years = sorted(years_list)
             for year in years:
@@ -1192,25 +1265,26 @@ class Calculator():
                     upda_value = getattr(updated, pname)
                     base_value = getattr(baseline, pname)
                     if (
-                        (isinstance(upda_value, np.ndarray) and
-                         np.allclose(upda_value, base_value)) or
-                        (not isinstance(upda_value, np.ndarray) and
-                         upda_value != base_value)
+                        isinstance(upda_value, np.ndarray)
+                        and np.allclose(upda_value, base_value)
+                    ) or (
+                        not isinstance(upda_value, np.ndarray)
+                        and upda_value != base_value
                     ):
                         params_with_diff.append(pname)
                 if params_with_diff:
                     mdata_base = baseline.specification(meta_data=True)
                     # write year
-                    doc += '{}:\n'.format(year)
+                    doc += "{}:\n".format(year)
                     for pname in sorted(params_with_diff):
                         # write updated value line
                         pval = getattr(updated, pname).tolist()[0]
-                        if mdata_base[pname]['type'] == 'bool':
+                        if mdata_base[pname]["type"] == "bool":
                             if isinstance(pval, list):
                                 pval = [bool(item) for item in pval]
                             else:
                                 pval = bool(pval)
-                        doc += ' {} : {}\n'.format(pname, pval)
+                        doc += " {} : {}\n".format(pname, pval)
                         # ... write optional param-vector-index line
                         if isinstance(pval, list):
                             labels = paramtools.consistent_labels(
@@ -1223,52 +1297,48 @@ class Calculator():
                                     break
                             if label:
                                 lv = baseline._stateless_label_grid[label]
-                                lv = [
-                                    str(item) for item in lv
-                                ]
-                                doc += ' ' * (
-                                    4 + len(pname)
-                                ) + '{}\n'.format(lv)
+                                lv = [str(item) for item in lv]
+                                doc += " " * (4 + len(pname)) + "{}\n".format(lv)
                         # ... write param-name line
-                        name = mdata_base[pname]['title']
-                        for line in lines('name: ' + name, 6):
-                            doc += '  ' + line
+                        name = mdata_base[pname]["title"]
+                        for line in lines("name: " + name, 6):
+                            doc += "  " + line
                         # ... write param-description line
-                        desc = mdata_base[pname]['description']
-                        for line in lines('desc: ' + desc, 6):
-                            doc += '  ' + line
+                        desc = mdata_base[pname]["description"]
+                        for line in lines("desc: " + desc, 6):
+                            doc += "  " + line
                         # ... write param-baseline-value line
                         if isinstance(baseline, Policy):
                             pval = getattr(baseline, pname).tolist()[0]
-                            ptype = mdata_base[pname]['type']
+                            ptype = mdata_base[pname]["type"]
                             if isinstance(pval, list):
-                                if ptype == 'bool':
+                                if ptype == "bool":
                                     pval = [bool(item) for item in pval]
-                            elif ptype == 'bool':
+                            elif ptype == "bool":
                                 pval = bool(pval)
-                            doc += '  baseline_value: {}\n'.format(pval)
+                            doc += "  baseline_value: {}\n".format(pval)
                         else:  # if baseline is GrowDiff object
                             # each GrowDiff parameter has zero as default value
-                            doc += '  baseline_value: 0.0\n'
+                            doc += "  baseline_value: 0.0\n"
             del mdata_base
             return doc
 
         # begin main logic of reform_documentation
         # create Policy object with current-law-policy values
         gdiff_base = GrowDiff()
-        gdiff_base.update_growdiff(params['growdiff_baseline'])
+        gdiff_base.update_growdiff(params["growdiff_baseline"])
         gfactors_clp = GrowFactors()
         gdiff_base.apply_to(gfactors_clp)
         clp = Policy(gfactors=gfactors_clp)
         # create Policy object with post-reform values
         gdiff_resp = GrowDiff()
-        gdiff_resp.update_growdiff(params['growdiff_response'])
+        gdiff_resp.update_growdiff(params["growdiff_response"])
         gfactors_ref = GrowFactors()
         gdiff_base.apply_to(gfactors_ref)
         gdiff_resp.apply_to(gfactors_ref)
         ref = Policy(gfactors=gfactors_ref)
-        ref.implement_reform(params['policy'])
-        reform_years = Policy.years_in_revision(params['policy'])
+        ref.implement_reform(params["policy"])
+        reform_years = Policy.years_in_revision(params["policy"])
         if policy_dicts is not None:  # compound reform has been specified
             assert isinstance(policy_dicts, list)
             for policy_dict in policy_dicts:
@@ -1278,31 +1348,31 @@ class Calculator():
                     if year not in reform_years:
                         reform_years.append(year)
         # generate documentation text
-        doc = 'REFORM DOCUMENTATION\n'
+        doc = "REFORM DOCUMENTATION\n"
         # ... documentation for baseline growdiff assumptions
-        doc += 'Baseline Growth-Difference Assumption Values by Year:\n'
-        years = GrowDiff.years_in_revision(params['growdiff_baseline'])
+        doc += "Baseline Growth-Difference Assumption Values by Year:\n"
+        years = GrowDiff.years_in_revision(params["growdiff_baseline"])
         if years:
             doc += param_doc(years, gdiff_base, GrowDiff())
         else:
-            doc += 'none: no baseline GrowDiff assumptions specified\n'
+            doc += "none: no baseline GrowDiff assumptions specified\n"
         # ... documentation for reform growdiff assumptions
-        doc += 'Response Growth-Difference Assumption Values by Year:\n'
-        years = GrowDiff.years_in_revision(params['growdiff_response'])
+        doc += "Response Growth-Difference Assumption Values by Year:\n"
+        years = GrowDiff.years_in_revision(params["growdiff_response"])
         if years:
             doc += param_doc(years, gdiff_resp, GrowDiff())
         else:
-            doc += 'none: no response GrowDiff assumptions specified\n'
+            doc += "none: no response GrowDiff assumptions specified\n"
         # ... documentation for (possibly compound) policy reform
         if policy_dicts is None:
-            doc += 'Policy Reform Parameter Values by Year:\n'
+            doc += "Policy Reform Parameter Values by Year:\n"
         else:
-            doc += 'Compound Policy Reform Parameter Values by Year:\n'
+            doc += "Compound Policy Reform Parameter Values by Year:\n"
         # ... use clp and ref Policy objects to generate documentation
         if reform_years:
             doc += param_doc(reform_years, ref, clp)
         else:
-            doc += 'none: using current-law policy parameters\n'
+            doc += "none: using current-law policy parameters\n"
         # cleanup local objects
         del gdiff_base
         del gfactors_clp
@@ -1315,9 +1385,9 @@ class Calculator():
         # return documentation string
         return doc
 
-    def ce_aftertax_income(self, calc,
-                           custom_params=None,
-                           require_no_agg_tax_change=True):
+    def ce_aftertax_income(
+        self, calc, custom_params=None, require_no_agg_tax_change=True
+    ):
         """
         Return dictionary that contains certainty-equivalent of the
         expected utility of after-tax expanded income computed for
@@ -1344,17 +1414,18 @@ class Calculator():
         assert isinstance(calc, Calculator)
         assert calc.array_len == self.array_len
         assert calc.current_year == self.current_year
-        assert np.allclose(calc.consump_benval_params(),
-                           self.consump_benval_params())
+        assert np.allclose(calc.consump_benval_params(), self.consump_benval_params())
         # extract data from self and calc
-        records_variables = ['s006', 'combined', 'expanded_income']
+        records_variables = ["s006", "combined", "expanded_income"]
         df1 = self.dataframe(records_variables)
         df2 = calc.dataframe(records_variables)
         cedict = ce_aftertax_expanded_income(
-            df1, df2,
+            df1,
+            df2,
             custom_params=custom_params,
-            require_no_agg_tax_change=require_no_agg_tax_change)
-        cedict['year'] = self.current_year
+            require_no_agg_tax_change=require_no_agg_tax_change,
+        )
+        cedict["year"] = self.current_year
         return cedict
 
     # ----- begin private methods of Calculator class -----
@@ -1391,43 +1462,44 @@ class Calculator():
         StdDed(self.__policy, self.__records)
         # Store calculated standard deduction, calculate
         # taxes with standard deduction, store AMT + Regular Tax
-        std = self.array('standard').copy()
-        item = self.array('c04470').copy()
-        item_no_limit = self.array('c21060').copy()
-        item_phaseout = self.array('c21040').copy()
-        item_component_variable_names = ['c17000', 'c18300', 'c19200',
-                                         'c19700', 'c20500', 'c20800']
+        std = self.array("standard").copy()
+        item = self.array("c04470").copy()
+        item_no_limit = self.array("c21060").copy()
+        item_phaseout = self.array("c21040").copy()
+        item_component_variable_names = [
+            "c17000",
+            "c18300",
+            "c19200",
+            "c19700",
+            "c20500",
+            "c20800",
+        ]
         item_cvar = dict()
         for cvname in item_component_variable_names:
             item_cvar[cvname] = self.array(cvname).copy()
-        self.zeroarray('c04470')
-        self.zeroarray('c21060')
-        self.zeroarray('c21040')
+        self.zeroarray("c04470")
+        self.zeroarray("c21060")
+        self.zeroarray("c21040")
         for cvname in item_component_variable_names:
             self.zeroarray(cvname)
         self._taxinc_to_amt()
-        std_taxes = self.array('c05800').copy()
+        std_taxes = self.array("c05800").copy()
         # Set standard deduction to zero, calculate taxes w/o
         # standard deduction, and store AMT + Regular Tax
-        self.zeroarray('standard')
-        self.array('c21060', item_no_limit)
-        self.array('c21040', item_phaseout)
-        self.array('c04470', item)
+        self.zeroarray("standard")
+        self.array("c21060", item_no_limit)
+        self.array("c21040", item_phaseout)
+        self.array("c04470", item)
         self._taxinc_to_amt()
-        item_taxes = self.array('c05800').copy()
+        item_taxes = self.array("c05800").copy()
         # Replace standard deduction with zero so the filing unit
         # would always be better off itemizing
-        self.array('standard', np.where(item_taxes < std_taxes,
-                                        0., std))
-        self.array('c04470', np.where(item_taxes < std_taxes,
-                                      item, 0.))
-        self.array('c21060', np.where(item_taxes < std_taxes,
-                                      item_no_limit, 0.))
-        self.array('c21040', np.where(item_taxes < std_taxes,
-                                      item_phaseout, 0.))
+        self.array("standard", np.where(item_taxes < std_taxes, 0.0, std))
+        self.array("c04470", np.where(item_taxes < std_taxes, item, 0.0))
+        self.array("c21060", np.where(item_taxes < std_taxes, item_no_limit, 0.0))
+        self.array("c21040", np.where(item_taxes < std_taxes, item_phaseout, 0.0))
         for cvname in item_component_variable_names:
-            self.array(cvname, np.where(item_taxes < std_taxes,
-                                        item_cvar[cvname], 0.))
+            self.array(cvname, np.where(item_taxes < std_taxes, item_cvar[cvname], 0.0))
         del std
         del item
         del item_no_limit

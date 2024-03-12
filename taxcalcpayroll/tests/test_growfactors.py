@@ -1,6 +1,7 @@
 """
 Tests of Tax-Calculator GrowFactors class.
 """
+
 # CODING-STYLE CHECKS:
 # pycodestyle test_growfactors.py
 # pylint --disable=locally-disabled test_growfactors.py
@@ -8,18 +9,18 @@ Tests of Tax-Calculator GrowFactors class.
 import os
 import tempfile
 import pytest
+
 # pylint: disable=import-error
 from taxcalc import GrowFactors, Records, Policy
 
 
-@pytest.fixture(scope='module', name='bad_gf_file')
+@pytest.fixture(scope="module", name="bad_gf_file")
 def fixture_bad_gf_file():
     """
     Fixture for invalid growfactors file.
     """
-    txt = (u'YEAR,AWAGE,ACPIU,ABADNAME,ASOCSEC\n'
-           u'2015,1.000,1.000,1.000000,1.00000\n')
-    tfile = tempfile.NamedTemporaryFile(mode='a', delete=False)
+    txt = "YEAR,AWAGE,ACPIU,ABADNAME,ASOCSEC\n" "2015,1.000,1.000,1.000000,1.00000\n"
+    tfile = tempfile.NamedTemporaryFile(mode="a", delete=False)
     tfile.write(txt)
     tfile.close()
     yield tfile
@@ -50,11 +51,11 @@ def test_improper_usage(bad_gf_file):
     with pytest.raises(ValueError):
         gfo.wage_growth_rates(lyr, fyr)
     with pytest.raises(ValueError):
-        gfo.factor_value('BADNAME', fyr)
+        gfo.factor_value("BADNAME", fyr)
     with pytest.raises(ValueError):
-        gfo.factor_value('AWAGE', fyr - 1)
+        gfo.factor_value("AWAGE", fyr - 1)
     with pytest.raises(ValueError):
-        gfo.factor_value('AWAGE', lyr + 1)
+        gfo.factor_value("AWAGE", lyr + 1)
 
 
 def test_update_after_use():
@@ -64,7 +65,7 @@ def test_update_after_use():
     gfo = GrowFactors()
     gfo.price_inflation_rates(gfo.first_year, gfo.last_year)
     with pytest.raises(ValueError):
-        gfo.update('AWAGE', 2013, 0.01)
+        gfo.update("AWAGE", 2013, 0.01)
 
 
 def test_proper_usage():
@@ -76,7 +77,7 @@ def test_proper_usage():
     assert len(pir) == 8
     wgr = gfo.wage_growth_rates(2013, 2021)
     assert len(wgr) == 9
-    val = gfo.factor_value('AWAGE', 2013)
+    val = gfo.factor_value("AWAGE", 2013)
     assert val > 1.0
 
 

@@ -1,6 +1,7 @@
 """
 Tests for Tax-Calculator calcfunctions.py logic.
 """
+
 # CODING-STYLE CHECKS:
 # pycodestyle test_calcfunctions.py
 # pylint --disable=locally-disabled test_calcfunctions.py
@@ -18,11 +19,12 @@ class GetFuncDefs(ast.NodeVisitor):
     """
     Return information about each function defined in the functions.py file.
     """
+
     def __init__(self):
         """
         GetFuncDefs class constructor
         """
-        self.fname = ''
+        self.fname = ""
         self.fnames = list()  # function name (fname) list
         self.fargs = dict()  # lists of function arguments indexed by fname
         self.cvars = dict()  # lists of calc vars in function indexed by fname
@@ -83,35 +85,39 @@ def test_calc_and_used_vars(tests_path):
     returned by that function is an argument of that function.
     """
     # pylint: disable=too-many-locals
-    funcpath = os.path.join(tests_path, '..', 'calcfunctions.py')
+    funcpath = os.path.join(tests_path, "..", "calcfunctions.py")
     gfd = GetFuncDefs()
     fnames, fargs, cvars, rvars = gfd.visit(ast.parse(open(funcpath).read()))
     # Test (1):
     # .. create set of vars that are actually calculated in calcfunctions.py
     all_cvars = set()
     for fname in fnames:
-        if fname == 'BenefitSurtax':
+        if fname == "BenefitSurtax":
             continue  # because BenefitSurtax is not really a function
         all_cvars.update(set(cvars[fname]))
     # .. add to all_cvars set variables calculated in Records class
-    all_cvars.update(set(['num', 'sep', 'exact']))
+    all_cvars.update(set(["num", "sep", "exact"]))
     # .. add to all_cvars set variables calculated elsewhere
-    all_cvars.update(set(['mtr_paytax', 'mtr_inctax']))
-    all_cvars.update(set(['benefit_cost_total', 'benefit_value_total']))
+    all_cvars.update(set(["mtr_paytax", "mtr_inctax"]))
+    all_cvars.update(set(["benefit_cost_total", "benefit_value_total"]))
     # .. check that each var in Records.CALCULATED_VARS is in the all_cvars set
     records_varinfo = Records(data=None)
     found_error1 = False
     if not records_varinfo.CALCULATED_VARS <= all_cvars:
-        msg1 = ('all Records.CALCULATED_VARS not calculated '
-                'in calcfunctions.py\n')
+        msg1 = "all Records.CALCULATED_VARS not calculated " "in calcfunctions.py\n"
         for var in records_varinfo.CALCULATED_VARS - all_cvars:
             found_error1 = True
-            msg1 += 'VAR NOT CALCULATED: {}\n'.format(var)
+            msg1 += "VAR NOT CALCULATED: {}\n".format(var)
     # Test (2):
-    faux_functions = ['EITCamount', 'ComputeBenefit', 'BenefitPrograms',
-                      'BenefitSurtax', 'BenefitLimitation']
+    faux_functions = [
+        "EITCamount",
+        "ComputeBenefit",
+        "BenefitPrograms",
+        "BenefitSurtax",
+        "BenefitLimitation",
+    ]
     found_error2 = False
-    msg2 = 'calculated & returned variables are not function arguments\n'
+    msg2 = "calculated & returned variables are not function arguments\n"
     for fname in fnames:
         if fname in faux_functions:
             continue  # because fname is not a genuine function
@@ -119,10 +125,10 @@ def test_calc_and_used_vars(tests_path):
         if not crvars_set <= set(fargs[fname]):
             found_error2 = True
             for var in crvars_set - set(fargs[fname]):
-                msg2 += 'FUNCTION,VARIABLE: {} {}\n'.format(fname, var)
+                msg2 += "FUNCTION,VARIABLE: {} {}\n".format(fname, var)
     # Report errors for the two tests:
     if found_error1 and found_error2:
-        raise ValueError('{}\n{}'.format(msg1, msg2))
+        raise ValueError("{}\n{}".format(msg1, msg2))
     if found_error1:
         raise ValueError(msg1)
     if found_error2:
@@ -134,34 +140,36 @@ def test_function_args_usage(tests_path):
     Checks each function argument in calcfunctions.py for use in its
     function body.
     """
-    funcfilename = os.path.join(tests_path, '..', 'calcfunctions.py')
-    with open(funcfilename, 'r') as funcfile:
+    funcfilename = os.path.join(tests_path, "..", "calcfunctions.py")
+    with open(funcfilename, "r") as funcfile:
         fcontent = funcfile.read()
-    fcontent = re.sub('#.*', '', fcontent)  # remove all '#...' comments
-    fcontent = re.sub('\n', ' ', fcontent)  # replace EOL character with space
-    funcs = fcontent.split('def ')  # list of function text
-    msg = 'FUNCTION ARGUMENT(S) NEVER USED:\n'
+    fcontent = re.sub("#.*", "", fcontent)  # remove all '#...' comments
+    fcontent = re.sub("\n", " ", fcontent)  # replace EOL character with space
+    funcs = fcontent.split("def ")  # list of function text
+    msg = "FUNCTION ARGUMENT(S) NEVER USED:\n"
     found_error = False
     for func in funcs[1:]:  # skip first item in list, which is imports, etc.
-        fcode = func.split('return ')[0]  # fcode is between def and return
-        match = re.search(r'^(.+?)\((.*?)\):(.*)$', fcode)
+        fcode = func.split("return ")[0]  # fcode is between def and return
+        match = re.search(r"^(.+?)\((.*?)\):(.*)$", fcode)
         if match is None:
-            msg = ('Could not find function name, arguments, '
-                   'and code portions in the following text:\n')
-            msg += '--------------------------------------------------------\n'
-            msg += '{}\n'.format(fcode)
-            msg += '--------------------------------------------------------\n'
+            msg = (
+                "Could not find function name, arguments, "
+                "and code portions in the following text:\n"
+            )
+            msg += "--------------------------------------------------------\n"
+            msg += "{}\n".format(fcode)
+            msg += "--------------------------------------------------------\n"
             raise ValueError(msg)
         fname = match.group(1)
-        fargs = match.group(2).split(',')  # list of function arguments
+        fargs = match.group(2).split(",")  # list of function arguments
         fbody = match.group(3)
-        if fname == 'Taxes':
+        if fname == "Taxes":
             continue  # because Taxes has part of fbody in return statement
         for farg in fargs:
             arg = farg.strip()
             if fbody.find(arg) < 0:
                 found_error = True
-                msg += 'FUNCTION,ARGUMENT= {} {}\n'.format(fname, arg)
+                msg += "FUNCTION,ARGUMENT= {} {}\n".format(fname, arg)
     if found_error:
         raise ValueError(msg)
 
@@ -171,8 +179,17 @@ def test_DependentCare(skip_jit):
     Tests the DependentCare function
     """
 
-    test_tuple = (3, 2, 100000, 1, [250000, 500000, 250000, 500000, 250000],
-                  .2, 7165, 5000, 0)
+    test_tuple = (
+        3,
+        2,
+        100000,
+        1,
+        [250000, 500000, 250000, 500000, 250000],
+        0.2,
+        7165,
+        5000,
+        0,
+    )
     test_value = calcfunctions.DependentCare(*test_tuple)
     expected_value = 25196
 
@@ -181,39 +198,43 @@ def test_DependentCare(skip_jit):
 
 STD_in = [6000, 12000, 6000, 12000, 12000]
 STD_Aged_in = [1500, 1200, 1500, 1500, 1500]
-tuple1 = (0, 1000, STD_in, 45, 44, STD_Aged_in, 1000, 2, 0, 0, 0, 2, 0,
-          False, 0)
-tuple2 = (0, 1000, STD_in, 66, 44, STD_Aged_in, 1000, 2, 0, 1, 1, 2,
-          200, True, 300)
-tuple3 = (0, 1000, STD_in, 44, 66, STD_Aged_in, 1000, 2, 0, 0, 0, 2,
-          400, True, 300)
-tuple4 = (0, 1200, STD_in, 66, 67, STD_Aged_in, 1000, 2, 0, 0, 0, 2, 0,
-          True, 0)
-tuple5 = (0, 1000, STD_in, 44, 0, STD_Aged_in, 1000, 1, 0, 0, 0, 2, 0,
-          True, 0)
-tuple6 = (0, 1000, STD_in, 44, 0, STD_Aged_in, 1000, 1, 0, 0, 0, 2, 0,
-          True, 0)
-tuple7 = (0, 1000, STD_in, 44, 0, STD_Aged_in, 1000, 3, 1, 0, 0, 2, 0,
-          True, 0)
-tuple8 = (1, 200, STD_in, 44, 0, STD_Aged_in, 1000, 3, 0, 0, 0, 2, 0,
-          True, 0)
-tuple9 = (1, 1000, STD_in, 44, 0, STD_Aged_in, 1000, 3, 0, 0, 0, 2, 0,
-          True, 0)
+tuple1 = (0, 1000, STD_in, 45, 44, STD_Aged_in, 1000, 2, 0, 0, 0, 2, 0, False, 0)
+tuple2 = (0, 1000, STD_in, 66, 44, STD_Aged_in, 1000, 2, 0, 1, 1, 2, 200, True, 300)
+tuple3 = (0, 1000, STD_in, 44, 66, STD_Aged_in, 1000, 2, 0, 0, 0, 2, 400, True, 300)
+tuple4 = (0, 1200, STD_in, 66, 67, STD_Aged_in, 1000, 2, 0, 0, 0, 2, 0, True, 0)
+tuple5 = (0, 1000, STD_in, 44, 0, STD_Aged_in, 1000, 1, 0, 0, 0, 2, 0, True, 0)
+tuple6 = (0, 1000, STD_in, 44, 0, STD_Aged_in, 1000, 1, 0, 0, 0, 2, 0, True, 0)
+tuple7 = (0, 1000, STD_in, 44, 0, STD_Aged_in, 1000, 3, 1, 0, 0, 2, 0, True, 0)
+tuple8 = (1, 200, STD_in, 44, 0, STD_Aged_in, 1000, 3, 0, 0, 0, 2, 0, True, 0)
+tuple9 = (1, 1000, STD_in, 44, 0, STD_Aged_in, 1000, 3, 0, 0, 0, 2, 0, True, 0)
 expected = [12000, 15800, 13500, 14400, 6000, 6000, 0, 1000, 1350]
 
 
 @pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple1, expected[0]), (tuple2, expected[1]),
-        (tuple3, expected[2]), (tuple4, expected[3]),
-        (tuple5, expected[4]), (tuple6, expected[5]),
-        (tuple7, expected[6]), (tuple8, expected[7]),
-        (tuple9, expected[8])], ids=[
-            'Married, young', 'Married, allow charity',
-            'Married, allow charity, over limit',
-            'Married, two old', 'Single 1', 'Single 2', 'Married, Single',
-            'Marrid, Single, dep, under earn',
-            'Married, Single, dep, over earn'])
+    "test_tuple,expected_value",
+    [
+        (tuple1, expected[0]),
+        (tuple2, expected[1]),
+        (tuple3, expected[2]),
+        (tuple4, expected[3]),
+        (tuple5, expected[4]),
+        (tuple6, expected[5]),
+        (tuple7, expected[6]),
+        (tuple8, expected[7]),
+        (tuple9, expected[8]),
+    ],
+    ids=[
+        "Married, young",
+        "Married, allow charity",
+        "Married, allow charity, over limit",
+        "Married, two old",
+        "Single 1",
+        "Single 2",
+        "Married, Single",
+        "Marrid, Single, dep, under earn",
+        "Married, Single, dep, over earn",
+    ],
+)
 def test_StdDed(test_tuple, expected_value, skip_jit):
     """
     Tests the StdDed function
@@ -223,59 +244,262 @@ def test_StdDed(test_tuple, expected_value, skip_jit):
     assert np.allclose(test_value, expected_value)
 
 
-tuple1 = (120000, 10000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999, 
-          400, 0, 0, 0, 0, 0, 0, None, None, None, None, None, None, 
-          None, None, None, None, None)
-tuple2 = (120000, 10000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999,
-          400, 2000, 0, 10000, 0, 0, 3000, None, None, None, None, None,
-          None, None, None, None, None, None)
-tuple3 = (120000, 150000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999,
-          400, 2000, 0, 10000, 0, 0, 3000, None, None, None, None, None,
-          None, None, None, None, None, None)
-tuple4 = (120000, 500000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 400000,
-          400, 2000, 0, 10000, 0, 0, 3000, None, None, None, None, None,
-          None, None, None, None, None, None)
-tuple5 = (120000, 10000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999,
-          400, 300, 0, 0, 0, 0, 0, None, None, None, None, None,
-          None, None, None, None, None, None)
-tuple6 = (120000, 10000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999,
-          400, 0, 0, 0, 0, -40000, 0, None, None, None, None, None,
-          None, None, None, None, None, None)
-expected1 = (0, 4065, 4065, 0, 0, 3252, 25000, 10000, 15000, 10100,
-             17000)
-expected2 = (15000, 6146.25, 4065, 2081.25, 1040.625, 4917, 38959.375,
-             21167.5, 17791.875, 21380, 19820)
-expected3 = (15000, 22202.25, 21453, 749.25, 374.625, 16773, 179625.375,
-             161833.5, 17791.875, 161380, 19820)
-expected4 = (15000, 46067.85, 31953, 749.25, 374.625, 30138.6,
-             529625.375, 511833.5, 17791.875, 511380, 19820)
-expected5 = (300, 4065, 4065, 0, 0, 3285.3, 25300, 10279.1875, 15000,
-             10382, 17000)
+tuple1 = (
+    120000,
+    10000,
+    15000,
+    100,
+    2000,
+    0.06,
+    0.06,
+    0.015,
+    0.015,
+    0,
+    99999999999,
+    400,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+)
+tuple2 = (
+    120000,
+    10000,
+    15000,
+    100,
+    2000,
+    0.06,
+    0.06,
+    0.015,
+    0.015,
+    0,
+    99999999999,
+    400,
+    2000,
+    0,
+    10000,
+    0,
+    0,
+    3000,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+)
+tuple3 = (
+    120000,
+    150000,
+    15000,
+    100,
+    2000,
+    0.06,
+    0.06,
+    0.015,
+    0.015,
+    0,
+    99999999999,
+    400,
+    2000,
+    0,
+    10000,
+    0,
+    0,
+    3000,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+)
+tuple4 = (
+    120000,
+    500000,
+    15000,
+    100,
+    2000,
+    0.06,
+    0.06,
+    0.015,
+    0.015,
+    0,
+    400000,
+    400,
+    2000,
+    0,
+    10000,
+    0,
+    0,
+    3000,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+)
+tuple5 = (
+    120000,
+    10000,
+    15000,
+    100,
+    2000,
+    0.06,
+    0.06,
+    0.015,
+    0.015,
+    0,
+    99999999999,
+    400,
+    300,
+    0,
+    0,
+    0,
+    0,
+    0,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+)
+tuple6 = (
+    120000,
+    10000,
+    15000,
+    100,
+    2000,
+    0.06,
+    0.06,
+    0.015,
+    0.015,
+    0,
+    99999999999,
+    400,
+    0,
+    0,
+    0,
+    0,
+    -40000,
+    0,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+    None,
+)
+expected1 = (0, 4065, 4065, 0, 0, 3252, 25000, 10000, 15000, 10100, 17000)
+expected2 = (
+    15000,
+    6146.25,
+    4065,
+    2081.25,
+    1040.625,
+    4917,
+    38959.375,
+    21167.5,
+    17791.875,
+    21380,
+    19820,
+)
+expected3 = (
+    15000,
+    22202.25,
+    21453,
+    749.25,
+    374.625,
+    16773,
+    179625.375,
+    161833.5,
+    17791.875,
+    161380,
+    19820,
+)
+expected4 = (
+    15000,
+    46067.85,
+    31953,
+    749.25,
+    374.625,
+    30138.6,
+    529625.375,
+    511833.5,
+    17791.875,
+    511380,
+    19820,
+)
+expected5 = (300, 4065, 4065, 0, 0, 3285.3, 25300, 10279.1875, 15000, 10382, 17000)
 expected6 = (-40000, 4065, 4065, 0, 0, 3252, 0, 0, 15000, 10100, 17000)
 
+
 @pytest.mark.parametrize(
-    'test_tuple,expected_value', [
+    "test_tuple,expected_value",
+    [
         (tuple1, expected1),
         (tuple2, expected2),
         (tuple3, expected3),
         (tuple4, expected4),
         (tuple5, expected5),
-        (tuple6, expected6)], ids=[
-            'case 1', 'case 2', 'case 3', 'case 4', 'case 5', 'case 6'])
+        (tuple6, expected6),
+    ],
+    ids=["case 1", "case 2", "case 3", "case 4", "case 5", "case 6"],
+)
 def test_EI_PayrollTax(test_tuple, expected_value, skip_jit):
     """
     Tests the EI_PayrollTax function
     """
     test_value = calcfunctions.EI_PayrollTax(*test_tuple)
-    print('Test value = ', test_value)
+    print("Test value = ", test_value)
 
     assert np.allclose(test_value, expected_value)
 
 
 def test_AfterTaxIncome(skip_jit):
-    '''
+    """
     Tests the AfterTaxIncome function
-    '''
+    """
     test_tuple = (1000, 5000, 4000)
     test_value = calcfunctions.AfterTaxIncome(*test_tuple)
     expected_value = 4000
@@ -283,11 +507,32 @@ def test_AfterTaxIncome(skip_jit):
 
 
 def test_ExpandIncome(skip_jit):
-    '''
+    """
     Tests the ExpandIncome function
-    '''
-    test_tuple = (10000, 1000, 500, 100, 200, 300, 400, 20, 500, 50, 250, 10,
-                  20, 30, 40, 60, 70, 80, 1500, 2000, 16380)
+    """
+    test_tuple = (
+        10000,
+        1000,
+        500,
+        100,
+        200,
+        300,
+        400,
+        20,
+        500,
+        50,
+        250,
+        10,
+        20,
+        30,
+        40,
+        60,
+        70,
+        80,
+        1500,
+        2000,
+        16380,
+    )
     test_value = calcfunctions.ExpandIncome(*test_tuple)
     expected_value = 16380
     assert np.allclose(test_value, expected_value)
@@ -306,37 +551,151 @@ expected5 = (300, 1300)
 
 
 @pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple1, expected1), (tuple2, expected2), (tuple3, expected3),
-        (tuple4, expected4), (tuple5, expected5)])
+    "test_tuple,expected_value",
+    [
+        (tuple1, expected1),
+        (tuple2, expected2),
+        (tuple3, expected3),
+        (tuple4, expected4),
+        (tuple5, expected5),
+    ],
+)
 def test_LumpSumTax(test_tuple, expected_value, skip_jit):
-    '''
+    """
     Tests LumpSumTax function
-    '''
+    """
     test_value = calcfunctions.LumpSumTax(*test_tuple)
     assert np.allclose(test_value, expected_value)
 
 
 FST_AGI_thd_lo_in = [1000000, 1000000, 500000, 1000000, 1000000]
 FST_AGI_thd_hi_in = [2000000, 2000000, 1000000, 2000000, 2000000]
-tuple1 = (1100000, 1, 1000, 100, 100, 0.1, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
-tuple2 = (2100000, 1, 1000, 100, 100, 0.1, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
-tuple3 = (1100000, 1, 1000, 100, 100, 0, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
-tuple4 = (1100000, 2, 1000, 100, 100, 0.1, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
-tuple5 = (2100000, 2, 1000, 100, 100, 0.1, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
-tuple6 = (1100000, 2, 1000, 100, 100, 0, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
-tuple7 = (510000, 3, 1000, 100, 100, 0.1, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
-tuple8 = (1100000, 3, 1000, 100, 100, 0.1, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
-tuple9 = (510000, 3, 1000, 100, 100, 0, FST_AGI_thd_lo_in,
-          FST_AGI_thd_hi_in, 100, 200, 2000, 300)
+tuple1 = (
+    1100000,
+    1,
+    1000,
+    100,
+    100,
+    0.1,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
+tuple2 = (
+    2100000,
+    1,
+    1000,
+    100,
+    100,
+    0.1,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
+tuple3 = (
+    1100000,
+    1,
+    1000,
+    100,
+    100,
+    0,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
+tuple4 = (
+    1100000,
+    2,
+    1000,
+    100,
+    100,
+    0.1,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
+tuple5 = (
+    2100000,
+    2,
+    1000,
+    100,
+    100,
+    0.1,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
+tuple6 = (
+    1100000,
+    2,
+    1000,
+    100,
+    100,
+    0,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
+tuple7 = (
+    510000,
+    3,
+    1000,
+    100,
+    100,
+    0.1,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
+tuple8 = (
+    1100000,
+    3,
+    1000,
+    100,
+    100,
+    0.1,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
+tuple9 = (
+    510000,
+    3,
+    1000,
+    100,
+    100,
+    0,
+    FST_AGI_thd_lo_in,
+    FST_AGI_thd_hi_in,
+    100,
+    200,
+    2000,
+    300,
+)
 expected1 = (10915, 11115, 12915, 11215)
 expected2 = (209150, 209350, 211150, 209450)
 expected3 = (0, 200, 2000, 300)
@@ -349,14 +708,23 @@ expected9 = (0, 200, 2000, 300)
 
 
 @pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple1, expected1), (tuple2, expected2), (tuple3, expected3),
-        (tuple4, expected4), (tuple5, expected5), (tuple6, expected6),
-        (tuple7, expected7), (tuple8, expected8), (tuple9, expected9)])
+    "test_tuple,expected_value",
+    [
+        (tuple1, expected1),
+        (tuple2, expected2),
+        (tuple3, expected3),
+        (tuple4, expected4),
+        (tuple5, expected5),
+        (tuple6, expected6),
+        (tuple7, expected7),
+        (tuple8, expected8),
+        (tuple9, expected9),
+    ],
+)
 def test_FairShareTax(test_tuple, expected_value, skip_jit):
-    '''
+    """
     Tests FairShareTax function
-    '''
+    """
     test_value = calcfunctions.FairShareTax(*test_tuple)
     assert np.allclose(test_value, expected_value)
 
@@ -375,60 +743,384 @@ II_credit_nr_ps_CARES = [0, 0, 0, 0, 0]
 RRC_ps_CARES = [75000, 150000, 75000, 112500, 75000]
 RRC_pe_CARES = [0, 0, 0, 0, 0]
 RRC_c_unit_CARES = [1200, 2400, 1200, 1200, 1200]
-tuple1 = (1, 50000, 1, 0, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple2 = (1, 76000, 1, 0, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple3 = (1, 90000, 1, 0, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple4 = (2, 50000, 3, 1, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple5 = (2, 155000, 4, 2, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple6 = (2, 170000, 4, 2, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple7 = (4, 50000, 2, 1, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple8 = (4, 117000, 1, 0, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple9 = (4, 130000, 1, 0, II_credit_ARPA, II_credit_ps_ARPA, 0,
-          II_credit_nr_ARPA, II_credit_nr_ps_ARPA, 0, 1400, RRC_ps_ARPA,
-          RRC_pe_ARPA, 0, 0, RRC_c_unit_ARPA, 0, 0, 0)
-tuple10 = (1, 50000, 1, 0, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
-tuple11 = (1, 97000, 2, 1, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
-tuple12 = (1, 150000, 2, 1, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
-tuple13 = (2, 50000, 4, 2, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
-tuple14 = (2, 160000, 5, 3, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
-tuple15 = (2, 300000, 2, 0, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
-tuple16 = (4, 50000, 3, 2, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
-tuple17 = (4, 130000, 2, 1, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
-tuple18 = (4, 170000, 3, 2, II_credit_CARES, II_credit_ps_CARES, 0,
-           II_credit_nr_CARES, II_credit_nr_ps_CARES, 0, 0, RRC_ps_CARES,
-           RRC_pe_CARES, 0.05, 500, RRC_c_unit_CARES, 0, 0, 0)
+tuple1 = (
+    1,
+    50000,
+    1,
+    0,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple2 = (
+    1,
+    76000,
+    1,
+    0,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple3 = (
+    1,
+    90000,
+    1,
+    0,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple4 = (
+    2,
+    50000,
+    3,
+    1,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple5 = (
+    2,
+    155000,
+    4,
+    2,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple6 = (
+    2,
+    170000,
+    4,
+    2,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple7 = (
+    4,
+    50000,
+    2,
+    1,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple8 = (
+    4,
+    117000,
+    1,
+    0,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple9 = (
+    4,
+    130000,
+    1,
+    0,
+    II_credit_ARPA,
+    II_credit_ps_ARPA,
+    0,
+    II_credit_nr_ARPA,
+    II_credit_nr_ps_ARPA,
+    0,
+    1400,
+    RRC_ps_ARPA,
+    RRC_pe_ARPA,
+    0,
+    0,
+    RRC_c_unit_ARPA,
+    0,
+    0,
+    0,
+)
+tuple10 = (
+    1,
+    50000,
+    1,
+    0,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
+tuple11 = (
+    1,
+    97000,
+    2,
+    1,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
+tuple12 = (
+    1,
+    150000,
+    2,
+    1,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
+tuple13 = (
+    2,
+    50000,
+    4,
+    2,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
+tuple14 = (
+    2,
+    160000,
+    5,
+    3,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
+tuple15 = (
+    2,
+    300000,
+    2,
+    0,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
+tuple16 = (
+    4,
+    50000,
+    3,
+    2,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
+tuple17 = (
+    4,
+    130000,
+    2,
+    1,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
+tuple18 = (
+    4,
+    170000,
+    3,
+    2,
+    II_credit_CARES,
+    II_credit_ps_CARES,
+    0,
+    II_credit_nr_CARES,
+    II_credit_nr_ps_CARES,
+    0,
+    0,
+    RRC_ps_CARES,
+    RRC_pe_CARES,
+    0.05,
+    500,
+    RRC_c_unit_CARES,
+    0,
+    0,
+    0,
+)
 expected1 = (0, 0, 1400)
 expected2 = (0, 0, 1120)
 expected3 = (0, 0, 0)
@@ -450,13 +1142,28 @@ expected18 = (0, 0, 0)
 
 
 @pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple1, expected1), (tuple2, expected2), (tuple3, expected3),
-        (tuple4, expected4), (tuple5, expected5), (tuple6, expected6),
-        (tuple7, expected7), (tuple8, expected8), (tuple9, expected9),
-        (tuple10, expected10), (tuple11, expected11), (tuple12, expected12),
-        (tuple13, expected13), (tuple14, expected14), (tuple15, expected15),
-        (tuple16, expected16), (tuple17, expected17), (tuple18, expected18)])
+    "test_tuple,expected_value",
+    [
+        (tuple1, expected1),
+        (tuple2, expected2),
+        (tuple3, expected3),
+        (tuple4, expected4),
+        (tuple5, expected5),
+        (tuple6, expected6),
+        (tuple7, expected7),
+        (tuple8, expected8),
+        (tuple9, expected9),
+        (tuple10, expected10),
+        (tuple11, expected11),
+        (tuple12, expected12),
+        (tuple13, expected13),
+        (tuple14, expected14),
+        (tuple15, expected15),
+        (tuple16, expected16),
+        (tuple17, expected17),
+        (tuple18, expected18),
+    ],
+)
 def test_PersonalTaxCredit(test_tuple, expected_value, skip_jit):
     """
     Tests the PersonalTaxCredit function
@@ -474,18 +1181,23 @@ max_amount = 6660
 phaseout_start = 19330
 agi = 19330
 phaseout_rate = 0.2106
-tuple1 = (basic_frac, phasein_rate, earnings, max_amount,
-          phaseout_start, agi, phaseout_rate)
+tuple1 = (
+    basic_frac,
+    phasein_rate,
+    earnings,
+    max_amount,
+    phaseout_start,
+    agi,
+    phaseout_rate,
+)
 expected1 = 6660
 
 
-@pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple1, expected1)])
+@pytest.mark.parametrize("test_tuple,expected_value", [(tuple1, expected1)])
 def test_EITCamount(test_tuple, expected_value, skip_jit):
-    '''
+    """
     Tests FairShareTax function
-    '''
+    """
     test_value = calcfunctions.EITCamount(*test_tuple)
     assert np.allclose(test_value, expected_value)
 
@@ -514,29 +1226,51 @@ EITC_c = [538, 3584, 5920, 6660]
 EITC_prt = [0.0765, 0.1598, 0.2106, 0.2106]
 EITC_basic_frac = 0.0
 EITC_InvestIncome_c = 3650
-EITC_excess_InvestIncome_rt = 9e+99
+EITC_excess_InvestIncome_rt = 9e99
 EITC_indiv = False
 EITC_sep_filers_elig = False
 e02300 = 10200
 UI_thd = [150000, 150000, 150000, 150000, 150000]
 UI_em = 10200
 c59660 = 0  # this will be 6660 after the EITC calculation
-tuple1 = (MARS, DSI, EIC, c00100, e00300, e00400, e00600, c01000,
-          e02000, e26270, age_head, age_spouse, earned, earned_p, earned_s,
-          EITC_ps, EITC_MinEligAge, EITC_MaxEligAge, EITC_ps_MarriedJ,
-          EITC_rt, EITC_c, EITC_prt, EITC_basic_frac,
-          EITC_InvestIncome_c, EITC_excess_InvestIncome_rt,
-          EITC_indiv, EITC_sep_filers_elig, c59660)
+tuple1 = (
+    MARS,
+    DSI,
+    EIC,
+    c00100,
+    e00300,
+    e00400,
+    e00600,
+    c01000,
+    e02000,
+    e26270,
+    age_head,
+    age_spouse,
+    earned,
+    earned_p,
+    earned_s,
+    EITC_ps,
+    EITC_MinEligAge,
+    EITC_MaxEligAge,
+    EITC_ps_MarriedJ,
+    EITC_rt,
+    EITC_c,
+    EITC_prt,
+    EITC_basic_frac,
+    EITC_InvestIncome_c,
+    EITC_excess_InvestIncome_rt,
+    EITC_indiv,
+    EITC_sep_filers_elig,
+    c59660,
+)
 expected1 = 6660
 
 
-@pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple1, expected1)])
+@pytest.mark.parametrize("test_tuple,expected_value", [(tuple1, expected1)])
 def test_EITC(test_tuple, expected_value, skip_jit):
-    '''
+    """
     Tests FairShareTax function
-    '''
+    """
     test_value = calcfunctions.EITC(*test_tuple)
     assert np.allclose(test_value, expected_value)
 
@@ -571,44 +1305,128 @@ c04800 = [0.0, 0.0, 0.0, 0.0]  # unimportant for function
 qbided = [0.0, 0.0, 0.0, 0.0]  # unimportant for function
 
 tuple0 = (
-    c00100[0], standard[0], c04470[0], c04600[0], MARS[0], e00900[0], e26270[0],
-    e02100[0], e27200[0], e00650[0], c01000[0], PT_SSTB_income[0],
-    PT_binc_w2_wages[0], PT_ubia_property[0], PT_qbid_rt,
-    PT_qbid_taxinc_thd, PT_qbid_taxinc_gap, PT_qbid_w2_wages_rt,
-    PT_qbid_alt_w2_wages_rt, PT_qbid_alt_property_rt, c04800[0],
-    PT_qbid_ps, PT_qbid_prt, qbided[0], PT_qbid_limit_switch)
+    c00100[0],
+    standard[0],
+    c04470[0],
+    c04600[0],
+    MARS[0],
+    e00900[0],
+    e26270[0],
+    e02100[0],
+    e27200[0],
+    e00650[0],
+    c01000[0],
+    PT_SSTB_income[0],
+    PT_binc_w2_wages[0],
+    PT_ubia_property[0],
+    PT_qbid_rt,
+    PT_qbid_taxinc_thd,
+    PT_qbid_taxinc_gap,
+    PT_qbid_w2_wages_rt,
+    PT_qbid_alt_w2_wages_rt,
+    PT_qbid_alt_property_rt,
+    c04800[0],
+    PT_qbid_ps,
+    PT_qbid_prt,
+    qbided[0],
+    PT_qbid_limit_switch,
+)
 expected0 = (490860.66, 0)
 tuple1 = (
-    c00100[1], standard[1], c04470[1], c04600[1], MARS[1], e00900[1], e26270[1],
-    e02100[1], e27200[1], e00650[1], c01000[1], PT_SSTB_income[1],
-    PT_binc_w2_wages[1], PT_ubia_property[1], PT_qbid_rt,
-    PT_qbid_taxinc_thd, PT_qbid_taxinc_gap, PT_qbid_w2_wages_rt,
-    PT_qbid_alt_w2_wages_rt, PT_qbid_alt_property_rt, c04800[1],
-    PT_qbid_ps, PT_qbid_prt, qbided[1], PT_qbid_limit_switch)
+    c00100[1],
+    standard[1],
+    c04470[1],
+    c04600[1],
+    MARS[1],
+    e00900[1],
+    e26270[1],
+    e02100[1],
+    e27200[1],
+    e00650[1],
+    c01000[1],
+    PT_SSTB_income[1],
+    PT_binc_w2_wages[1],
+    PT_ubia_property[1],
+    PT_qbid_rt,
+    PT_qbid_taxinc_thd,
+    PT_qbid_taxinc_gap,
+    PT_qbid_w2_wages_rt,
+    PT_qbid_alt_w2_wages_rt,
+    PT_qbid_alt_property_rt,
+    c04800[1],
+    PT_qbid_ps,
+    PT_qbid_prt,
+    qbided[1],
+    PT_qbid_limit_switch,
+)
 expected1 = (284075.10, 4600)
 tuple2 = (
-    c00100[2], standard[2], c04470[2], c04600[2], MARS[2], e00900[2], e26270[2],
-    e02100[2], e27200[2], e00650[2], c01000[2], PT_SSTB_income[2],
-    PT_binc_w2_wages[2], PT_ubia_property[2], PT_qbid_rt,
-    PT_qbid_taxinc_thd, PT_qbid_taxinc_gap, PT_qbid_w2_wages_rt,
-    PT_qbid_alt_w2_wages_rt, PT_qbid_alt_property_rt, c04800[2],
-    PT_qbid_ps, PT_qbid_prt, qbided[2], PT_qbid_limit_switch)
+    c00100[2],
+    standard[2],
+    c04470[2],
+    c04600[2],
+    MARS[2],
+    e00900[2],
+    e26270[2],
+    e02100[2],
+    e27200[2],
+    e00650[2],
+    c01000[2],
+    PT_SSTB_income[2],
+    PT_binc_w2_wages[2],
+    PT_ubia_property[2],
+    PT_qbid_rt,
+    PT_qbid_taxinc_thd,
+    PT_qbid_taxinc_gap,
+    PT_qbid_w2_wages_rt,
+    PT_qbid_alt_w2_wages_rt,
+    PT_qbid_alt_property_rt,
+    c04800[2],
+    PT_qbid_ps,
+    PT_qbid_prt,
+    qbided[2],
+    PT_qbid_limit_switch,
+)
 expected2 = (579300.00, 0)
 tuple3 = (
-    c00100[3], standard[3], c04470[3], c04600[3], MARS[3], e00900[3], e26270[3],
-    e02100[3], e27200[3], e00650[3], c01000[3], PT_SSTB_income[3],
-    PT_binc_w2_wages[3], PT_ubia_property[3], PT_qbid_rt,
-    PT_qbid_taxinc_thd, PT_qbid_taxinc_gap, PT_qbid_w2_wages_rt,
-    PT_qbid_alt_w2_wages_rt, PT_qbid_alt_property_rt, c04800[3],
-    PT_qbid_ps, PT_qbid_prt, qbided[3], PT_qbid_limit_switch)
+    c00100[3],
+    standard[3],
+    c04470[3],
+    c04600[3],
+    MARS[3],
+    e00900[3],
+    e26270[3],
+    e02100[3],
+    e27200[3],
+    e00650[3],
+    c01000[3],
+    PT_SSTB_income[3],
+    PT_binc_w2_wages[3],
+    PT_ubia_property[3],
+    PT_qbid_rt,
+    PT_qbid_taxinc_thd,
+    PT_qbid_taxinc_gap,
+    PT_qbid_w2_wages_rt,
+    PT_qbid_alt_w2_wages_rt,
+    PT_qbid_alt_property_rt,
+    c04800[3],
+    PT_qbid_ps,
+    PT_qbid_prt,
+    qbided[3],
+    PT_qbid_limit_switch,
+)
 expected3 = (57500.00, 1200)
 
+
 @pytest.mark.parametrize(
-    'test_tuple,expected_value', [
+    "test_tuple,expected_value",
+    [
         (tuple0, expected0),
         (tuple1, expected1),
         (tuple2, expected2),
-        (tuple3, expected3)])
+        (tuple3, expected3),
+    ],
+)
 def test_TaxInc(test_tuple, expected_value, skip_jit):
     """
     Tests the TaxInc function
@@ -647,32 +1465,51 @@ CTC_refundable = True
 CTC_include17 = True
 c07220 = 0  # actual value will be returned from function
 odc = 0  # actual value will be returned from function
-codtc_limited = 0 # actual value will be returned from function
+codtc_limited = 0  # actual value will be returned from function
 tuple0 = (
-    age_head, age_spouse, nu18, n24, MARS, c00100, XTOT, num,
-    c05800, e07260, CR_ResidentialEnergy_hc,
-    e07300, CR_ForeignTax_hc,
+    age_head,
+    age_spouse,
+    nu18,
+    n24,
+    MARS,
+    c00100,
+    XTOT,
+    num,
+    c05800,
+    e07260,
+    CR_ResidentialEnergy_hc,
+    e07300,
+    CR_ForeignTax_hc,
     c07180,
     c07230,
-    e07240, CR_RetirementSavings_hc,
+    e07240,
+    CR_RetirementSavings_hc,
     c07200,
-    CTC_c, CTC_ps, CTC_prt, exact, ODC_c,
-    CTC_c_under6_bonus, nu06,
-    CTC_refundable, CTC_include17,
-    c07220, odc, codtc_limited)
+    CTC_c,
+    CTC_ps,
+    CTC_prt,
+    exact,
+    ODC_c,
+    CTC_c_under6_bonus,
+    nu06,
+    CTC_refundable,
+    CTC_include17,
+    c07220,
+    odc,
+    codtc_limited,
+)
 # output tuple is : (c07220, odc, codtc_limited)
 expected0 = (0, 1000, 0)
 
 
-@pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple0, expected0)])
+@pytest.mark.parametrize("test_tuple,expected_value", [(tuple0, expected0)])
 def test_ChildDepTaxCredit_2021(test_tuple, expected_value, skip_jit):
     """
     Tests the ChildDepTaxCredit function
     """
     test_value = calcfunctions.ChildDepTaxCredit(*test_tuple)
     assert np.allclose(test_value, expected_value)
+
 
 # parameterization represents 2022 law
 age_head = 45
@@ -704,32 +1541,51 @@ CTC_refundable = False
 CTC_include17 = False
 c07220 = 0  # actual value will be returned from function
 odc = 0  # actual value will be returned from function
-codtc_limited = 0 # actual value will be returned from function
+codtc_limited = 0  # actual value will be returned from function
 tuple0 = (
-    age_head, age_spouse, nu18, n24, MARS, c00100, XTOT, num,
-    c05800, e07260, CR_ResidentialEnergy_hc,
-    e07300, CR_ForeignTax_hc,
+    age_head,
+    age_spouse,
+    nu18,
+    n24,
+    MARS,
+    c00100,
+    XTOT,
+    num,
+    c05800,
+    e07260,
+    CR_ResidentialEnergy_hc,
+    e07300,
+    CR_ForeignTax_hc,
     c07180,
     c07230,
-    e07240, CR_RetirementSavings_hc,
+    e07240,
+    CR_RetirementSavings_hc,
     c07200,
-    CTC_c, CTC_ps, CTC_prt, exact, ODC_c,
-    CTC_c_under6_bonus, nu06,
-    CTC_refundable, CTC_include17,
-    c07220, odc, codtc_limited)
+    CTC_c,
+    CTC_ps,
+    CTC_prt,
+    exact,
+    ODC_c,
+    CTC_c_under6_bonus,
+    nu06,
+    CTC_refundable,
+    CTC_include17,
+    c07220,
+    odc,
+    codtc_limited,
+)
 # output tuple is : (c07220, odc, codtc_limited)
 expected0 = (0, 0, 1000)
 
 
-@pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple0, expected0)])
+@pytest.mark.parametrize("test_tuple,expected_value", [(tuple0, expected0)])
 def test_ChildDepTaxCredit_2022(test_tuple, expected_value, skip_jit):
     """
     Tests the ChildDepTaxCredit function
     """
     test_value = calcfunctions.ChildDepTaxCredit(*test_tuple)
     assert np.allclose(test_value, expected_value)
+
 
 # parameterization represents 2021 law
 CTC_new_c = 1000
@@ -753,26 +1609,42 @@ c00100 = 1000
 MARS = 4
 ptax_oasdi = 0
 c09200 = 0
-ctc_new = 0 # actual value will be returned from function
+ctc_new = 0  # actual value will be returned from function
 tuple0 = (
-    CTC_new_c, CTC_new_rt, CTC_new_c_under6_bonus,
-    CTC_new_ps, CTC_new_prt, CTC_new_for_all, CTC_include17,
-    CTC_new_refund_limited, CTC_new_refund_limit_payroll_rt,
-    CTC_new_refund_limited_all_payroll, payrolltax,
-    n24, nu06, age_head, age_spouse, nu18, c00100, MARS, ptax_oasdi,
-    c09200, ctc_new)
+    CTC_new_c,
+    CTC_new_rt,
+    CTC_new_c_under6_bonus,
+    CTC_new_ps,
+    CTC_new_prt,
+    CTC_new_for_all,
+    CTC_include17,
+    CTC_new_refund_limited,
+    CTC_new_refund_limit_payroll_rt,
+    CTC_new_refund_limited_all_payroll,
+    payrolltax,
+    n24,
+    nu06,
+    age_head,
+    age_spouse,
+    nu18,
+    c00100,
+    MARS,
+    ptax_oasdi,
+    c09200,
+    ctc_new,
+)
 # output tuple is : (ctc_new)
-expected0 = (0)
+expected0 = 0
 
-@pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple0, expected0)])
+
+@pytest.mark.parametrize("test_tuple,expected_value", [(tuple0, expected0)])
 def test_CTCnew_2021(test_tuple, expected_value, skip_jit):
     """
     Tests the CTCnew function
     """
     test_value = calcfunctions.CTC_new(*test_tuple)
     assert np.allclose(test_value, expected_value)
+
 
 # parameterization represents 2022 law
 CTC_new_c = 0
@@ -796,27 +1668,41 @@ c00100 = 1000
 MARS = 4
 ptax_oasdi = 0
 c09200 = 0
-ctc_new = 0 # actual value will be returned from function
+ctc_new = 0  # actual value will be returned from function
 tuple0 = (
-    CTC_new_c, CTC_new_rt, CTC_new_c_under6_bonus,
-    CTC_new_ps, CTC_new_prt, CTC_new_for_all, CTC_include17,
-    CTC_new_refund_limited, CTC_new_refund_limit_payroll_rt,
-    CTC_new_refund_limited_all_payroll, payrolltax,
-    n24, nu06, age_head, age_spouse, nu18, c00100, MARS, ptax_oasdi,
-    c09200, ctc_new)
+    CTC_new_c,
+    CTC_new_rt,
+    CTC_new_c_under6_bonus,
+    CTC_new_ps,
+    CTC_new_prt,
+    CTC_new_for_all,
+    CTC_include17,
+    CTC_new_refund_limited,
+    CTC_new_refund_limit_payroll_rt,
+    CTC_new_refund_limited_all_payroll,
+    payrolltax,
+    n24,
+    nu06,
+    age_head,
+    age_spouse,
+    nu18,
+    c00100,
+    MARS,
+    ptax_oasdi,
+    c09200,
+    ctc_new,
+)
 # output tuple is : (ctc_new)
-expected0 = (0)
+expected0 = 0
 
-@pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple0, expected0)])
+
+@pytest.mark.parametrize("test_tuple,expected_value", [(tuple0, expected0)])
 def test_CTCnew_2022(test_tuple, expected_value, skip_jit):
     """
     Tests the CTCnew function
     """
     test_value = calcfunctions.CTC_new(*test_tuple)
     assert np.allclose(test_value, expected_value)
-
 
 
 ymod1 = 19330 + 10200
@@ -830,7 +1716,7 @@ exact = False
 nu18 = 0
 taxable_ubi = 0
 II_em = 0.0
-II_em_ps = [9e+99, 9e+99, 9e+99, 9e+99, 9e+99]
+II_em_ps = [9e99, 9e99, 9e99, 9e99, 9e99]
 II_prt = 0.02
 II_no_em_nu18 = False
 e02300 = 10200
@@ -841,21 +1727,36 @@ pre_c04600 = 0  # calculated in functio
 c04600 = 0  # calculated in functio
 
 tuple0 = (
-    ymod1, c02500, c02900, XTOT, MARS, sep, DSI, exact, nu18, taxable_ubi,
-    II_em, II_em_ps, II_prt, II_no_em_nu18,
-    e02300, UI_thd, UI_em, c00100, pre_c04600, c04600)
+    ymod1,
+    c02500,
+    c02900,
+    XTOT,
+    MARS,
+    sep,
+    DSI,
+    exact,
+    nu18,
+    taxable_ubi,
+    II_em,
+    II_em_ps,
+    II_prt,
+    II_no_em_nu18,
+    e02300,
+    UI_thd,
+    UI_em,
+    c00100,
+    pre_c04600,
+    c04600,
+)
 # returned tuple is (c00100, pre_c04600, c04600)
 expected0 = (19330, 0, 0)
 
 
-@pytest.mark.parametrize(
-    'test_tuple,expected_value', [
-        (tuple0, expected0)])
+@pytest.mark.parametrize("test_tuple,expected_value", [(tuple0, expected0)])
 def test_AGI(test_tuple, expected_value, skip_jit):
     """
     Tests the TaxInc function
     """
     test_value = calcfunctions.AGI(*test_tuple)
-    print('Returned from agi function: ', test_value)
+    print("Returned from agi function: ", test_value)
     assert np.allclose(test_value, expected_value)
-

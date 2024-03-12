@@ -13,67 +13,75 @@ from taxcalc.decorators import *
 
 
 def test_create_apply_function_string():
-    ans = create_apply_function_string(['a', 'b', 'c'], ['d', 'e'], [])
-    exp = ("def ap_func(x_0,x_1,x_2,x_3,x_4):\n"
-           "  for i in range(len(x_0)):\n"
-           "    x_0[i],x_1[i],x_2[i] = jitted_f(x_3[i],x_4[i])\n"
-           "  return x_0,x_1,x_2\n")
+    ans = create_apply_function_string(["a", "b", "c"], ["d", "e"], [])
+    exp = (
+        "def ap_func(x_0,x_1,x_2,x_3,x_4):\n"
+        "  for i in range(len(x_0)):\n"
+        "    x_0[i],x_1[i],x_2[i] = jitted_f(x_3[i],x_4[i])\n"
+        "  return x_0,x_1,x_2\n"
+    )
     assert ans == exp
 
 
 def test_create_apply_function_string_with_params():
-    ans = create_apply_function_string(['a', 'b', 'c'], ['d', 'e'], ['d'])
-    exp = ("def ap_func(x_0,x_1,x_2,x_3,x_4):\n"
-           "  for i in range(len(x_0)):\n"
-           "    x_0[i],x_1[i],x_2[i] = jitted_f(x_3,x_4[i])\n"
-           "  return x_0,x_1,x_2\n")
+    ans = create_apply_function_string(["a", "b", "c"], ["d", "e"], ["d"])
+    exp = (
+        "def ap_func(x_0,x_1,x_2,x_3,x_4):\n"
+        "  for i in range(len(x_0)):\n"
+        "    x_0[i],x_1[i],x_2[i] = jitted_f(x_3,x_4[i])\n"
+        "  return x_0,x_1,x_2\n"
+    )
     assert ans == exp
 
 
 def test_create_toplevel_function_string_mult_outputs():
-    ans = create_toplevel_function_string(['a', 'b'], ['d', 'e'],
-                                          ['pm', 'pm', 'pf', 'pm'])
-    exp = ''
-    exp = ("def hl_func(pm, pf):\n"
-           "    from pandas import DataFrame\n"
-           "    import numpy as np\n"
-           "    import pandas as pd\n"
-           "    def get_values(x):\n"
-           "        if isinstance(x, pd.Series):\n"
-           "            return x.values\n"
-           "        else:\n"
-           "            return x\n"
-           "    outputs = \\\n"
-           "        (pm.a, pm.b) = \\\n"
-           "        applied_f(get_values(pm.a[0]), get_values(pm.b[0]), "
-           "get_values(pf.d), get_values(pm.e[0]), )\n"
-           "    header = ['a', 'b']\n"
-           "    return DataFrame(data=np.column_stack(outputs),"
-           "columns=header)")
+    ans = create_toplevel_function_string(
+        ["a", "b"], ["d", "e"], ["pm", "pm", "pf", "pm"]
+    )
+    exp = ""
+    exp = (
+        "def hl_func(pm, pf):\n"
+        "    from pandas import DataFrame\n"
+        "    import numpy as np\n"
+        "    import pandas as pd\n"
+        "    def get_values(x):\n"
+        "        if isinstance(x, pd.Series):\n"
+        "            return x.values\n"
+        "        else:\n"
+        "            return x\n"
+        "    outputs = \\\n"
+        "        (pm.a, pm.b) = \\\n"
+        "        applied_f(get_values(pm.a[0]), get_values(pm.b[0]), "
+        "get_values(pf.d), get_values(pm.e[0]), )\n"
+        "    header = ['a', 'b']\n"
+        "    return DataFrame(data=np.column_stack(outputs),"
+        "columns=header)"
+    )
 
     assert ans == exp
 
 
 def test_create_toplevel_function_string():
-    ans = create_toplevel_function_string(['a'], ['d', 'e'],
-                                          ['pm', 'pf', 'pm'])
-    exp = ''
-    exp = ("def hl_func(pm, pf):\n"
-           "    from pandas import DataFrame\n"
-           "    import numpy as np\n"
-           "    import pandas as pd\n"
-           "    def get_values(x):\n"
-           "        if isinstance(x, pd.Series):\n"
-           "            return x.values\n"
-           "        else:\n"
-           "            return x\n"
-           "    outputs = \\\n"
-           "        (pm.a) = \\\n"
-           "        applied_f(get_values(pm.a[0]), get_values(pf.d), "
-           "get_values(pm.e[0]), )\n"
-           "    header = ['a']\n"
-           "    return DataFrame(data=outputs,"
-           "columns=header)")
+    ans = create_toplevel_function_string(["a"], ["d", "e"], ["pm", "pf", "pm"])
+    exp = ""
+    exp = (
+        "def hl_func(pm, pf):\n"
+        "    from pandas import DataFrame\n"
+        "    import numpy as np\n"
+        "    import pandas as pd\n"
+        "    def get_values(x):\n"
+        "        if isinstance(x, pd.Series):\n"
+        "            return x.values\n"
+        "        else:\n"
+        "            return x\n"
+        "    outputs = \\\n"
+        "        (pm.a) = \\\n"
+        "        applied_f(get_values(pm.a[0]), get_values(pf.d), "
+        "get_values(pm.e[0]), )\n"
+        "    header = ['a']\n"
+        "    return DataFrame(data=outputs,"
+        "columns=header)"
+    )
     assert ans == exp
 
 
@@ -84,11 +92,13 @@ def some_calc(x, y, z):
 
 
 def test_make_apply_function():
-    ans_do_jit = make_apply_function(some_calc, ['a', 'b'], ['x', 'y', 'z'],
-                                     [], do_jit=True, no_python=True)
+    ans_do_jit = make_apply_function(
+        some_calc, ["a", "b"], ["x", "y", "z"], [], do_jit=True, no_python=True
+    )
     assert ans_do_jit
-    ans_no_jit = make_apply_function(some_calc, ['a', 'b'], ['x', 'y', 'z'],
-                                     [], do_jit=False, no_python=True)
+    ans_no_jit = make_apply_function(
+        some_calc, ["a", "b"], ["x", "y", "z"], [], do_jit=False, no_python=True
+    )
     assert ans_no_jit
 
 
@@ -102,7 +112,7 @@ def Magic_calc(x, y, z):
 def Magic(pm, pf):
     # Adjustments
     outputs = pf.a, pf.b = Magic_calc(pm, pf)
-    header = ['a', 'b']
+    header = ["a", "b"]
     return DataFrame(data=np.column_stack(outputs), columns=header)
 
 
@@ -134,8 +144,7 @@ def ret_everything(a, b, c, d, e, f):
     e = a + b
     f = a + b
 
-    return (c, d, e,
-            f)
+    return (c, d, e, f)
 
 
 def test_magic_apply_jit():
@@ -183,7 +192,7 @@ def test_faux_function_iterate_jit():
     pf.MARS = np.ones((5,))
     pf.var = np.ones((5,))
     ans = faux_function(pm, pf)
-    exp = DataFrame(data=[2.0] * 5, columns=['var'])
+    exp = DataFrame(data=[2.0] * 5, columns=["var"])
     assert_frame_equal(ans, exp)
 
 
@@ -197,8 +206,7 @@ def test_ret_everything_iterate_jit():
     pf.e = np.ones((5,))
     pf.f = np.ones((5,))
     ans = ret_everything(pm, pf)
-    exp = DataFrame(data=[[2.0, 2.0, 2.0, 2.0]] * 5,
-                    columns=["c", "d", "e", "f"])
+    exp = DataFrame(data=[[2.0, 2.0, 2.0, 2.0]] * 5, columns=["c", "d", "e", "f"])
     assert_frame_equal(ans, exp)
 
 
@@ -218,8 +226,7 @@ def test_function_takes_kwarg():
     pf.y = np.ones((5,))
     pf.z = np.ones((5,))
     ans = Magic_calc3(pm, pf)
-    exp = DataFrame(data=[[2.0, 3.0]] * 5,
-                    columns=["a", "b"])
+    exp = DataFrame(data=[[2.0, 3.0]] * 5, columns=["a", "b"])
     assert_frame_equal(ans, exp)
 
 
@@ -239,12 +246,11 @@ def test_function_no_parameters_listed():
     pf.y = np.ones((5,))
     pf.z = np.ones((5,))
     ans = Magic_calc4(pm, pf)
-    exp = DataFrame(data=[[2.0, 3.0]] * 5,
-                    columns=["a", "b"])
+    exp = DataFrame(data=[[2.0, 3.0]] * 5, columns=["a", "b"])
     assert_frame_equal(ans, exp)
 
 
-@iterate_jit(parameters=['w'], nopython=True)
+@iterate_jit(parameters=["w"], nopython=True)
 def Magic_calc5(w, x, y, z):
     a = x + y
     b = w[0] + x + y + z
@@ -261,8 +267,7 @@ def test_function_parameters_optional():
     pf.y = np.ones((5,))
     pf.z = np.ones((5,))
     ans = Magic_calc5(pm, pf)
-    exp = DataFrame(data=[[2.0, 4.0]] * 5,
-                    columns=["a", "b"])
+    exp = DataFrame(data=[[2.0, 4.0]] * 5, columns=["a", "b"])
     assert_frame_equal(ans, exp)
 
 
@@ -279,12 +284,12 @@ def unjittable_function2(w, x, y, z):
 
 def test_iterate_jit_raises_on_no_return():
     with pytest.raises(ValueError):
-        ij = iterate_jit(parameters=['w'], nopython=True)
+        ij = iterate_jit(parameters=["w"], nopython=True)
         ij(unjittable_function1)
 
 
 def test_iterate_jit_raises_on_unknown_return_argument():
-    ij = iterate_jit(parameters=['w'], nopython=True)
+    ij = iterate_jit(parameters=["w"], nopython=True)
     uf2 = ij(unjittable_function2)
     pm = Foo()
     pf = Foo()
@@ -310,11 +315,11 @@ def test_force_no_jit():
     id_wrapper function in the decorators.py file.
     """
     # set environment variable that turns off JIT decorator logic
-    os.environ['NOTAXCALCJIT'] = 'NOJIT'
+    os.environ["NOTAXCALCJIT"] = "NOJIT"
     # reload the decorators module
     importlib.reload(taxcalc.decorators)
     # verify Magic_calc6 function works as expected
-    Magic_calc6_ = iterate_jit(parameters=['w'], nopython=True)(Magic_calc6)
+    Magic_calc6_ = iterate_jit(parameters=["w"], nopython=True)(Magic_calc6)
     pm = Foo()
     pf = Foo()
     pm.a = np.ones((1, 5))
@@ -324,9 +329,8 @@ def test_force_no_jit():
     pf.y = np.ones((5,))
     pf.z = np.ones((5,))
     ans = Magic_calc6_(pm, pf)
-    exp = DataFrame(data=[[2.0, 4.0]] * 5,
-                    columns=["a", "b"])
+    exp = DataFrame(data=[[2.0, 4.0]] * 5, columns=["a", "b"])
     assert_frame_equal(ans, exp)
     # restore normal JIT operation of decorators module
-    del os.environ['NOTAXCALCJIT']
+    del os.environ["NOTAXCALCJIT"]
     importlib.reload(taxcalc.decorators)

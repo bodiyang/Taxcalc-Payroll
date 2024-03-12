@@ -8,6 +8,7 @@ available and are part of the Tax-Calculator repository.
 
 Read Tax-Calculator/TESTING.md for details.
 """
+
 # CODING-STYLE CHECKS:
 # pycodestyle test_cpscsv.py
 # pylint --disable=locally-disabled test_cpscsv.py
@@ -16,6 +17,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
+
 # pylint: disable=import-error
 from taxcalc import Policy, Records, Calculator
 
@@ -41,29 +43,29 @@ def test_agg(tests_path, cps_fullsample):
     adt = calc.diagnostic_table(nyrs).round(1)  # column labels are int
     taxes_fullsample = adt.loc["Combined Liability ($b)"]
     # compare actual DataFrame, adt, with the expected DataFrame, edt
-    aggres_path = os.path.join(tests_path, 'cpscsv_agg_expect.csv')
+    aggres_path = os.path.join(tests_path, "cpscsv_agg_expect.csv")
     edt = pd.read_csv(aggres_path, index_col=False)  # column labels are str
-    edt.drop('Unnamed: 0', axis='columns', inplace=True)
+    edt.drop("Unnamed: 0", axis="columns", inplace=True)
     assert len(adt.columns.values) == len(edt.columns.values)
     diffs = False
     for icol in adt.columns.values:
         if not np.allclose(adt[icol], edt[str(icol)]):
             diffs = True
     if diffs:
-        new_filename = '{}{}'.format(aggres_path[:-10], 'actual.csv')
-        adt.to_csv(new_filename, float_format='%.1f')
-        msg = 'CPSCSV AGG RESULTS DIFFER\n'
-        msg += '-------------------------------------------------\n'
-        msg += '--- NEW RESULTS IN cpscsv_agg_actual.csv FILE ---\n'
-        msg += '--- if new OK, copy cpscsv_agg_actual.csv to  ---\n'
-        msg += '---                 cpscsv_agg_expect.csv     ---\n'
-        msg += '---            and rerun test.                ---\n'
-        msg += '---       (both are in taxcalc/tests)         ---\n'
-        msg += '-------------------------------------------------\n'
+        new_filename = "{}{}".format(aggres_path[:-10], "actual.csv")
+        adt.to_csv(new_filename, float_format="%.1f")
+        msg = "CPSCSV AGG RESULTS DIFFER\n"
+        msg += "-------------------------------------------------\n"
+        msg += "--- NEW RESULTS IN cpscsv_agg_actual.csv FILE ---\n"
+        msg += "--- if new OK, copy cpscsv_agg_actual.csv to  ---\n"
+        msg += "---                 cpscsv_agg_expect.csv     ---\n"
+        msg += "---            and rerun test.                ---\n"
+        msg += "---       (both are in taxcalc/tests)         ---\n"
+        msg += "-------------------------------------------------\n"
         raise ValueError(msg)
     # create aggregate diagnostic table using unweighted sub-sample of records
     rn_seed = 180  # to ensure sub-sample is always the same
-    subfrac = 0.07# 0.03  # sub-sample fraction
+    subfrac = 0.07  # 0.03  # sub-sample fraction
     subsample = cps_fullsample.sample(frac=subfrac, random_state=rn_seed)
     recs_subsample = Records.cps_constructor(data=subsample)
     calc_subsample = Calculator(policy=baseline_policy, records=recs_subsample)
@@ -71,25 +73,24 @@ def test_agg(tests_path, cps_fullsample):
     adt_subsample = calc_subsample.diagnostic_table(nyrs)
     # compare combined tax liability from full and sub samples for each year
     taxes_subsample = adt_subsample.loc["Combined Liability ($b)"]
-    print('taxes_submsampe = ', taxes_subsample)
-    print('TAXES full sample = ', taxes_fullsample)
-    msg = ''
+    print("taxes_submsampe = ", taxes_subsample)
+    print("TAXES full sample = ", taxes_fullsample)
+    msg = ""
     for cyr in range(calc_start_year, calc_start_year + nyrs):
         if cyr == calc_start_year:
             reltol = 0.0232
         else:
             reltol = 0.0444
-        if not np.allclose(taxes_subsample[cyr], taxes_fullsample[cyr],
-                           atol=0.0, rtol=reltol):
-            reldiff = (taxes_subsample[cyr] / taxes_fullsample[cyr]) - 1.
-            line1 = '\nCPSCSV AGG SUB-vs-FULL RESULTS DIFFER IN {}'
-            line2 = '\n  when subfrac={:.3f}, rtol={:.4f}, seed={}'
-            line3 = '\n  with sub={:.3f}, full={:.3f}, rdiff={:.4f}'
+        if not np.allclose(
+            taxes_subsample[cyr], taxes_fullsample[cyr], atol=0.0, rtol=reltol
+        ):
+            reldiff = (taxes_subsample[cyr] / taxes_fullsample[cyr]) - 1.0
+            line1 = "\nCPSCSV AGG SUB-vs-FULL RESULTS DIFFER IN {}"
+            line2 = "\n  when subfrac={:.3f}, rtol={:.4f}, seed={}"
+            line3 = "\n  with sub={:.3f}, full={:.3f}, rdiff={:.4f}"
             msg += line1.format(cyr)
             msg += line2.format(subfrac, reltol, rn_seed)
-            msg += line3.format(taxes_subsample[cyr],
-                                taxes_fullsample[cyr],
-                                reldiff)
+            msg += line3.format(taxes_subsample[cyr], taxes_fullsample[cyr], reldiff)
     if msg:
         raise ValueError(msg)
 
@@ -101,12 +102,12 @@ def test_cps_availability(tests_path, cps_path):
     cpsdf = pd.read_csv(cps_path)
     cpsvars = set(list(cpsdf))
     # make set of variable names that are marked as cps.csv available
-    rvpath = os.path.join(tests_path, '..', 'records_variables.json')
-    with open(rvpath, 'r') as rvfile:
+    rvpath = os.path.join(tests_path, "..", "records_variables.json")
+    with open(rvpath, "r") as rvfile:
         rvdict = json.load(rvfile)
     recvars = set()
-    for vname, vdict in rvdict['read'].items():
-        if 'taxdata_cps' in vdict.get('availability', ''):
+    for vname, vdict in rvdict["read"].items():
+        if "taxdata_cps" in vdict.get("availability", ""):
             recvars.add(vname)
     # check that cpsvars and recvars sets are the same
     assert (cpsvars - recvars) == set()
@@ -119,6 +120,7 @@ def nonsmall_diffs(linelist1, linelist2, small=0.0):
     Significant numerical difference means one or more numbers differ (between
     linelist1 and linelist2) by more than the specified small amount.
     """
+
     # embedded function used only in nonsmall_diffs function
     def isfloat(value):
         """
@@ -129,6 +131,7 @@ def nonsmall_diffs(linelist1, linelist2, small=0.0):
             return True
         except ValueError:
             return False
+
     # begin nonsmall_diffs logic
     assert isinstance(linelist1, list)
     assert isinstance(linelist2, list)
@@ -141,8 +144,8 @@ def nonsmall_diffs(linelist1, linelist2, small=0.0):
         if line1 == line2:
             continue
         else:
-            tokens1 = line1.replace(',', '').split()
-            tokens2 = line2.replace(',', '').split()
+            tokens1 = line1.replace(",", "").split()
+            tokens2 = line2.replace(",", "").split()
             for tok1, tok2 in zip(tokens1, tokens2):
                 tok1_isfloat = isfloat(tok1)
                 tok2_isfloat = isfloat(tok2)
