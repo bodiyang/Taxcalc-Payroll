@@ -13,7 +13,6 @@ from taxcalc import calcfunctions
 import numpy as np
 import pytest
 
-# test_calc_and_used_vars has been adjusted to only test if the paryoll tax variables are calculated
 
 class GetFuncDefs(ast.NodeVisitor):
     """
@@ -99,17 +98,13 @@ def test_calc_and_used_vars(tests_path):
     # .. add to all_cvars set variables calculated elsewhere
     all_cvars.update(set(['mtr_paytax', 'mtr_inctax']))
     all_cvars.update(set(['benefit_cost_total', 'benefit_value_total']))
-    
-    # .. check that each var in payroll tax calculation is in the all_cvars set
-    payroll_cvars = set()
-    payroll_cvars.update(set(['sey', 'payrolltax', 'ptax_was', 'setax', 'c03260', 'ptax_oasdi',
-                            'earned', 'earned_p', 'earned_s', 'was_plus_sey_p', 'was_plus_sey_s', 
-                            'ptax_amc', 'payrolltax']))
+    # .. check that each var in Records.CALCULATED_VARS is in the all_cvars set
+    records_varinfo = Records(data=None)
     found_error1 = False
-    if not payroll_cvars <= all_cvars:
-        msg1 = ('payroll tax variables not calculated '
+    if not records_varinfo.CALCULATED_VARS <= all_cvars:
+        msg1 = ('all Records.CALCULATED_VARS not calculated '
                 'in calcfunctions.py\n')
-        for var in payroll_cvars - all_cvars:
+        for var in records_varinfo.CALCULATED_VARS - all_cvars:
             found_error1 = True
             msg1 += 'VAR NOT CALCULATED: {}\n'.format(var)
     # Test (2):
@@ -228,22 +223,22 @@ def test_StdDed(test_tuple, expected_value, skip_jit):
     assert np.allclose(test_value, expected_value)
 
 
-tuple1 = (120000, 10000, 15000, 100, 2000, 0.12, 0.03, 0, 99999999999,
-          400, 0, 0, 0, 0, 0, 0, None, None, None, None, None, None,
+tuple1 = (120000, 10000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999, 
+          400, 0, 0, 0, 0, 0, 0, None, None, None, None, None, None, 
           None, None, None, None, None)
-tuple2 = (120000, 10000, 15000, 100, 2000, 0.12, 0.03, 0, 99999999999,
+tuple2 = (120000, 10000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999,
           400, 2000, 0, 10000, 0, 0, 3000, None, None, None, None, None,
           None, None, None, None, None, None)
-tuple3 = (120000, 150000, 15000, 100, 2000, 0.12, 0.03, 0, 99999999999,
+tuple3 = (120000, 150000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999,
           400, 2000, 0, 10000, 0, 0, 3000, None, None, None, None, None,
           None, None, None, None, None, None)
-tuple4 = (120000, 500000, 15000, 100, 2000, 0.12, 0.03, 0, 400000,
+tuple4 = (120000, 500000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 400000,
           400, 2000, 0, 10000, 0, 0, 3000, None, None, None, None, None,
           None, None, None, None, None, None)
-tuple5 = (120000, 10000, 15000, 100, 2000, 0.12, 0.03, 0, 99999999999,
+tuple5 = (120000, 10000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999,
           400, 300, 0, 0, 0, 0, 0, None, None, None, None, None,
           None, None, None, None, None, None)
-tuple6 = (120000, 10000, 15000, 100, 2000, 0.12, 0.03, 0, 99999999999,
+tuple6 = (120000, 10000, 15000, 100, 2000, 0.06, 0.06, 0.015, 0.015, 0, 99999999999,
           400, 0, 0, 0, 0, -40000, 0, None, None, None, None, None,
           None, None, None, None, None, None)
 expected1 = (0, 4065, 4065, 0, 0, 3252, 25000, 10000, 15000, 10100,
