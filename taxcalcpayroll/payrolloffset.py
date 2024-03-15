@@ -109,44 +109,85 @@ def employer_payroll_offset(reform, ccalc, cpolicy, rrecs, dump=False):
         # wage & income above this maximum of OASDI taxable value will be taxed at this value, instead of the value of wage
         taxmax = calc.policy_param("SS_Earnings_c")
 
-        # Implement the employer payroll tax offset upon individual taxpayers e00200p, e00200s
+        # Implement the employer payroll tax offset upon individual taxpayers e00200p, e00200s, pencon_p, pencon_s
         # e00200 the filling unit will be calculated based upon e00200p and e00200s
 
         pre_wage_p = calc.array("e00200p")
-        # check if the taxpaer's wage & income is above or below the maximum OASDI taxable value
-        oasdi_capped_p = pre_wage_p < taxmax
-        # Calculate the offset for the taxpayer's wage & income which is above the maximum OASDI taxable value
+        pre_pencon_p = calc.array("pencon_p")
+
+        pre_wp_p = pre_wage_p + pre_pencon_p
+        # assume the ratio of wage to gross wage will remain the same; the `+$1` is to avoid the $0 condition
+        wage_ratio_p = (pre_wage_p + 1) / (pre_wp_p + 1)
+        # check if the taxpaer's gross wage is above or below the maximum OASDI taxable value
+        oasdi_capped_p = pre_wp_p < taxmax
+
+        # Calculate the offset for the taxpayer's gross wage which is above the maximum OASDI taxable value
         total_comp_above_line_p = (
             1 + rate1_FICA_mc_trt_employer
-        ) * pre_wage_p + rate1_FICA_ss_trt_employer * taxmax
-        new_wage_above_line_p = (
+        ) * pre_wp_p + rate1_FICA_ss_trt_employer * taxmax
+        new_wp_above_line_p = (
             total_comp_above_line_p - rate2_FICA_ss_trt_employer * taxmax
         ) / (1 + rate2_FICA_mc_trt_employer)
+        new_wage_above_line_p = wage_ratio_p * new_wp_above_line_p
+        new_pencon_above_line_p = (1 - wage_ratio_p) * new_wp_above_line_p
+
         # Calculate the offset for the taxpayer's wage & income which is below the maximum OASDI taxable value
         new_wage_below_line_p = pre_wage_p * offset_rate
         new_wage_p = np.where(
             oasdi_capped_p, new_wage_below_line_p, new_wage_above_line_p
         )
+
+        # Calculate the offset for the taxpayer's pencon which is below the maximum OASDI taxable value
+        new_pencon_below_line_p = pre_pencon_p * offset_rate
+        new_pencon_p = np.where(
+            oasdi_capped_p, new_pencon_below_line_p, new_pencon_above_line_p
+        )
+
         calc.zeroarray("e00200p")
         calc.incarray("e00200p", new_wage_p)
 
+        calc.zeroarray("pencon_p")
+        calc.incarray("pencon_p", new_pencon_p)
+
+
+
         pre_wage_s = calc.array("e00200s")
-        # check if the taxpaer's wage & income is above or below the maximum OASDI taxable value
-        oasdi_capped_s = pre_wage_s < taxmax
-        # Calculate the offset for the taxpayer's wage & income which is above the maximum OASDI taxable value
+        pre_pencon_s = calc.array("pencon_s")
+
+        pre_wp_s = pre_wage_s + pre_pencon_s
+        # assume the ratio of wage to gross wage will remain the same; the `+$1` is to avoid the $0 condition
+        wage_ratio_s = (pre_wage_s + 1) / (pre_wp_s + 1)
+        # check if the taxpaer's gross wage is above or below the maximum OASDI taxable value
+        oasdi_capped_s = pre_wp_s < taxmax
+
+        # Calculate the offset for the taxpayer's gross wage which is above the maximum OASDI taxable value
         total_comp_above_line_s = (
             1 + rate1_FICA_mc_trt_employer
-        ) * pre_wage_s + rate1_FICA_ss_trt_employer * taxmax
-        new_wage_above_line_s = (
+        ) * pre_wp_s + rate1_FICA_ss_trt_employer * taxmax
+        new_wp_above_line_s = (
             total_comp_above_line_s - rate2_FICA_ss_trt_employer * taxmax
         ) / (1 + rate2_FICA_mc_trt_employer)
+        new_wage_above_line_s = wage_ratio_s * new_wp_above_line_s
+        new_pencon_above_line_s = (1 - wage_ratio_s) * new_wp_above_line_s
+
         # Calculate the offset for the taxpayer's wage & income which is below the maximum OASDI taxable value
         new_wage_below_line_s = pre_wage_s * offset_rate
         new_wage_s = np.where(
             oasdi_capped_s, new_wage_below_line_s, new_wage_above_line_s
         )
+
+        # Calculate the offset for the taxpayer's pencon which is below the maximum OASDI taxable value
+        new_pencon_below_line_s = pre_pencon_s * offset_rate
+        new_pencon_s = np.where(
+            oasdi_capped_s, new_pencon_below_line_s, new_pencon_above_line_s
+        )
+
         calc.zeroarray("e00200s")
         calc.incarray("e00200s", new_wage_s)
+
+        calc.zeroarray("pencon_s")
+        calc.incarray("pencon_s", new_pencon_s)
+
 
         # note: e00200 is calculated through e00200 = e00200p + e00200s, instead of multiplying the offset rate which may cause this equation not held because of the decimial issues
         new_wage = new_wage_s + new_wage_p
