@@ -170,13 +170,26 @@ def employer_payroll_offset(reform, ccalc, cpolicy, rrecs, dump=False):
         # return to the dataframe
         return df
 
-    # If there is no change upon the empoyersie payroll tax rate, then no offset will be implemented
+    # If there is no change upon the empoyersie payroll tax rate, then no offset will be implemented ~ will only implement the reform
     else:
+        calc = copy.deepcopy(ccalc)
+        dpolicy = copy.deepcopy(cpolicy)
+        drecs = copy.deepcopy(rrecs)
+        # Check function argument types
+        assert isinstance(calc, tc.Calculator) | isinstance(calc, tcp.Calculator)
+        assert isinstance(reform, dict)
+        assert isinstance(dpolicy, tc.Policy)
+        assert isinstance(drecs, tc.Records)
+        CYR = calc.current_year
+        dpolicy.implement_reform(reform, print_warnings=False, raise_errors=False)
+        calc = tc.Calculator(policy=dpolicy, records=drecs)
+        calc.advance_to_year(CYR)
+        calc.calc_all()
         if dump:
             recs_vinfo = tc.Records(data=None)  # contains records VARINFO only
             dvars = list(recs_vinfo.USABLE_READ_VARS | recs_vinfo.CALCULATED_VARS)
-            df = ccalc.dataframe(dvars)
+            df = calc.dataframe(dvars)
 
         else:
-            df = ccalc.dataframe(tc.DIST_VARIABLES)
+            df = calc.dataframe(tc.DIST_VARIABLES)
         return df
