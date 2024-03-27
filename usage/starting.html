@@ -166,7 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Structural overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data.html">Data for Tax-Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data for Taxcalc-Payroll</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../guide/python_interface.html">Python interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guide/cli.html">Command-line interface</a></li>
@@ -452,9 +452,9 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-anaconda-python">Install Anaconda Python</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-tax-calculator-package">Download Tax-Calculator package</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-taxcalc-payroll-package">Download Taxcalc-Payroll package</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#become-a-registered-github-user">Become a registered GitHub user</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-tax-calculator-user-guide">Read Tax-Calculator user guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-taxcalc-payroll-user-guide">Read Taxcalc-Payroll user guide</a></li>
 </ul>
             </nav>
         </div>
@@ -468,10 +468,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="getting-started">
 <h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h1>
-<p>Tax-Calculator packages are available for Windows, Mac, and Linux computers
+<p>Taxcalc-Payroll packages are available for Windows, Mac, and Linux computers
 that have the free Anaconda Python 3.7, 3.8, or 3.9 distribution installed.
-You can use Tax-Calculator without doing any Python programming, but the
-Anaconda distribution is required for Tax-Calculator to run.
+You can use Taxcalc-Payroll without doing any Python programming, but the
+Anaconda distribution is required for Taxcalc-Payroll to run.
 Take the following four steps to get started.</p>
 <section id="install-anaconda-python">
 <h2>Install Anaconda Python<a class="headerlink" href="#install-anaconda-python" title="Permalink to this heading">#</a></h2>
@@ -479,62 +479,58 @@ Take the following four steps to get started.</p>
 <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a>.
 You must do this even if you already have Python installed on your computer,
 because the Anaconda distribution contains all the additional Python packages
-that Tax-Calculator uses to conduct its calculations
+that Taxcalc-Payroll uses to conduct its calculations
 (many of which are not included in other Python installations).
 You can install the Anaconda distribution without having administrative
 privileges on your computer and the Anaconda distribution will not interfere
 with any Python installation that came as part of your computer’s operating
 system.</p>
 </section>
-<section id="download-tax-calculator-package">
-<h2>Download Tax-Calculator package<a class="headerlink" href="#download-tax-calculator-package" title="Permalink to this heading">#</a></h2>
-<p>Download a Tax-Calculator <code class="docutils literal notranslate"><span class="pre">taxcalc</span></code> package for your computer by executing
-this command from the command prompt:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">taxcalc</span>
-</pre></div>
-</div>
-<p>This command will also install all the Python packages required by
-Tax-Calculator.</p>
+<section id="download-taxcalc-payroll-package">
+<h2>Download Taxcalc-Payroll package<a class="headerlink" href="#download-taxcalc-payroll-package" title="Permalink to this heading">#</a></h2>
+<p>Download the Taxcalc-Payroll <code class="docutils literal notranslate"><span class="pre">taxcalcpayroll</span></code> package for your computer:</p>
+<p>Firstly, download the repo from github.</p>
+<p>Then go to the <code class="docutils literal notranslate"><span class="pre">Taxcalc-Payroll</span></code> directory, and excute the command <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code></p>
 </section>
 <section id="become-a-registered-github-user">
 <h2>Become a registered GitHub user<a class="headerlink" href="#become-a-registered-github-user" title="Permalink to this heading">#</a></h2>
-<p>Open a free GitHub account so that you can communicate with Tax-Calculator
+<p>Open a free GitHub account so that you can communicate with Taxcalc-Payroll
 developers.
 This is by far the easiest way to ask questions, make suggestions, or report
 bugs.
-Not only does this put you into direct contact with Tax-Calculator developers,
+Not only does this put you into direct contact with Taxcalc-Payroll developers,
 it allows the community of more experienced users, all of whom are watching the
-Tax-Calculator GitHub repository, to answer your questions.
+Taxcalc-Payroll GitHub repository, to answer your questions.
 You can create an account at the <a class="reference external" href="https://github.com/join">Join GitHub</a>
 webpage.
-And then you can specify how you want to “watch” the Tax-Calculator repository
+And then you can specify how you want to “watch” the Taxcalc-Payroll repository
 by clicking on the <em>Watch</em> button in the upper-right corner of the
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator">Tax-Calculator main page</a>.</p>
+<a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll">Taxcalc-Payroll main page</a>.</p>
 </section>
-<section id="read-tax-calculator-user-guide">
-<h2>Read Tax-Calculator user guide<a class="headerlink" href="#read-tax-calculator-user-guide" title="Permalink to this heading">#</a></h2>
+<section id="read-taxcalc-payroll-user-guide">
+<h2>Read Taxcalc-Payroll user guide<a class="headerlink" href="#read-taxcalc-payroll-user-guide" title="Permalink to this heading">#</a></h2>
 <p>Read the <a class="reference internal" href="../guide/index.html"><span class="doc">User guide</span></a> about how to conduct tax analysis with
-Tax-Calculator two different ways:
+Taxcalc-Payroll two different ways:
 (a) without doing any computer programming, or
 (b) by writing Python programs.
 Then after reading the <a class="reference internal" href="overview.html"><span class="doc">Structural overview</span></a>, you will be in a position to do any of
 the following:</p>
 <ol class="arabic simple">
 <li><p>If you want to <strong>ask a question</strong>,
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/issues">create a new issue</a>
-posing your question about Tax-Calculator as clearly as possible.</p></li>
+<a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll/issues">create a new issue</a>
+posing your question about Taxcalc-Payroll as clearly as possible.</p></li>
 <li><p>If you want to <strong>request an enhancement</strong>,
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/issues">create a new issue</a>
-providing details on what you think should be added to Tax-Calculator.</p></li>
+<a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll/issues">create a new issue</a>
+providing details on what you think should be added to Taxcalc-Payroll.</p></li>
 <li><p>If you want to <strong>report a bug</strong>,
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/issues">create a new issue</a>
-providing details on what you think is wrong with Tax-Calculator.
-An ideal bug report demonstrates for a single filing unit that a Tax-Calculator
+<a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll/issues">create a new issue</a>
+providing details on what you think is wrong with Taxcalc-Payroll.
+An ideal bug report demonstrates for a single filing unit that a Taxcalc-Payroll
 result is not the same as what you get when filling out the relevant IRS tax
 form.</p></li>
 <li><p>If you want to <strong>propose code changes</strong>, follow the directions in the
 <a class="reference internal" href="../contributing/contributor_guide.html"><span class="doc">Contributor guide</span></a> on how to fork and clone the
-Tax-Calculator git repository.
+Taxcalc-Payroll git repository.
 Before developing any code changes, be sure to read completely the contributor
 guide.</p></li>
 </ol>
@@ -605,9 +601,9 @@ guide.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-anaconda-python">Install Anaconda Python</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-tax-calculator-package">Download Tax-Calculator package</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-taxcalc-payroll-package">Download Taxcalc-Payroll package</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#become-a-registered-github-user">Become a registered GitHub user</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-tax-calculator-user-guide">Read Tax-Calculator user guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-taxcalc-payroll-user-guide">Read Taxcalc-Payroll user guide</a></li>
 </ul>
   </nav></div>
 

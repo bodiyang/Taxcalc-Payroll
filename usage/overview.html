@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'usage/overview';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data for Tax-Calculator" href="data.html" />
+    <link rel="next" title="Data for Taxcalc-Payroll" href="data.html" />
     <link rel="prev" title="Getting started" href="starting.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -166,7 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="starting.html">Getting started</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Structural overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data.html">Data for Tax-Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data for Taxcalc-Payroll</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../guide/python_interface.html">Python interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guide/cli.html">Command-line interface</a></li>
@@ -454,7 +454,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-summary">Quick summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-story">Complete story</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilities">Utilities</a></li>
 </ul>
 </li>
 </ul>
@@ -470,13 +469,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="structural-overview">
 <h1>Structural overview<a class="headerlink" href="#structural-overview" title="Permalink to this heading">#</a></h1>
-<p>Tax-Calculator has been designed using <a class="reference external" href="https://www.programiz.com/python-programming/object-oriented-programming">object-oriented programming (OOP)</a>
+<p>Taxcalc-Payroll has been designed using <a class="reference external" href="https://www.programiz.com/python-programming/object-oriented-programming">object-oriented programming (OOP)</a>
 principles.
 There are seven classes and a collection of global utility functions,
 but most Python programming involves using only a few methods in three classes.</p>
 <section id="quick-summary">
 <h2>Quick summary<a class="headerlink" href="#quick-summary" title="Permalink to this heading">#</a></h2>
-<p>Typical Tax-Calculator usage involves creating two Calculator class objects:
+<p>Typical Taxcalc-Payroll usage involves creating two Calculator class objects:
 both containing the same sample of filing units (that is, Records class object),
 but each containing a different tax policy (that is, Policy class object).
 The idea is to compare the calculated tax liabilities of the sample units under
@@ -529,56 +528,27 @@ for Calculator class and all its methods.</p></li>
 </section>
 <section id="complete-story">
 <h2>Complete story<a class="headerlink" href="#complete-story" title="Permalink to this heading">#</a></h2>
-<p>Tax-Calculator contains eight basic classes, and a collection of global utility
-functions, that together provide the full range of Tax-Calculator capabilities.
-Here is a description of their role in Tax-Calculator and a link to each the
+<p>Taxcalc-Payroll contains a series of basic classes and global utility
+functions, that together provide the full range of Taxcalc-Payroll capabilities.
+Here is a description of their role in Taxcalc-Payroll and a link to each the
 detailed documentation and source code for each class and all its methods.</p>
 <section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Data</span></code> → Contains basic logic for manipulating cross-sectional data that
-need to have growth factors and sample weights to age the data to years after
-the data start year.<br />
-Documentation and source code are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/data.py">data.py</a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Records</span></code> → Derived from <code class="docutils literal notranslate"><span class="pre">Data</span></code> and contains attributes of each tax filing
 unit.<br />
 Documentation and source code are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/records.py">records.py</a>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GrowFactors</span></code> → Contains CBO-derived baseline annual growth factors that
-are used to specify price inflation and wage growth rates in the <code class="docutils literal notranslate"><span class="pre">Policy</span></code> class
-object and to specify annual growth factors that are applied to monetary
-attributes of the filing units in the <code class="docutils literal notranslate"><span class="pre">Records</span></code> class object.<br />
-Documentation and source code are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/growfactors.py">growfactors.py</a>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Parameters</span></code> → Contains basic value extrapolation, revision, and validation
-logic for time-varying parameters that can be any of four types and can be
-either scalar-valued or vector-valued.<br />
-Documentation and source code are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/parameters.py">parameters.py</a>.</p></li>
+<a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/records.py">records.py</a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Policy</span></code> → Derived from <code class="docutils literal notranslate"><span class="pre">Parameters</span></code> and contains tax policy parameters.<br />
 Documentation and source code are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/policy.py">policy.py</a>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GrowDiff</span></code> → Derived from <code class="docutils literal notranslate"><span class="pre">Parameters</span></code> and contains differences from
-CBO-derived baseline growth factors in the <code class="docutils literal notranslate"><span class="pre">GrowFactors</span></code> class object.<br />
-Documentation and source code are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/growdiff.py">growdiff.py</a>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Consumption</span></code> → Derived from <code class="docutils literal notranslate"><span class="pre">Parameters</span></code> and contains parameters related
-to consumption that are used in the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> class object.<br />
-Documentation and source code are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/consumption.py">consumption.py</a>.</p></li>
+<a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/policy.py">policy.py</a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Calculator</span></code> → Contains a <code class="docutils literal notranslate"><span class="pre">Policy</span></code> class object, a <code class="docutils literal notranslate"><span class="pre">Records</span></code> class object,
 and a <code class="docutils literal notranslate"><span class="pre">Consumption</span></code> class object, plus functions that contain the logic
 required to calculate income and payroll tax liability for each filing unit.<br />
 Documentation and source code are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/calculator.py">calculator.py</a> and in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/calcfunctions.py">calcfunctions.py</a>.</p></li>
+<a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/calculator.py">calculator.py</a> and in
+<a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/calcfunctions.py">calcfunctions.py</a>.</p></li>
 </ul>
-</section>
-<section id="utilities">
-<h3>Utilities<a class="headerlink" href="#utilities" title="Permalink to this heading">#</a></h3>
-<p>Documentation and source code for the global utility functions are in
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/utils.py">utils.py</a>.</p>
 </section>
 </section>
 </section>
@@ -627,7 +597,7 @@ Documentation and source code are in
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data for Tax-Calculator</p>
+        <p class="prev-next-title">Data for Taxcalc-Payroll</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -649,7 +619,6 @@ Documentation and source code are in
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-summary">Quick summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-story">Complete story</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilities">Utilities</a></li>
 </ul>
 </li>
 </ul>

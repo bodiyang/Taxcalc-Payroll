@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Data for Tax-Calculator &#8212; Taxcalc-Payroll</title>
+    <title>Data for Taxcalc-Payroll &#8212; Taxcalc-Payroll</title>
   
   
   
@@ -166,7 +166,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="starting.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Structural overview</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data for Tax-Calculator</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data for Taxcalc-Payroll</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../guide/python_interface.html">Python interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../guide/cli.html">Command-line interface</a></li>
@@ -441,7 +441,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Data for Tax-Calculator</h1>
+    <h1>Data for Taxcalc-Payroll</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -456,7 +456,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-irs-public-use-file">The IRS Public Use File</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-other-data-in-tax-calculator">Using other data in Tax-Calculator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-other-data-in-taxcalc-payroll">Using other data in Taxcalc-Payroll</a></li>
 </ul>
             </nav>
         </div>
@@ -468,27 +468,27 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="data-for-tax-calculator">
-<h1>Data for Tax-Calculator<a class="headerlink" href="#data-for-tax-calculator" title="Permalink to this heading">#</a></h1>
-<p>A Tax-Calculator <code class="docutils literal notranslate"><span class="pre">Records</span></code> object is created by passing a Pandas DataFrame or a string that provides the path to a CSV file with data you’d like to use in Tax-Calculator.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="data-for-taxcalc-payroll">
+<h1>Data for Taxcalc-Payroll<a class="headerlink" href="#data-for-taxcalc-payroll" title="Permalink to this heading">#</a></h1>
+<p>A Taxcalc-Payroll <code class="docutils literal notranslate"><span class="pre">Records</span></code> object is created by passing a Pandas DataFrame or a string that provides the path to a CSV file with data you’d like to use in Taxcalc-Payroll.</p>
 <section id="taxdata">
 <h2>TaxData<a class="headerlink" href="#taxdata" title="Permalink to this heading">#</a></h2>
-<p>To make Tax-Calculator more useful out of the box, it ships with two data options for users, both of which are created by the <a class="reference external" href="https://github.com/PSLmodels/TaxData">TaxData</a> project.  We refer users to that project for more specific documentation of these data, but we provide a brief overview of the two data options provided by TaxData that come with a Tax-Calculator installation.</p>
+<p>To make Taxcalc-Payroll more useful out of the box, it ships with two data options for users, both of which are created by the <a class="reference external" href="https://github.com/PSLmodels/TaxData">TaxData</a> project.  We refer users to that project for more specific documentation of these data, but we provide a brief overview of the two data options provided by TaxData that come with a Taxcalc-Payroll installation.</p>
 <section id="current-population-survey-data">
 <h3>Current Population Survey Data<a class="headerlink" href="#current-population-survey-data" title="Permalink to this heading">#</a></h3>
-<p>Using the <code class="docutils literal notranslate"><span class="pre">Records.cps_constructor()</span></code> method to create a <code class="docutils literal notranslate"><span class="pre">Records</span></code> class object, Tax-Calculator users will be loading the <code class="docutils literal notranslate"><span class="pre">taxdata</span></code> Current Population Survey (CPS) data file. This file is based on publicly available survey data, which is then weighted via <code class="docutils literal notranslate"><span class="pre">taxdata</span></code> to hit IRS/SOI targets.  The data are then grown out to hit aggregate forecasts through the time horizon available in Tax-Calculator (approximately the next 10 years).</p>
-<p>Tax-Calculator provides unit tests to ensure that certain totals are hit with the CPS-based file.  However, users should note that these tests are simply to ensure <strong>the accuracy of Tax-Calculator’s tax logic</strong> and <strong>not the accuracy of the CPS-based data file produced by <code class="docutils literal notranslate"><span class="pre">taxdata</span></code></strong>.  Please see the <a class="reference external" href="https://github.com/PSLmodels/TaxData">TaxData</a> documentation for any validation of those data.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">Records.cps_constructor()</span></code> method to create a <code class="docutils literal notranslate"><span class="pre">Records</span></code> class object, Taxcalc-Payroll users will be loading the <code class="docutils literal notranslate"><span class="pre">taxdata</span></code> Current Population Survey (CPS) data file. This file is based on publicly available survey data, which is then weighted via <code class="docutils literal notranslate"><span class="pre">taxdata</span></code> to hit IRS/SOI targets.  The data are then grown out to hit aggregate forecasts through the time horizon available in Taxcalc-Payroll (approximately the next 10 years).</p>
+<p>Taxcalc-Payroll provides unit tests to ensure that certain totals are hit with the CPS-based file.  However, users should note that these tests are simply to ensure <strong>the accuracy of Taxcalc-Payroll’s tax logic</strong> and <strong>not the accuracy of the CPS-based data file produced by <code class="docutils literal notranslate"><span class="pre">taxdata</span></code></strong>.  Please see the <a class="reference external" href="https://github.com/PSLmodels/TaxData">TaxData</a> documentation for any validation of those data.</p>
 </section>
 <section id="the-irs-public-use-file">
 <h3>The IRS Public Use File<a class="headerlink" href="#the-irs-public-use-file" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">taxdata</span></code> package also produces a weights file and growth factors file for use with the IRS-SOI Public Use File (PUF).  A given <code class="docutils literal notranslate"><span class="pre">taxdata</span></code> version typically produces these files for a specific vintage of the PUF.  As of <code class="docutils literal notranslate"><span class="pre">taxdata</span></code> v 0.3.1, the 2012 PUF is used.</p>
-<p>For users who have purchased their own version of the PUF, the <code class="docutils literal notranslate"><span class="pre">puf_weights.csv.gz</span></code> and <code class="docutils literal notranslate"><span class="pre">growfactors.csv</span></code> files that are included in Tax-Calculator can be used to create a PUF-based dataset suitable for use in Tax-Calculator.</p>
-<p>We refer users of the PUF to the IRS limitations on the use of those data and their distribution.  We also refer users of the PUF weights file and grow factors to the <a class="reference external" href="https://github.com/PSLmodels/TaxData">TaxData</a> documentation for details on how to use these files with the PUF and to see how well the resulting tax calculations hit aggregate targets published by the IRS.  However, we do note that analysis with a PUF-based data file tends to be the most accurate and validation of Tax-Calculator with other microsimulation models often uses a PUF-based data file.</p>
+<p>For users who have purchased their own version of the PUF, the <code class="docutils literal notranslate"><span class="pre">puf_weights.csv.gz</span></code> and <code class="docutils literal notranslate"><span class="pre">growfactors.csv</span></code> files that are included in Taxcalc-Payroll can be used to create a PUF-based dataset suitable for use in Taxcalc-Payroll.</p>
+<p>We refer users of the PUF to the IRS limitations on the use of those data and their distribution.  We also refer users of the PUF weights file and grow factors to the <a class="reference external" href="https://github.com/PSLmodels/TaxData">TaxData</a> documentation for details on how to use these files with the PUF and to see how well the resulting tax calculations hit aggregate targets published by the IRS.  However, we do note that analysis with a PUF-based data file tends to be the most accurate and validation of Taxcalc-Payroll with other microsimulation models often uses a PUF-based data file.</p>
 </section>
 </section>
-<section id="using-other-data-in-tax-calculator">
-<h2>Using other data in Tax-Calculator<a class="headerlink" href="#using-other-data-in-tax-calculator" title="Permalink to this heading">#</a></h2>
-<p>Using other data sources in Tax-Calculator is possible.  Users can pass any csv file to the <code class="docutils literal notranslate"><span class="pre">Records</span></code> class and, so long as it has the appropriate <a class="reference external" href="https://taxcalc.pslmodels.org/guide/input_vars.html">input variables</a>, one may be able to obtain results.  Using Tax-Calculator with custom data takes care and significant understanding of the model and data.  Those interested in using their own data in Tax-Calculator might also look to the <a class="reference external" href="https://github.com/PSLmodels/Tax-Cruncher">Tax-Cruncher</a> project, which is built as an interface between Tax-Calculator and custom datasets.</p>
+<section id="using-other-data-in-taxcalc-payroll">
+<h2>Using other data in Taxcalc-Payroll<a class="headerlink" href="#using-other-data-in-taxcalc-payroll" title="Permalink to this heading">#</a></h2>
+<p>Using other data sources in Taxcalc-Payroll is possible.  Users can pass any csv file to the <code class="docutils literal notranslate"><span class="pre">Records</span></code> class and, so long as it has the appropriate <a class="reference external" href="https://taxcalc.pslmodels.org/guide/input_vars.html">input variables</a>, one may be able to obtain results.  Using Taxcalc-Payroll with custom data takes care and significant understanding of the model and data.  Those interested in using their own data in Taxcalc-Payroll might also look to the <a class="reference external" href="https://github.com/PSLmodels/Tax-Cruncher">Tax-Cruncher</a> project, which is built as an interface between Taxcalc-Payroll and custom datasets.</p>
 </section>
 </section>
 
@@ -560,7 +560,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-irs-public-use-file">The IRS Public Use File</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-other-data-in-tax-calculator">Using other data in Tax-Calculator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-other-data-in-taxcalc-payroll">Using other data in Taxcalc-Payroll</a></li>
 </ul>
   </nav></div>
 

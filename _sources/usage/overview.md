@@ -1,14 +1,14 @@
 Structural overview
 ===================
 
-Tax-Calculator has been designed using [object-oriented programming (OOP)](https://www.programiz.com/python-programming/object-oriented-programming)
+Taxcalc-Payroll has been designed using [object-oriented programming (OOP)](https://www.programiz.com/python-programming/object-oriented-programming)
 principles.
 There are seven classes and a collection of global utility functions,
 but most Python programming involves using only a few methods in three classes.
 
 ## Quick summary
 
-Typical Tax-Calculator usage involves creating two Calculator class objects:
+Typical Taxcalc-Payroll usage involves creating two Calculator class objects:
 both containing the same sample of filing units (that is, Records class object),
 but each containing a different tax policy (that is, Policy class object).
 The idea is to compare the calculated tax liabilities of the sample units under
@@ -68,59 +68,26 @@ for Calculator class and all its methods.
 
 ## Complete story
 
-Tax-Calculator contains eight basic classes, and a collection of global utility
-functions, that together provide the full range of Tax-Calculator capabilities.
-Here is a description of their role in Tax-Calculator and a link to each the
+Taxcalc-Payroll contains a series of basic classes and global utility
+functions, that together provide the full range of Taxcalc-Payroll capabilities.
+Here is a description of their role in Taxcalc-Payroll and a link to each the
 detailed documentation and source code for each class and all its methods.
 
 ### Classes
 
-*   `Data` → Contains basic logic for manipulating cross-sectional data that
-need to have growth factors and sample weights to age the data to years after
-the data start year.  
-    Documentation and source code are in
-    [data.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/data.py).
-
 *   `Records` → Derived from `Data` and contains attributes of each tax filing
 unit.  
     Documentation and source code are in
-    [records.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/records.py).
-
-*   `GrowFactors` → Contains CBO-derived baseline annual growth factors that
-are used to specify price inflation and wage growth rates in the `Policy` class
-object and to specify annual growth factors that are applied to monetary
-attributes of the filing units in the `Records` class object.  
-    Documentation and source code are in
-    [growfactors.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/growfactors.py).
-
-*   `Parameters` → Contains basic value extrapolation, revision, and validation
-logic for time-varying parameters that can be any of four types and can be
-either scalar-valued or vector-valued.  
-    Documentation and source code are in
-    [parameters.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/parameters.py).
+    [records.py](https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/records.py).
 
 *   `Policy` → Derived from `Parameters` and contains tax policy parameters.  
     Documentation and source code are in
-    [policy.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/policy.py).
-
-*   `GrowDiff` → Derived from `Parameters` and contains differences from
-CBO-derived baseline growth factors in the `GrowFactors` class object.  
-    Documentation and source code are in
-    [growdiff.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/growdiff.py).
-
-*   `Consumption` → Derived from `Parameters` and contains parameters related
-to consumption that are used in the `Calculator` class object.  
-    Documentation and source code are in
-    [consumption.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/consumption.py).
+    [policy.py](https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/policy.py).
 
 *   `Calculator` → Contains a `Policy` class object, a `Records` class object,
 and a `Consumption` class object, plus functions that contain the logic
 required to calculate income and payroll tax liability for each filing unit.  
     Documentation and source code are in
-    [calculator.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/calculator.py) and in
-    [calcfunctions.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/calcfunctions.py).
+    [calculator.py](https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/calculator.py) and in
+    [calcfunctions.py](https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/calcfunctions.py).
 
-### Utilities
-
-Documentation and source code for the global utility functions are in
-[utils.py](https://github.com/PSLmodels/Tax-Calculator/blob/master/taxcalc/utils.py).
