@@ -46,10 +46,9 @@ The cross-model validation work with NBER's TAXSIM model is described
 
 ## A parallel project with Tax-Calculator
 
-Taxcalc-Payroll focuses on payroll tax analysis. It is a parallel project with Tax-Calculator 
-which aims to be focusing more on income tax analysis. Taxcalc-Payroll inherits the infrastructure 
-from Tax-Calculator. Two models are highly integrated. Users can do both income tax and payroll tax
- analysis in either of the model
+Tax-Calculator and Taxcalc-Payroll are the microsimulation models for income tax and paryroll tax analysis.
+They are parallel projects. Two models are highly integrated. Users can do both income tax and payroll tax 
+analysis from either model.
 
 Please read the details at {doc}`about/history`.
 
