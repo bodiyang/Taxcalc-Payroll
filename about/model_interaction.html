@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Roadmap &#8212; Taxcalc-Payroll</title>
+    <title>Model Interaction &#8212; Taxcalc-Payroll</title>
   
   
   
@@ -62,11 +62,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'about/roadmap';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'about/model_interaction';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Contributor guide" href="../contributing/contributor_guide.html" />
-    <link rel="prev" title="History" href="history.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -189,9 +187,8 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Roadmap</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul class="nav bd-sidenav">
@@ -309,7 +306,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/bodiyang/Taxcalc-Payroll/edit/master/docs/about/roadmap.md" target="_blank"
+      <li><a href="https://github.com/bodiyang/Taxcalc-Payroll/edit/master/docs/about/model_interaction.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -326,7 +323,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/bodiyang/Taxcalc-Payroll/issues/new?title=Issue%20on%20page%20%2Fabout/roadmap.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/bodiyang/Taxcalc-Payroll/issues/new?title=Issue%20on%20page%20%2Fabout/model_interaction.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -356,7 +353,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/about/roadmap.md" target="_blank"
+      <li><a href="../_sources/about/model_interaction.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -438,7 +435,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Roadmap</h1>
+    <h1>Model Interaction</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -452,18 +449,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="roadmap">
-<h1>Roadmap<a class="headerlink" href="#roadmap" title="Permalink to this heading">#</a></h1>
-<p>Because Tax-Calculator itself does only static analysis of federal individual income and payroll taxes, it must interact with other models in order to analyze business taxes or conduct non-static analysis. These other models typically use Tax-Calculator to estimate reform-induced changes in after-tax incomes and marginal tax rates, and then use that information to calculate how other taxes or non-static behavior cause changes in individual incomes or expenses. These changes are then fed back to Tax-Calculator so that individual tax liabilities, as well as aggregate and distribution results, can be recalculated. All these interactions between Tax-Calculator and other models are handled by <a class="reference external" href="https://github.com/PSLmodels/Tax-Brain#tax-brain">Tax-Brain</a>.</p>
-<p>The <strong>future development of Tax-Calculator</strong> itself will focus on the following activities:</p>
-<ul class="simple">
-<li><p>Fix bugs in tax-calculation logic.</p></li>
-<li><p>Add new policy parameters to enable parametric simulation of new reforms.</p></li>
-<li><p>Update actual policy parameter values as they become available each year.</p></li>
-<li><p>Update filing-unit data used by Tax-Calculator as they become available.</p></li>
-<li><p>Add ability to use publicly-available synthetic filing-unit data derived from a recent IRS-SOI PUF file.</p></li>
-<li><p>Improve documentation of model logic and data.</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="model-interaction">
+<h1>Model Interaction<a class="headerlink" href="#model-interaction" title="Permalink to this heading">#</a></h1>
+<p>Taxcalc-Payroll is the microsimulation model conducting the static analysis of federal individual income and payroll taxes, it interacts with other models to conduct higher level analysis, like revenue estimation and non-static analysis.</p>
+<p>Taxcalc-Payroll takes the input data (reweighted PUF and CPS data) from <a class="reference external" href="https://github.com/PSLmodels/taxdata">Tax-Data</a> to conduct tax revenue estimation. Taxcalc-Payroll works with <a class="reference external" href="https://github.com/PSLmodels/Behavioral-Responses">Behavior Response Package</a> to conduct the conventional analysis.</p>
+<p>To be noticed, Tax-Calculator and Taxcalc-Payroll are highly integrated. Users can call most of Tax-Calculator’s functions from Taxcalc-Payroll. This means the user can do both income tax and payroll tax analysis from the model. (this also holds for Tax-Calculator)</p>
+<p>Please refer to <a class="reference external" href="https://www.ospc.org/taxmodels/">AEI OSPC webpage</a> for a more detailed documentation.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -496,24 +487,6 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="history.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">History</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="../contributing/contributor_guide.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Contributor guide</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
