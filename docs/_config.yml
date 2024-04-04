@@ -1,6 +1,7 @@
 # Book settings
 title: Taxcalc-Payroll
 author: Bodi Yang
+logo: ospc-aei.png
 exclude_patterns: [guide/make, guide/templates, recipes/md_src, '**/README.md']
 repository:
   url: https://github.com/bodiyang/Taxcalc-Payroll

@@ -7,7 +7,7 @@ Taxcalc-Payroll is a payroll tax model, consisted of (1) payroll tax functions  
 
 ## Origins of Taxcalc-Payroll
 
-Taxcalc-Payroll orginiats from [Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator). 
+Taxcalc-Payroll orginiates from [Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator). 
 
 In the past, Tax-Calculator was the only microsimulation model for both income tax analysis and payroll tax analysis. 
 
