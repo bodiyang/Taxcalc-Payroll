@@ -16,14 +16,9 @@ parts:
     - file: guide/assumption_params
   - file: recipes/index
     sections:
-    - file: recipes/recipe00
-    - file: recipes/recipe01
-    - file: recipes/recipe02
-    - file: recipes/recipe03
-    - file: recipes/recipe04
-    - file: recipes/recipe04_pandas
-    - file: recipes/recipe05
-    - file: recipes/recipe06
+    - file: recipes/recipe1
+    - file: recipes/recipe2
+    - file: recipes/recipe3
 - caption: About
   chapters:
   - file: about/history
