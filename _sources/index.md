@@ -6,7 +6,15 @@ Taxcalc-Payroll
 Taxcalc-Payroll is a microsimulation model for static analysis of
 USA federal payroll taxes.
 
-You can install it from github.  
+Taxcalc-Payroll is developed by Bodi Yang (github @[bodiyang](https://github.com/bodiyang)), 
+from American Enterprise Institute. Contact: bodi.yang@aei.org
+
+If you have questions about or would like to contribute to the project, please contact or 
+submit an issue at the model's repository.
+
+## Intro
+
+You can install the Taxcalc-Payroll from github.  
 
 When using
 [micro data](https://github.com/PSLmodels/taxdata#about-taxdata-repository)
