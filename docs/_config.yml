@@ -17,6 +17,7 @@ launch_buttons:
   notebook_interface: "classic" # or "jupyterlab"
 execute:
   timeout: -1
+  execute_notebooks: 'off'
 
   #######################################################################################
 # Advanced and power-user settings
