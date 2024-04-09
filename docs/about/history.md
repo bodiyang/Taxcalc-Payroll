@@ -1,10 +1,6 @@
 History
 =======
 
-## Functions of Taxcalc-Payroll
-
-Taxcalc-Payroll is a payroll tax model, consisted of (1) payroll tax functions  (2) employer side payroll tax offset function 
-
 ## Origins of Taxcalc-Payroll
 
 Taxcalc-Payroll orginiates from [Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator). 
