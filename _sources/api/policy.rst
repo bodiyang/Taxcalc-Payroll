@@ -1,14 +1,14 @@
 .. _policy:
 
-Tax-Calculator Policy
+Taxcalc-Payroll Policy
 =================================================
 
-**Tax-Calculator Policy**
+**Taxcalc-Payroll Policy**
 
-taxcalc.policy
+taxcalcpayroll.policy
 ------------------------------------------
 
-.. currentmodule:: taxcalc.policy
+.. currentmodule:: taxcalcpayroll.policy
 
 .. autoclass:: Policy
   :members: read_json_reform, implement_reform, parameter_list,

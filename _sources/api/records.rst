@@ -1,14 +1,14 @@
 .. _records:
 
-Tax-Calculator Records
+Taxcalc-Payroll Records
 =================================================
 
-**Tax-Calculator Records**
+**Taxcalc-Payroll Records**
 
-taxcalc.records
+taxcalcpayroll.records
 ------------------------------------------
 
-.. currentmodule:: taxcalc.records
+.. currentmodule:: taxcalcpayroll.records
 
 .. autoclass:: Records
   :members: cps_constructor, increment_year, read_cps_data,

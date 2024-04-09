@@ -203,33 +203,17 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/public_api.html">Tax-Calculator Python API</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Tax-Calculator CalcFunctions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/public_api.html">Taxcalc-Payroll Python API</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Taxcalc-Payroll CalcFunctions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/calculator.html">Tax-Calculator Calculator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/consumption.html">Tax-Calculator Consumption</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/data.html">Tax-Calculator Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/decorators.html">Tax-Calculator Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/growdiff.html">Tax-Calculator GrowDiff</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/growfactors.html">Tax-Calculator GrowFactors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/parameters.html">Tax-Calculator Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Tax-Calculator Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Tax-Calculator Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Taxcalc-Payroll Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Taxcalc-Payroll Records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/taxcalcio.html">Tax-Calculator IO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/utils.html">Tax-Calculator Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/utilsprvt.html">Tax-Calculator Private Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Tax-Calculator CalcFunctions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Taxcalc-Payroll CalcFunctions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/calculator.html">Tax-Calculator Calculator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/consumption.html">Tax-Calculator Consumption</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/data.html">Tax-Calculator Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/decorators.html">Tax-Calculator Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/growdiff.html">Tax-Calculator GrowDiff</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/growfactors.html">Tax-Calculator GrowFactors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/parameters.html">Tax-Calculator Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Tax-Calculator Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Tax-Calculator Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Taxcalc-Payroll Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Taxcalc-Payroll Records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/taxcalcio.html">Tax-Calculator IO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/utils.html">Tax-Calculator Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/utilsprvt.html">Tax-Calculator Private Utilities</a></li>
 </ul>
 </li>
 </ul>
@@ -400,7 +384,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">taxcalc.growfactors</span> <span class="kn">import</span> <span class="n">GrowFactors</span>
 
 
-<div class="viewcode-block" id="Policy"><a class="viewcode-back" href="../../api/policy.html#taxcalc.policy.Policy">[docs]</a><span class="k">class</span> <span class="nc">Policy</span><span class="p">(</span><span class="n">Parameters</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Policy</span><span class="p">(</span><span class="n">Parameters</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Policy is a subclass of the abstract Parameters class, and</span>
 <span class="sd">    therefore, inherits its methods (none of which are shown here).</span>
@@ -489,7 +473,7 @@ document.write(`
                         <span class="n">Policy</span><span class="o">.</span><span class="n">REDEFINED_PARAMS</span><span class="p">,</span>
                         <span class="n">Policy</span><span class="o">.</span><span class="n">WAGE_INDEXED_PARAMS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Policy.read_json_reform"><a class="viewcode-back" href="../../api/policy.html#taxcalc.policy.Policy.read_json_reform">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Policy.read_json_reform"><a class="viewcode-back" href="../../api/policy.html#taxcalcpayroll.policy.Policy.read_json_reform">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_json_reform</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a reform dictionary suitable for use with implement_reform</span>
@@ -499,7 +483,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Parameters</span><span class="o">.</span><span class="n">_read_json_revision</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;policy&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Policy.implement_reform"><a class="viewcode-back" href="../../api/policy.html#taxcalc.policy.Policy.implement_reform">[docs]</a>    <span class="k">def</span> <span class="nf">implement_reform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span>
+<div class="viewcode-block" id="Policy.implement_reform"><a class="viewcode-back" href="../../api/policy.html#taxcalcpayroll.policy.Policy.implement_reform">[docs]</a>    <span class="k">def</span> <span class="nf">implement_reform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span>
                          <span class="n">print_warnings</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">raise_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Implement reform using Tax-Calculator syled reforms/adjustments. Users</span>
@@ -508,7 +492,7 @@ document.write(`
         <span class="c1"># need to do conversion:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="n">print_warnings</span><span class="p">,</span> <span class="n">raise_errors</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Policy.parameter_list"><a class="viewcode-back" href="../../api/policy.html#taxcalc.policy.Policy.parameter_list">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Policy.parameter_list"><a class="viewcode-back" href="../../api/policy.html#taxcalcpayroll.policy.Policy.parameter_list">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">parameter_list</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns list of parameter names in the policy_current_law.json file.</span>
@@ -521,7 +505,7 @@ document.write(`
             <span class="n">defaults</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>  <span class="c1"># pylint: disable=protected-access</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">defaults</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;schema&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Policy.set_rates"><a class="viewcode-back" href="../../api/policy.html#taxcalc.policy.Policy.set_rates">[docs]</a>    <span class="k">def</span> <span class="nf">set_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Policy.set_rates"><a class="viewcode-back" href="../../api/policy.html#taxcalcpayroll.policy.Policy.set_rates">[docs]</a>    <span class="k">def</span> <span class="nf">set_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize taxcalc indexing data.&quot;&quot;&quot;</span>
         <span class="n">cpi_vals</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">vo</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="k">for</span>
@@ -550,7 +534,7 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_wage_growth_rates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gfactors</span><span class="o">.</span><span class="n">wage_growth_rates</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_year</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
 </pre></div>
 
                 </article>

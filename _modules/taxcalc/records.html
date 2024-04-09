@@ -203,33 +203,17 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/public_api.html">Tax-Calculator Python API</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Tax-Calculator CalcFunctions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/public_api.html">Taxcalc-Payroll Python API</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Taxcalc-Payroll CalcFunctions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/calculator.html">Tax-Calculator Calculator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/consumption.html">Tax-Calculator Consumption</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/data.html">Tax-Calculator Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/decorators.html">Tax-Calculator Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/growdiff.html">Tax-Calculator GrowDiff</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/growfactors.html">Tax-Calculator GrowFactors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/parameters.html">Tax-Calculator Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Tax-Calculator Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Tax-Calculator Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Taxcalc-Payroll Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Taxcalc-Payroll Records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/taxcalcio.html">Tax-Calculator IO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/utils.html">Tax-Calculator Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/utilsprvt.html">Tax-Calculator Private Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Tax-Calculator CalcFunctions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/calcfunctions.html">Taxcalc-Payroll CalcFunctions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/calculator.html">Tax-Calculator Calculator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/consumption.html">Tax-Calculator Consumption</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/data.html">Tax-Calculator Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/decorators.html">Tax-Calculator Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/growdiff.html">Tax-Calculator GrowDiff</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/growfactors.html">Tax-Calculator GrowFactors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/parameters.html">Tax-Calculator Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Tax-Calculator Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Tax-Calculator Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/policy.html">Taxcalc-Payroll Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/records.html">Taxcalc-Payroll Records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/taxcalcio.html">Tax-Calculator IO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/utils.html">Tax-Calculator Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/utilsprvt.html">Tax-Calculator Private Utilities</a></li>
 </ul>
 </li>
 </ul>
@@ -401,7 +385,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">taxcalc.utils</span> <span class="kn">import</span> <span class="n">read_egg_csv</span>
 
 
-<div class="viewcode-block" id="Records"><a class="viewcode-back" href="../../api/records.html#taxcalc.records.Records">[docs]</a><span class="k">class</span> <span class="nc">Records</span><span class="p">(</span><span class="n">Data</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Records</span><span class="p">(</span><span class="n">Data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Records is a subclass of the abstract Data class, and therefore,</span>
 <span class="sd">    inherits its methods (none of which are shown here).</span>
@@ -578,7 +562,7 @@ document.write(`
                                      <span class="n">np</span><span class="o">.</span><span class="n">less_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PT_SSTB_income</span><span class="p">,</span> <span class="mi">1</span><span class="p">))):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not all PT_SSTB_income values are 0 or 1&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Records.cps_constructor"><a class="viewcode-back" href="../../api/records.html#taxcalc.records.Records.cps_constructor">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Records.cps_constructor"><a class="viewcode-back" href="../../api/records.html#taxcalcpayroll.records.Records.cps_constructor">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">cps_constructor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">gfactors</span><span class="o">=</span><span class="n">GrowFactors</span><span class="p">(),</span>
                         <span class="n">exact_calculations</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -606,7 +590,7 @@ document.write(`
                        <span class="n">adjust_ratios</span><span class="o">=</span><span class="n">Records</span><span class="o">.</span><span class="n">CPS_RATIOS_FILENAME</span><span class="p">,</span>
                        <span class="n">exact_calculations</span><span class="o">=</span><span class="n">exact_calculations</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Records.increment_year"><a class="viewcode-back" href="../../api/records.html#taxcalc.records.Records.increment_year">[docs]</a>    <span class="k">def</span> <span class="nf">increment_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Records.increment_year"><a class="viewcode-back" href="../../api/records.html#taxcalcpayroll.records.Records.increment_year">[docs]</a>    <span class="k">def</span> <span class="nf">increment_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add one to current year, and also does</span>
 <span class="sd">        extrapolation, reweighting, adjusting for new current year.</span>
@@ -616,7 +600,7 @@ document.write(`
         <span class="c1"># apply variable adjustment ratios</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_year</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Records.read_cps_data"><a class="viewcode-back" href="../../api/records.html#taxcalc.records.Records.read_cps_data">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Records.read_cps_data"><a class="viewcode-back" href="../../api/records.html#taxcalcpayroll.records.Records.read_cps_data">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_cps_data</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return data in cps.csv.gz as a Pandas DataFrame.</span>
@@ -630,7 +614,7 @@ document.write(`
 
     <span class="c1"># ----- begin private methods of Records class -----</span>
 
-<div class="viewcode-block" id="Records._extrapolate"><a class="viewcode-back" href="../../api/records.html#taxcalc.records.Records._extrapolate">[docs]</a>    <span class="k">def</span> <span class="nf">_extrapolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
+<div class="viewcode-block" id="Records._extrapolate"><a class="viewcode-back" href="../../api/records.html#taxcalcpayroll.records.Records._extrapolate">[docs]</a>    <span class="k">def</span> <span class="nf">_extrapolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply to variables the grow factor values for specified calendar year.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -731,7 +715,7 @@ document.write(`
         <span class="c1"># remove local dictionary</span>
         <span class="k">del</span> <span class="n">gfv</span></div>
 
-<div class="viewcode-block" id="Records._adjust"><a class="viewcode-back" href="../../api/records.html#taxcalc.records.Records._adjust">[docs]</a>    <span class="k">def</span> <span class="nf">_adjust</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
+<div class="viewcode-block" id="Records._adjust"><a class="viewcode-back" href="../../api/records.html#taxcalcpayroll.records.Records._adjust">[docs]</a>    <span class="k">def</span> <span class="nf">_adjust</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adjust value of income variables to match SOI distributions</span>
 <span class="sd">        Note: adjustment must leave variables as numpy.ndarray type</span>
@@ -741,7 +725,7 @@ document.write(`
             <span class="c1"># Interest income</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">e00300</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ADJ</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;INT</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">agi_bin</span><span class="p">]</span><span class="o">.</span><span class="n">values</span></div>
 
-<div class="viewcode-block" id="Records._read_ratios"><a class="viewcode-back" href="../../api/records.html#taxcalc.records.Records._read_ratios">[docs]</a>    <span class="k">def</span> <span class="nf">_read_ratios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ratios</span><span class="p">):</span>
+<div class="viewcode-block" id="Records._read_ratios"><a class="viewcode-back" href="../../api/records.html#taxcalcpayroll.records.Records._read_ratios">[docs]</a>    <span class="k">def</span> <span class="nf">_read_ratios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ratios</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read Records adjustment ratios from file or</span>
 <span class="sd">        use specified transposed/no-index DataFrame as ratios or</span>
@@ -771,7 +755,7 @@ document.write(`
             <span class="n">ADJ</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;agi_bin&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ADJ</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ADJ&#39;</span><span class="p">,</span> <span class="n">ADJ</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
-        <span class="k">del</span> <span class="n">ADJ</span></div></div>
+        <span class="k">del</span> <span class="n">ADJ</span></div>
 </pre></div>
 
                 </article>
