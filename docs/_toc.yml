@@ -41,6 +41,6 @@ parts:
     - file: api/policy
     - file: api/records
     - file: api/taxcalcio
-- caption: Tax-Calculator use cases
+- caption: Model use cases
   chapters:
   - file: use_cases

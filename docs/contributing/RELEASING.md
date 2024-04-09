@@ -1,9 +1,9 @@
 Releasing Tax-Caclculator Packages
 ==================================
 
-The following outlines the process to release Tax-Calculator Packages on Conda-Forge and creating a new branch to fix a bug in a previous release.
+The following outlines the process to release Taxcalc-Payroll Packages on Conda-Forge and creating a new branch to fix a bug in a previous release.
 
-Create new `taxcalc` packages
+Create new `taxcalcpayroll` packages
 ===========================
 ```
 
@@ -34,7 +34,7 @@ Create new `taxcalc` packages
 --> create release X.Y.Z on GitHub using master branch
 
 --> Create new package on Conda-Forge for release X.Y.Z
-    --> open a PR to github.com/conda-forge/taxcalc-feedstock where you change the `recipe/meta.yaml` file by updating (1) the version number to X.Y.Z and (2) the checksum to reflect the checksum for the tarball for release X.Y.Z in the Tax-Calculator GitHub repo
+    --> open a PR to github.com/conda-forge/taxcalc-feedstock where you change the `recipe/meta.yaml` file by updating (1) the version number to X.Y.Z and (2) the checksum to reflect the checksum for the tarball for release X.Y.Z in the Taxcalc-Payroll GitHub repo
 
 ====> ADD NEW DEPENDENCY OR UPDATE MINIMUM REQUIRED VERSION <====
 
@@ -53,7 +53,7 @@ Create new `taxcalc` packages
 
 ====> NOTIFY OTHER DEVELOPERS <====
 
---> email Tax-Calculator user list about the new release and packages
+--> email Taxcalc-Payroll user list about the new release and packages
 ```
 
 
@@ -65,7 +65,7 @@ Useful when tip of master branch includes major changes since old release.
 EXAMPLE: fix bug in release 1.4.0 and then release 1.4.1
 
 ```
-$ cd ~/work/PSL/Tax-Calculator
+$ cd ~/work/user_name/Taxcalc-Payroll
 
 $ git checkout master
 
