@@ -12,25 +12,41 @@ from American Enterprise Institute. Contact: bodi.yang@aei.org
 If you have questions about or would like to contribute to the project, please contact or 
 submit an issue at the model's repository.
 
+
 ## Intro
 
-You can install the Taxcalc-Payroll from github.  
-
-When using
-[micro data](https://github.com/PSLmodels/taxdata#about-taxdata-repository)
-that represent the USA population, Taxcalc-Payroll can estimate the aggregate
-revenue and distributional effects of tax reforms under static analysis
-assumptions.
-
-Taxcalc-Payroll can also process custom-created data on one or more filing
-units permitting analysis of how tax reforms affect certain people.
+You can install the Taxcalc-Payroll from github. 
 
 Taxcalc-Payroll interacts with other models in the
 [AEI Open Source Policy Center](https://www.ospc.org/) to conduct non-static
 analysis.
 
+When using [micro data](https://github.com/PSLmodels/taxdata#about-taxdata-repository)
+that represent the USA population, Taxcalc-Payroll can estimate the aggregate
+revenue and distributional effects of tax reforms under static analysis
+assumptions. Taxcalc-Payroll can also process custom-created data on one or more filing
+units permitting analysis of how tax reforms affect certain people.
+
 The Python source code and embedded documentation are available at the
 [Taxcalc-Payroll GitHub repository](https://github.com/bodiyang/Taxcalc-Payroll).
+
+
+## Functions of Taxcalc-Payroll
+
+The core tax calculation functions of the model are consisted of 
+(1) payroll tax calculation functions  (2) employer side payroll tax offset function 
+
+## A parallel project with Tax-Calculator
+
+Tax-Calculator and Taxcalc-Payroll are the microsimulation models for federal tax analysis.
+They are parallel projects with different focus on inomce tax analysis and on payroll tax analysis. 
+However, the two models are highly integrated. Users can do both income tax and payroll tax 
+analysis from either model.
+
+Please read {doc}`about/history`, to learn more details of the relationship between two models.
+
+
+## Usage
 
 Taxcalc-Payroll can simulate an enormous number of tax reforms because tax policy
 is parameterized using over 200 parameters that can be changed by users
@@ -52,25 +68,10 @@ Taxcalc-Payroll with results from other tax models.
 The cross-model validation work with NBER's TAXSIM model is described
 [here](https://github.com/PSLmodels/Tax-Calculator/tree/master/taxcalc/validation).
 
-## A parallel project with Tax-Calculator
-
-Tax-Calculator and Taxcalc-Payroll are the microsimulation models for income tax and paryroll tax analysis.
-They are parallel projects. Two models are highly integrated. Users can do both income tax and payroll tax 
-analysis from either model.
-
-Please read the details at {doc}`about/history`.
 
 ## Latest release
 
 {doc}`0.1.0 (2023-07-28) <about/releases>`
 
 Please read the installation guide at {doc}`usage/starting`.
-
-## Disclaimer
-
-Results will change as Taxcalc-Payroll data and logic improve.
-A fundamental reason for adopting open-source methods in this project is so
-that people from all backgrounds can contribute to the models that our society
-uses to assess economic policy; when community-contributed improvements are
-incorporated, the model will produce different results.
 
