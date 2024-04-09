@@ -222,7 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tax-Calculator use cases</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model use cases</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../use_cases.html">Recorded use cases</a></li>
 </ul>
@@ -454,30 +454,30 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="contributor-guide">
 <h1>Contributor guide<a class="headerlink" href="#contributor-guide" title="Permalink to this heading">#</a></h1>
 <p>The purpose of this guide is to get you to the point where you can
-make improvements to the Tax-Calculator and share them with the rest
+make improvements to the Taxcalc-Payroll and share them with the rest
 of the development team as a GitHub pull request.
 This document assumes that you have read <a class="reference internal" href="../usage/starting.html"><span class="doc">Getting started</span></a> and
 <a class="reference internal" href="../recipes/index.html"><span class="doc">Recipes</span></a>.</p>
-<p>If the objective of your Tax-Calculator improvement is to add the
+<p>If the objective of your Taxcalc-Payroll improvement is to add the
 ability to analyze a tax reform that cannot be analyzed using existing
 policy parameters, then you need to follow the steps described in this
 paragraph <strong>before</strong> preparing a pull request.
 (a) Modify <span class="xref std std-doc">../recipes/recipe06</span> to
 analyze the kind of tax reform you want to add to the list of reforms
-that can be analyzed parametricly by Tax-Calculator.
-(b) Raise a Tax-Calculator issue in which you show your modified recipe 6 that
+that can be analyzed parametricly by Taxcalc-Payroll.
+(b) Raise a Taxcalc-Payroll issue in which you show your modified recipe 6 that
 simulates the reform and provide some numerical results that
 illustrate the effects of the reform.
 In the course of the conversation about your issue, you may be asked to prepare a pull request that would allow this reform to be analyzed using new policy parameters and associated logic.
 If so, follow the directions below when preparing that pull request.</p>
-<p>We keep track of Tax-Calculator source code using the <a class="reference external" href="https://git-scm.com/">Git version
+<p>We keep track of Taxcalc-Payroll source code using the <a class="reference external" href="https://git-scm.com/">Git version
 control system</a> via
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#git">GitHub</a>.  We
 don’t expect you to be an expert Git user.
 Where possible, we link toGit and GitHub documentation to help with some of the unfamiliar terminology (often from this <a class="reference external" href="https://help.github.com/articles/github-glossary/">glossary of GitHub
 terms</a>.
 Following the next steps will get you up and running and contributing to
-Tax-Calculator even if you’ve never used anything like Git and GitHub.
+Taxcalc-Payroll even if you’ve never used anything like Git and GitHub.
 But if you are unfamiliar with the concept of version control, you
 should read an introductory tutorial online.
 A good tutorial can be found
@@ -487,7 +487,7 @@ A good tutorial can be found
 <section id="setup-python">
 <h2>Setup Python<a class="headerlink" href="#setup-python" title="Permalink to this heading">#</a></h2>
 <p>Follow the <a class="reference external" href="https://PSLmodels.github.io/Tax-Calculator/tc_starting.html">getting started instructions</a>,
-but be sure to skip step 2, because the installation of the <code class="docutils literal notranslate"><span class="pre">taxcalc</span></code>
+but be sure to skip step 2, because the installation of the <code class="docutils literal notranslate"><span class="pre">taxcalcpayroll</span></code>
 package will interfere with the testing of changes in the source code.</p>
 <p>If you are new to or have limited experience with Python, you should
 read some introductory tutorials available online.  One such tutorial
@@ -506,60 +506,60 @@ page</a>.</p></li>
 <li><p>Sign in to GitHub and create your own
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#remote">remote</a>
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#repository">repository</a>
-(or “repo” for short) of Tax-Calculator by clicking on
+(or “repo” for short) of Taxcalc-Payroll by clicking on
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#fork">Fork</a> in
-the upper right corner of the <a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator">Tax-Calculator GitHub
+the upper right corner of the <a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll">Taxcalc-Payroll GitHub
 page</a>. Select your
 username when asked “Where should we fork this repository?”</p></li>
 <li><p>From your command line, navigate to the directory on your computer
 where you would like your local repo to live.</p></li>
 <li><p>Create a local repo by entering at the command line the text after
 the <code class="docutils literal notranslate"><span class="pre">$</span></code> character on Mac and Linux (or the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> character on Windows).
-This step creates a directory called Tax-Calculator in
+This step creates a directory called Taxcalc-Payroll in
 the directory that you specified in the prior step:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="p">[</span><span class="n">github</span><span class="o">-</span><span class="n">username</span><span class="p">]</span><span class="o">/</span><span class="n">Tax</span><span class="o">-</span><span class="n">Calculator</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="p">[</span><span class="n">github</span><span class="o">-</span><span class="n">username</span><span class="p">]</span><span class="o">/</span><span class="n">Taxcalc</span><span class="o">-</span><span class="n">Payroll</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 </li>
 <li><p>From your command line or terminal, navigate to your local
-Tax-Calculator directory.</p></li>
+Taxcalc-Payroll directory.</p></li>
 <li><p>Make it easier to
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#push">push</a> your
 local work to others and
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#pull">pull</a>
 others’ work to your local computer by entering at the command
 line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Tax</span><span class="o">-</span><span class="n">Calculator</span>
-<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">upstream</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">PSLmodels</span><span class="o">/</span><span class="n">Tax</span><span class="o">-</span><span class="n">Calculator</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Taxcalc</span><span class="o">-</span><span class="n">Payroll</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">upstream</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bodiyang</span><span class="o">/</span><span class="n">Taxcalc</span><span class="o">-</span><span class="n">Payroll</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 </li>
 <li><p>Create a conda environment with all of the necessary packages to
-execute Tax-Calculator source code in the Tax-Calculator directory:</p>
+execute Taxcalc-Payroll source code in the Taxcalc-Payroll directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span>
 </pre></div>
 </div>
 </li>
-<li><p>The prior command will create a conda environment called <code class="docutils literal notranslate"><span class="pre">taxcalc-dev</span></code>.
+<li><p>The prior command will create a conda environment called <code class="docutils literal notranslate"><span class="pre">taxcalcpayroll-dev</span></code>.
 Activate this environment as follows if working on Mac or Linux:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">activate</span> <span class="n">taxcalc</span><span class="o">-</span><span class="n">dev</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">activate</span> <span class="n">taxcalcpayroll</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p>If you are working on Windows, use the following from the command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">activate</span> <span class="n">taxcalc</span><span class="o">-</span><span class="n">dev</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">activate</span> <span class="n">taxcalcpayroll</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
-<p>Important Note: never conda install the taxcalc package in the
-taxcalc-dev environment because the taxcalc source code and the
+<p>Important Note: never conda install the taxcalcpayroll package in the
+taxcalcpayroll-dev environment because the taxcalcpayroll source code and the
 installed package will conflict.</p>
 </li>
 <li><p>To check that everything is working properly, run the following at
-the command line in the Tax-Calculator directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">taxcalc</span>
+the command line in the Taxcalc-Payroll directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">taxcalcpayroll</span>
 <span class="n">pytest</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;not requires_pufcsv and not pre_release&quot;</span> <span class="o">-</span><span class="n">n4</span>
 </pre></div>
 </div>
-<p>If you do have a copy of the <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file used by Tax-Calculator,
+<p>If you do have a copy of the <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file used by Taxcalc-Payroll,
 then on the second line above omit the <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">requires_pufcsv</span> <span class="pre">and</span></code>
 expression so as to execute <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">-m</span> <span class="pre">&quot;not</span> <span class="pre">pre_release&quot;</span> <span class="pre">-n4</span></code>.</p>
 <p>If all the tests pass, you’re good to go. If they don’t pass, enter
@@ -569,17 +569,17 @@ tests again:</p>
 <span class="n">conda</span> <span class="n">env</span> <span class="n">update</span>
 </pre></div>
 </div>
-<p>For more detail on Tax-Calculator testing procedures, read <a class="reference internal" href="testing.html"><span class="doc">Testing</span></a>.
+<p>For more detail on Taxcalc-Payroll testing procedures, read <a class="reference internal" href="testing.html"><span class="doc">Testing</span></a>.
 If the tests still don’t pass, please contact us.</p>
 </li>
 </ol>
 <p>If you’ve made it this far, you’ve successfully made a remote copy (a
-fork) of central Tax-Calculator repo. That remote repo is hosted on
+fork) of central Taxcalc-Payroll repo. That remote repo is hosted on
 <a class="reference external" href="http://GitHub.com">GitHub.com</a>. You’ve also created a local repo — a
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#clone">clone</a> —
 that lives on your computer and only you can see; you will make your
-changes to the Tax-Calculator by editing the files in the
-Tax-Calculator directory on your computer and then submitting those
+changes to the Taxcalc-Payroll by editing the files in the
+Taxcalc-Payroll directory on your computer and then submitting those
 changes to your local repo. As a new contributor, you will push your
 changes from your local repo to your remote repo when you’re ready to
 share that work with the team.</p>
@@ -590,21 +590,21 @@ the contribution process.</p>
 <section id="workflow">
 <h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this heading">#</a></h2>
 <p>The following text describes a typical workflow for changing
-Tax-Calculator.  Different workflows may be necessary in some
+Taxcalc-Payroll.  Different workflows may be necessary in some
 situations, in which case other contributors are here to help.</p>
 <ol class="arabic">
-<li><p>Before you edit the Tax-Calculator source code on your computer,
-make sure you have the latest version of the central Tax-Calculator
+<li><p>Before you edit the Taxcalc-Payroll source code on your computer,
+make sure you have the latest version of the central Taxcalc-Payroll
 repository by executing the <strong>four</strong> Git commands listed in
 substeps <code class="docutils literal notranslate"><span class="pre">a-d</span></code> (or alternatively by executing just substeps <code class="docutils literal notranslate"><span class="pre">a</span></code> and
 <code class="docutils literal notranslate"><span class="pre">e</span></code>):</p>
 <p>a. Tell Git to switch to the master branch in your local repo.
-Navigate to your local Tax-Calculator directory and enter the
+Navigate to your local Taxcalc-Payroll directory and enter the
 following text at the command line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span>
 </pre></div>
 </div>
-<p>b. Download all of the content from the central Tax-Calculator repo
+<p>b. Download all of the content from the central Taxcalc-Payroll repo
 using the Git
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#fetch">fetch</a>
 command:</p>
@@ -615,7 +615,7 @@ command:</p>
 the central master branch using the Git
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#merge">merge</a>
 command. This step ensures that you are working with the latest
-version of the Tax-Calculator on your computer:</p>
+version of the Taxcalc-Payroll on your computer:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">merge</span> <span class="n">upstream</span><span class="o">/</span><span class="n">master</span>
 </pre></div>
 </div>
@@ -628,13 +628,13 @@ command:</p>
 </div>
 <p>e. As an alternative to executing substeps <code class="docutils literal notranslate"><span class="pre">a-d</span></code>, you can
 simply execute substeps <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">e</span></code>.  If you are working on Mac
-or Linux, execute these commands in the Tax-Calculator directory:</p>
+or Linux, execute these commands in the Taxcalc-Payroll directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span>
 <span class="o">./</span><span class="n">gitsync</span>
 </pre></div>
 </div>
 <p>If you are working on Windows, execute these commands in the
-Tax-Calculator directory:</p>
+Taxcalc-Payroll directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span>
 <span class="n">gitsync</span>
 </pre></div>
@@ -642,22 +642,22 @@ Tax-Calculator directory:</p>
 </li>
 <li><p>Create a new
 <a class="reference external" href="https://help.github.com/articles/github-glossary/#branch">branch</a>
-on your local computer in the Tax-Calculator directory. Think of
+on your local computer in the Taxcalc-Payroll directory. Think of
 your branches as a way to organize your projects. If you want to
 work on this documentation, for example, create a separate branch
 for that work. If you want to change the maximum child care tax
-credit in the Tax-Calculator, create a different branch for that
+credit in the Taxcalc-Payroll, create a different branch for that
 project:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="p">[</span><span class="n">new</span><span class="o">-</span><span class="n">branch</span><span class="o">-</span><span class="n">name</span><span class="p">]</span>
 </pre></div>
 </div>
 </li>
 <li><p>If your changes involve creating a new tax policy parameter, be
-sure to read about the Tax-Calculator <a class="reference internal" href="param_naming.html"><span class="doc">Policy parameter naming and placing conventions</span></a>.</p></li>
+sure to read about the Taxcalc-Payroll <a class="reference internal" href="param_naming.html"><span class="doc">Policy parameter naming and placing conventions</span></a>.</p></li>
 <li><p>As you make changes, frequently check that your changes do not
-introduce bugs or degrade the accuracy of the Tax-Calculator.
+introduce bugs or degrade the accuracy of the Taxcalc-Payroll.
 To do this, run the following commands from the command line from inside
-the Tax-Calculator/taxcalc directory::</p>
+the Taxcalc-Payroll/taxcalcpayroll directory::</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pycodestyle</span> <span class="o">.</span>
 <span class="n">pytest</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;not requires_pufcsv and not pre_release&quot;</span> <span class="o">-</span><span class="n">n4</span>
 </pre></div>
@@ -716,7 +716,7 @@ your final commit and push your local branch to your remote repo:</p>
 </pre></div>
 </div>
 </li>
-<li><p>From the <a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator">central GitHub Tax-Calculator
+<li><p>From the <a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll">central GitHub Taxcalc-Payroll
 page</a>, open a
 <a class="reference external" href="https://help.github.com/articles/creating-a-pull-request/#creating-the-pull-request">pull request</a>
 containing the changes in your local branch.</p></li>

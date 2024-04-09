@@ -222,7 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tax-Calculator use cases</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model use cases</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../use_cases.html">Recorded use cases</a></li>
 </ul>
@@ -438,7 +438,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Releasing Tax-Caclculator Packages</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-new-taxcalc-packages">Create new <code class="docutils literal notranslate"><span class="pre">taxcalc</span></code> packages</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-new-taxcalcpayroll-packages">Create new <code class="docutils literal notranslate"><span class="pre">taxcalcpayroll</span></code> packages</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-branch-to-fix-a-bug-in-an-old-release">Creating a new branch to fix a bug in an old release</a></li>
 </ul>
 
@@ -454,10 +454,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="releasing-tax-caclculator-packages">
 <h1>Releasing Tax-Caclculator Packages<a class="headerlink" href="#releasing-tax-caclculator-packages" title="Permalink to this heading">#</a></h1>
-<p>The following outlines the process to release Tax-Calculator Packages on Conda-Forge and creating a new branch to fix a bug in a previous release.</p>
+<p>The following outlines the process to release Taxcalc-Payroll Packages on Conda-Forge and creating a new branch to fix a bug in a previous release.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="create-new-taxcalc-packages">
-<h1>Create new <code class="docutils literal notranslate"><span class="pre">taxcalc</span></code> packages<a class="headerlink" href="#create-new-taxcalc-packages" title="Permalink to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="create-new-taxcalcpayroll-packages">
+<h1>Create new <code class="docutils literal notranslate"><span class="pre">taxcalcpayroll</span></code> packages<a class="headerlink" href="#create-new-taxcalcpayroll-packages" title="Permalink to this heading">#</a></h1>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 --&gt; on branch X-Y-Z, edit RELEASES.md to finalize X.Y.Z info
 
@@ -486,7 +486,7 @@ document.write(`
 --&gt; create release X.Y.Z on GitHub using master branch
 
 --&gt; Create new package on Conda-Forge for release X.Y.Z
-    --&gt; open a PR to github.com/conda-forge/taxcalc-feedstock where you change the `recipe/meta.yaml` file by updating (1) the version number to X.Y.Z and (2) the checksum to reflect the checksum for the tarball for release X.Y.Z in the Tax-Calculator GitHub repo
+    --&gt; open a PR to github.com/conda-forge/taxcalc-feedstock where you change the `recipe/meta.yaml` file by updating (1) the version number to X.Y.Z and (2) the checksum to reflect the checksum for the tarball for release X.Y.Z in the Taxcalc-Payroll GitHub repo
 
 ====&gt; ADD NEW DEPENDENCY OR UPDATE MINIMUM REQUIRED VERSION &lt;====
 
@@ -505,7 +505,7 @@ document.write(`
 
 ====&gt; NOTIFY OTHER DEVELOPERS &lt;====
 
---&gt; email Tax-Calculator user list about the new release and packages
+--&gt; email Taxcalc-Payroll user list about the new release and packages
 </pre></div>
 </div>
 </section>
@@ -513,7 +513,7 @@ document.write(`
 <h1>Creating a new branch to fix a bug in an old release<a class="headerlink" href="#creating-a-new-branch-to-fix-a-bug-in-an-old-release" title="Permalink to this heading">#</a></h1>
 <p>Useful when tip of master branch includes major changes since old release.</p>
 <p>EXAMPLE: fix bug in release 1.4.0 and then release 1.4.1</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/work/PSL/Tax-Calculator
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/work/user_name/Taxcalc-Payroll
 
 $ git checkout master
 
@@ -599,7 +599,7 @@ $ git merge 1-4-1
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Releasing Tax-Caclculator Packages</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-new-taxcalc-packages">Create new <code class="docutils literal notranslate"><span class="pre">taxcalc</span></code> packages</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-new-taxcalcpayroll-packages">Create new <code class="docutils literal notranslate"><span class="pre">taxcalcpayroll</span></code> packages</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-branch-to-fix-a-bug-in-an-old-release">Creating a new branch to fix a bug in an old release</a></li>
 </ul>
 

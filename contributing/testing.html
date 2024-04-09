@@ -222,7 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tax-Calculator use cases</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Model use cases</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../use_cases.html">Recorded use cases</a></li>
 </ul>
@@ -455,17 +455,17 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="testing">
 <h1>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">#</a></h1>
-<p>This description of Tax-Calculator testing procedures is written for a
-person who wants to contribute changes to Tax-Calculator source code.</p>
+<p>This description of Taxcalc-Payroll testing procedures is written for a
+person who wants to contribute changes to Taxcalc-Payroll source code.</p>
 <p>It assumes that you have read <a class="reference internal" href="contributor_guide.html"><span class="doc">Contributor guide</span></a> and <a class="reference internal" href="param_naming.html"><span class="doc">Policy parameter naming and placing conventions</span></a>,
-have forked the <a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator">central GitHub Tax-Calculator
+have forked the <a class="reference external" href="https://github.com/bodiyang/Taxcalc-Payroll">central GitHub Taxcalc-Payroll
 repository</a>
 to your GitHub account, and have cloned that forked copy to your local
 computer.</p>
 <p>This document also assumes that you have read <a class="reference internal" href="pr_workflow.html"><span class="doc">Pull request workflow</span></a>
 so that you understand where the testing procedures fit into
 the broader workflow of preparing a pull request that changes
-Tax-Calculator source code.</p>
+Taxcalc-Payroll source code.</p>
 <p>Currently there are two phases of testing.</p>
 <section id="testing-with-pycodestyle-the-program-formerly-known-as-pep8">
 <h2>Testing with <code class="docutils literal notranslate"><span class="pre">pycodestyle</span></code> (the program formerly known as pep8)<a class="headerlink" href="#testing-with-pycodestyle-the-program-formerly-known-as-pep8" title="Permalink to this heading">#</a></h2>
@@ -496,13 +496,13 @@ contains a representative sample of tax filing units derived from
 the IRS-SOI PUF data.</p>
 <p>A brief description of the <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file is followed by
 instructions on how to run the two variants of the second-phase tests.</p>
-<p>The Tax-Calculator <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file has been constructed by the core
+<p>The Taxcalc-Payroll <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file has been constructed by the core
 development team by merging information from the most recent publicly
 available IRS-SOI PUF file and from the Census CPS file for the
 corresponding year.  If you have acquired from IRS the most recent SOI
 PUF file and want to execute the tests that require the <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code>
 file, contact the core development team to discuss your options.</p>
-<p>If you have access to the Tax-Calculator <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file, you should
+<p>If you have access to the Taxcalc-Payroll <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file, you should
 have access to the private GitHub repository <code class="docutils literal notranslate"><span class="pre">taxpuf</span></code>, from which
 updates of the <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> are distributed.  When you receive a private
 email announcing a new version of the <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file, be sure to
@@ -511,7 +511,7 @@ execute a <code class="docutils literal notranslate"><span class="pre">conda</sp
 described below.</p>
 <p><strong>NO PUF.CSV</strong>: If you do not have access to the <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file (or if
 you want to do just a quick test), run the second-phase of testing as
-follows at the command prompt in the tax-calculator directory at the
+follows at the command prompt in the Taxcalc-Payroll directory at the
 top of the repository directory tree:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">taxcalc</span>
 <span class="n">pytest</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;not requires_pufcsv and not pre_release&quot;</span> <span class="o">-</span><span class="n">n4</span>
@@ -527,7 +527,7 @@ calls for using as many as four CPU cores for parallel execution of the
 tests.  If you want sequential execution of the tests (which will
 take at least twice as long to execute), simply omit the <code class="docutils literal notranslate"><span class="pre">-n4</span></code> option.</p>
 <p><strong>HAVE PUF.CSV</strong>: If you do have access to the <code class="docutils literal notranslate"><span class="pre">puf.csv</span></code> file, copy it
-into the Tax-Calculator directory at the top of the repository
+into the Taxcalc-Payroll directory at the top of the repository
 directory tree (but <strong>never</strong> add it to your repository) and run the
 second-phase of testing as follows at the command prompt in the
 top-level directory:</p>
@@ -544,7 +544,7 @@ of unit tests is roughly two minutes.  The <code class="docutils literal notrans
 using as many as four CPU cores for parallel execution of the tests.
 If you want sequential execution of the tests (which will take at
 least twice as long to execute), simply omit the <code class="docutils literal notranslate"><span class="pre">-n4</span></code> option.</p>
-<p>Just before releasing a new version of Tax-Calculator or just after
+<p>Just before releasing a new version of Taxcalc-Payroll or just after
 adding a new parameter to <code class="docutils literal notranslate"><span class="pre">policy_current_law.json</span></code>, you should also
 execute the pre-release tests using this command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">taxcalc</span>
@@ -553,7 +553,7 @@ execute the pre-release tests using this command:</p>
 </pre></div>
 </div>
 <p>But if you execute the pre_release tests well before releasing a new
-version of Tax-Calculator, be sure <strong>not</strong> to include the updated
+version of Taxcalc-Payroll, be sure <strong>not</strong> to include the updated
 <code class="docutils literal notranslate"><span class="pre">docs/index.html</span></code> file in your commit.  After checking that you can
 make a <code class="docutils literal notranslate"><span class="pre">docs/index.html</span></code> file that is correct, revert to the old
 version of <code class="docutils literal notranslate"><span class="pre">docs/index.html</span></code> by executing this command:</p>
@@ -561,18 +561,18 @@ version of <code class="docutils literal notranslate"><span class="pre">docs/ind
 </pre></div>
 </div>
 <p>Following this procedure will ensure that the documentation is not
-updated before the Tax-Calculator release is available.</p>
+updated before the Taxcalc-Payroll release is available.</p>
 </section>
 <section id="interpreting-test-results">
 <h2>Interpreting test results<a class="headerlink" href="#interpreting-test-results" title="Permalink to this heading">#</a></h2>
 <p>If you are adding an enhancement that expands the capabilities of the
-Tax-Calculator, then all the tests you can run should pass before you
+Taxcalc-Payroll, then all the tests you can run should pass before you
 submit a pull request containing the enhancement.  In addition, it
 would be highly desirable to add a test to the pytest suite, which is
-located in the <code class="docutils literal notranslate"><span class="pre">taxcalc/tests</span></code> directory, that somehow checks that
+located in the <code class="docutils literal notranslate"><span class="pre">taxcalcpayroll/tests</span></code> directory, that somehow checks that
 your enhancement is working as you expect it to work.</p>
 <p>On the other hand, if you think you have found a bug in the
-Tax-Calculator source code, the first thing to do is add a test to the
+Taxcalc-Payroll source code, the first thing to do is add a test to the
 pytest suite that demonstrates how the source code produces an
 incorrect result (that is, the test fails because the result is
 incorrect).  Then change the source code to fix the bug and
@@ -595,7 +595,7 @@ to update the test results.</p>
 broader set coding styles than does <code class="docutils literal notranslate"><span class="pre">pycodestyle</span></code>.  The use of
 <code class="docutils literal notranslate"><span class="pre">pylint</span></code>, while being the number one recommendation in the <a class="reference external" href="https://google.github.io/styleguide/pyguide.html">Google
 Python Style Guide</a>,
-is strictly-speaking optional for Tax-Calculator work.  But several
+is strictly-speaking optional for Taxcalc-Payroll work.  But several
 important files in the repository are maintained in a way that their
 coding style does not generate any <code class="docutils literal notranslate"><span class="pre">pylint</span></code> warnings.  You can
 determine which files these are by looking for the comments near the
