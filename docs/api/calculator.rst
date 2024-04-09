@@ -8,7 +8,7 @@ Tax-Calculator Calculator
 taxcalc.calculator
 ------------------------------------------
 
-.. currentmodule:: taxcalc.calculator
+.. currentmodule:: taxcalcpayroll.calculator
 
 .. autoclass:: Calculator
   :members: increment_year, advance_to_year, calc_all, weighted_total,
