@@ -37,17 +37,9 @@ parts:
     sections:
     - file: api/calcfunctions
     - file: api/calculator
-    - file: api/consumption
-    - file: api/data
-    - file: api/decorators
-    - file: api/growdiff
-    - file: api/growfactors
-    - file: api/parameters
     - file: api/policy
     - file: api/records
     - file: api/taxcalcio
-    - file: api/utils
-    - file: api/utilsprvt
 - caption: Tax-Calculator use cases
   chapters:
   - file: use_cases

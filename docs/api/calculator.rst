@@ -1,11 +1,11 @@
 .. _calculator:
 
-Tax-Calculator Calculator
+Taxcalc-Payroll Calculator
 =================================================
 
-**Tax-Calculator Calculator**
+**Taxcalc-Payroll Calculator**
 
-taxcalc.calculator
+taxcalcpayroll.calculator
 ------------------------------------------
 
 .. currentmodule:: taxcalcpayroll.calculator
