@@ -37,6 +37,7 @@ parts:
     sections:
     - file: api/calcfunctions
     - file: api/calculator
+    - file: api/payrolloffset
     - file: api/policy
     - file: api/records
     - file: api/taxcalcio
