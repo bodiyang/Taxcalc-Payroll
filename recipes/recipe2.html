@@ -562,6 +562,12 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/bodiyang/Desktop/taxcalc/Tax-Calculator/taxcalc/records.py:353: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  self.e00300 *= self.ADJ[&#39;INT{}&#39;.format(year)][self.agi_bin].values
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="function-usage">
@@ -678,20 +684,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/bodiyang/Desktop/taxcalc/Tax-Calculator/taxcalc/records.py:353: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  self.e00300 *= self.ADJ[&#39;INT{}&#39;.format(year)][self.agi_bin].values
-/Users/bodiyang/Desktop/taxcalc/Tax-Calculator/taxcalc/records.py:353: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  self.e00300 *= self.ADJ[&#39;INT{}&#39;.format(year)][self.agi_bin].values
-/Users/bodiyang/Desktop/taxcalc/Tax-Calculator/taxcalc/records.py:353: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  self.e00300 *= self.ADJ[&#39;INT{}&#39;.format(year)][self.agi_bin].values
-/Users/bodiyang/Desktop/taxcalc/Tax-Calculator/taxcalc/records.py:353: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  self.e00300 *= self.ADJ[&#39;INT{}&#39;.format(year)][self.agi_bin].values
-/Users/bodiyang/Desktop/taxcalc/Tax-Calculator/taxcalc/records.py:353: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  self.e00300 *= self.ADJ[&#39;INT{}&#39;.format(year)][self.agi_bin].values
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -716,6 +708,124 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_0fa07">
+  <thead>
+    <tr>
+      <th id="T_0fa07_level0_col0" class="col_heading level0 col0" >Year</th>
+      <th id="T_0fa07_level0_col1" class="col_heading level0 col1" >Baseline Tototal Revenue</th>
+      <th id="T_0fa07_level0_col2" class="col_heading level0 col2" >Reform Tototal Revenue (no offset)</th>
+      <th id="T_0fa07_level0_col3" class="col_heading level0 col3" >Reform Tototal Revenue with offset</th>
+      <th id="T_0fa07_level0_col4" class="col_heading level0 col4" >Diff: Reform - Baseline</th>
+      <th id="T_0fa07_level0_col5" class="col_heading level0 col5" >Diff: Offset - Reform</th>
+      <th id="T_0fa07_level0_col6" class="col_heading level0 col6" >Diff: Offset - Baseline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_0fa07_row0_col0" class="data row0 col0" >2024</td>
+      <td id="T_0fa07_row0_col1" class="data row0 col1" >3757.610000</td>
+      <td id="T_0fa07_row0_col2" class="data row0 col2" >3757.610000</td>
+      <td id="T_0fa07_row0_col3" class="data row0 col3" >3757.610000</td>
+      <td id="T_0fa07_row0_col4" class="data row0 col4" >0.000000</td>
+      <td id="T_0fa07_row0_col5" class="data row0 col5" >0.000000</td>
+      <td id="T_0fa07_row0_col6" class="data row0 col6" >0.000000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row1_col0" class="data row1 col0" >2025</td>
+      <td id="T_0fa07_row1_col1" class="data row1 col1" >3952.990000</td>
+      <td id="T_0fa07_row1_col2" class="data row1 col2" >4053.780000</td>
+      <td id="T_0fa07_row1_col3" class="data row1 col3" >4023.510000</td>
+      <td id="T_0fa07_row1_col4" class="data row1 col4" >100.790000</td>
+      <td id="T_0fa07_row1_col5" class="data row1 col5" >-30.270000</td>
+      <td id="T_0fa07_row1_col6" class="data row1 col6" >70.520000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row2_col0" class="data row2 col0" >2026</td>
+      <td id="T_0fa07_row2_col1" class="data row2 col1" >4353.220000</td>
+      <td id="T_0fa07_row2_col2" class="data row2 col2" >4458.410000</td>
+      <td id="T_0fa07_row2_col3" class="data row2 col3" >4423.900000</td>
+      <td id="T_0fa07_row2_col4" class="data row2 col4" >105.190000</td>
+      <td id="T_0fa07_row2_col5" class="data row2 col5" >-34.510000</td>
+      <td id="T_0fa07_row2_col6" class="data row2 col6" >70.680000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row3_col0" class="data row3 col0" >2027</td>
+      <td id="T_0fa07_row3_col1" class="data row3 col1" >4543.830000</td>
+      <td id="T_0fa07_row3_col2" class="data row3 col2" >4653.240000</td>
+      <td id="T_0fa07_row3_col3" class="data row3 col3" >4617.230000</td>
+      <td id="T_0fa07_row3_col4" class="data row3 col4" >109.410000</td>
+      <td id="T_0fa07_row3_col5" class="data row3 col5" >-36.010000</td>
+      <td id="T_0fa07_row3_col6" class="data row3 col6" >73.400000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row4_col0" class="data row4 col0" >2028</td>
+      <td id="T_0fa07_row4_col1" class="data row4 col1" >4737.260000</td>
+      <td id="T_0fa07_row4_col2" class="data row4 col2" >4850.960000</td>
+      <td id="T_0fa07_row4_col3" class="data row4 col3" >4813.430000</td>
+      <td id="T_0fa07_row4_col4" class="data row4 col4" >113.700000</td>
+      <td id="T_0fa07_row4_col5" class="data row4 col5" >-37.530000</td>
+      <td id="T_0fa07_row4_col6" class="data row4 col6" >76.170000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row5_col0" class="data row5 col0" >2029</td>
+      <td id="T_0fa07_row5_col1" class="data row5 col1" >4935.730000</td>
+      <td id="T_0fa07_row5_col2" class="data row5 col2" >5053.900000</td>
+      <td id="T_0fa07_row5_col3" class="data row5 col3" >5014.790000</td>
+      <td id="T_0fa07_row5_col4" class="data row5 col4" >118.170000</td>
+      <td id="T_0fa07_row5_col5" class="data row5 col5" >-39.110000</td>
+      <td id="T_0fa07_row5_col6" class="data row5 col6" >79.060000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row6_col0" class="data row6 col0" >2030</td>
+      <td id="T_0fa07_row6_col1" class="data row6 col1" >5139.730000</td>
+      <td id="T_0fa07_row6_col2" class="data row6 col2" >5262.540000</td>
+      <td id="T_0fa07_row6_col3" class="data row6 col3" >5221.780000</td>
+      <td id="T_0fa07_row6_col4" class="data row6 col4" >122.810000</td>
+      <td id="T_0fa07_row6_col5" class="data row6 col5" >-40.760000</td>
+      <td id="T_0fa07_row6_col6" class="data row6 col6" >82.050000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row7_col0" class="data row7 col0" >2031</td>
+      <td id="T_0fa07_row7_col1" class="data row7 col1" >5348.200000</td>
+      <td id="T_0fa07_row7_col2" class="data row7 col2" >5475.840000</td>
+      <td id="T_0fa07_row7_col3" class="data row7 col3" >5433.370000</td>
+      <td id="T_0fa07_row7_col4" class="data row7 col4" >127.640000</td>
+      <td id="T_0fa07_row7_col5" class="data row7 col5" >-42.470000</td>
+      <td id="T_0fa07_row7_col6" class="data row7 col6" >85.170000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row8_col0" class="data row8 col0" >2032</td>
+      <td id="T_0fa07_row8_col1" class="data row8 col1" >5549.990000</td>
+      <td id="T_0fa07_row8_col2" class="data row8 col2" >5682.670000</td>
+      <td id="T_0fa07_row8_col3" class="data row8 col3" >5638.450000</td>
+      <td id="T_0fa07_row8_col4" class="data row8 col4" >132.680000</td>
+      <td id="T_0fa07_row8_col5" class="data row8 col5" >-44.220000</td>
+      <td id="T_0fa07_row8_col6" class="data row8 col6" >88.460000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row9_col0" class="data row9 col0" >2033</td>
+      <td id="T_0fa07_row9_col1" class="data row9 col1" >5781.670000</td>
+      <td id="T_0fa07_row9_col2" class="data row9 col2" >5918.520000</td>
+      <td id="T_0fa07_row9_col3" class="data row9 col3" >5872.840000</td>
+      <td id="T_0fa07_row9_col4" class="data row9 col4" >136.850000</td>
+      <td id="T_0fa07_row9_col5" class="data row9 col5" >-45.680000</td>
+      <td id="T_0fa07_row9_col6" class="data row9 col6" >91.170000</td>
+    </tr>
+    <tr>
+      <td id="T_0fa07_row10_col0" class="data row10 col0" >10 year 2024-2033</td>
+      <td id="T_0fa07_row10_col1" class="data row10 col1" >48100.230000</td>
+      <td id="T_0fa07_row10_col2" class="data row10 col2" >49167.470000</td>
+      <td id="T_0fa07_row10_col3" class="data row10 col3" >48816.910000</td>
+      <td id="T_0fa07_row10_col4" class="data row10 col4" >1067.240000</td>
+      <td id="T_0fa07_row10_col5" class="data row10 col5" >-350.560000</td>
+      <td id="T_0fa07_row10_col6" class="data row10 col6" >716.680000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
 </section>
 </section>
