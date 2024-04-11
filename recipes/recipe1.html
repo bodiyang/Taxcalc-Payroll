@@ -517,7 +517,6 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">taxcalcpayroll</span> <span class="k">as</span> <span class="nn">tcp</span>
-<span class="kn">import</span> <span class="nn">taxcalc</span> <span class="k">as</span> <span class="nn">tc</span>
 </pre></div>
 </div>
 </div>
@@ -568,7 +567,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># multi year usage</span>
-<span class="k">for</span> <span class="n">cyr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span><span class="mi">2032</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">cyr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span><span class="mi">2034</span><span class="p">):</span>
     <span class="c1"># advance to and calculate for specified cyr</span>
     <span class="n">calc1</span><span class="o">.</span><span class="n">advance_to_year</span><span class="p">(</span><span class="n">cyr</span><span class="p">)</span>
     <span class="n">calc1</span><span class="o">.</span><span class="n">calc_all</span><span class="p">()</span>
@@ -595,6 +594,10 @@ $ 1915.16 Billions</p>
 $ 1990.95 Billions</p>
 <p>Year  2031 : total payroll tax revenue is
 $ 2069.63 Billions</p>
+<p>Year  2032 : total payroll tax revenue is
+$ 2151.42 Billions</p>
+<p>Year  2033 : total payroll tax revenue is
+$ 2221.94 Billions</p>
 </section>
 </section>
 </section>

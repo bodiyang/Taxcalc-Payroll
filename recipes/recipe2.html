@@ -508,8 +508,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">taxcalcpayroll</span> <span class="k">as</span> <span class="nn">tcp</span>
-<span class="kn">import</span> <span class="nn">taxcalc</span> <span class="k">as</span> <span class="nn">tc</span>
 <span class="kn">from</span> <span class="nn">taxcalcpayroll.payrolloffset</span> <span class="kn">import</span> <span class="n">employer_payroll_offset</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -580,12 +582,39 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In 2025, combined tax revenue under reformed policy, after the offset, is:  4023.508250234729
+</pre></div>
+</div>
+</div>
 </div>
 <p>In 2025, combined tax revenue under reformed policy, after the offset, is:  $4023.51 Billion</p>
 </section>
 <section id="muti-year-usage">
 <h2>Muti year usage<a class="headerlink" href="#muti-year-usage" title="Permalink to this heading">#</a></h2>
 <p>Comparison of total tax revenue calculation of baseline policy, reform policy (without offset), and reform policy considering offset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup some tool list to help printing result</span>
+<span class="n">dtable</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([])</span>
+<span class="n">year_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cur_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">reform_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">offset_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">base_ref_diff</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ref_offset_diff</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">base_offset_diff</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">cur_sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">reform_sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">offset_sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">base_ref_sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">ref_offset_sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">base_offset_sum</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recs</span> <span class="o">=</span> <span class="n">tcp</span><span class="o">.</span><span class="n">Records</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;puf.csv&#39;</span><span class="p">)</span>
@@ -602,57 +631,220 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2031</span><span class="p">):</span>   
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;year: &quot;</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># multi year </span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">2034</span><span class="p">):</span>   
+    <span class="n">year_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+    <span class="c1"># baseline</span>
     <span class="n">calc0</span><span class="o">.</span><span class="n">advance_to_year</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
     <span class="n">calc0</span><span class="o">.</span><span class="n">calc_all</span><span class="p">()</span>
     <span class="n">itax_rev0</span> <span class="o">=</span> <span class="n">calc0</span><span class="o">.</span><span class="n">weighted_total</span><span class="p">(</span><span class="s1">&#39;combined&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;current law combined tax revenue: $&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">itax_rev0</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;Billions&quot;</span><span class="p">)</span>
+    <span class="n">itax_rev0</span> <span class="o">=</span> <span class="p">(</span><span class="n">itax_rev0</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">cur_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itax_rev0</span><span class="p">)</span>
+    <span class="n">cur_sum</span> <span class="o">+=</span> <span class="n">itax_rev0</span>
+    
+    <span class="c1"># reform before offset</span>
     <span class="n">calc1</span><span class="o">.</span><span class="n">advance_to_year</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
     <span class="n">calc1</span><span class="o">.</span><span class="n">calc_all</span><span class="p">()</span>
     <span class="n">itax_rev1</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">weighted_total</span><span class="p">(</span><span class="s1">&#39;combined&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reformed law combined tax revenue: $&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">itax_rev1</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;Billions&quot;</span><span class="p">)</span>
+    <span class="n">itax_rev1</span> <span class="o">=</span> <span class="p">(</span><span class="n">itax_rev1</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">reform_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itax_rev1</span><span class="p">)</span>
+    <span class="n">br_diff</span> <span class="o">=</span> <span class="n">itax_rev1</span> <span class="o">-</span> <span class="n">itax_rev0</span>
+    <span class="n">base_ref_diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">br_diff</span><span class="p">)</span>
+    <span class="n">reform_sum</span> <span class="o">+=</span> <span class="n">itax_rev0</span>
+    <span class="n">base_ref_sum</span> <span class="o">+=</span> <span class="n">br_diff</span>
+    
+    
+    <span class="c1"># offset</span>
     <span class="n">offset_df</span> <span class="o">=</span> <span class="n">employer_payroll_offset</span><span class="p">(</span><span class="n">reform1</span><span class="p">,</span> <span class="n">calc0</span><span class="p">,</span> <span class="n">pol</span><span class="p">,</span> <span class="n">recs</span><span class="p">,</span> <span class="n">dump</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">itax_revbr</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset_df</span><span class="p">[</span><span class="s1">&#39;combined&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">offset_df</span><span class="p">[</span><span class="s1">&#39;s006&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;offset combined tax revenue: &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">itax_revbr</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;Billions&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">itax_revbr</span> <span class="o">=</span> <span class="p">(</span><span class="n">itax_revbr</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">offset_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itax_revbr</span><span class="p">)</span>
+    <span class="n">ro_diff</span> <span class="o">=</span> <span class="n">itax_revbr</span> <span class="o">-</span> <span class="n">itax_rev1</span>
+    <span class="n">ref_offset_diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ro_diff</span><span class="p">)</span>
+    <span class="n">bo_diff</span> <span class="o">=</span> <span class="n">itax_revbr</span> <span class="o">-</span> <span class="n">itax_rev0</span>
+    <span class="n">base_offset_diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bo_diff</span><span class="p">)</span>
+    <span class="n">offset_sum</span> <span class="o">+=</span> <span class="n">itax_revbr</span>
+    <span class="n">ref_offset_sum</span> <span class="o">+=</span> <span class="n">ro_diff</span>
+    <span class="n">base_offset_sum</span> <span class="o">+=</span> <span class="n">bo_diff</span>
     
+    
+<span class="n">year_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;10 year 2024-2033&quot;</span><span class="p">)</span>  
+<span class="n">cur_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_sum</span><span class="p">)</span>
+<span class="n">reform_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reform_sum</span><span class="p">)</span>
+<span class="n">base_ref_diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">base_ref_sum</span><span class="p">)</span>
+<span class="n">offset_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offset_sum</span><span class="p">)</span>
+<span class="n">ref_offset_diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref_offset_sum</span><span class="p">)</span>
+<span class="n">base_offset_diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">base_offset_sum</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>year:  2023</p>
-<p>current law combined tax revenue: $ 3636.44 Billions</p>
-<p>reformed law combined tax revenue: $ 3636.44 Billions</p>
-<p>offset combined tax revenue:  3636.44 Billions</p>
-<p>year:  2024</p>
-<p>current law combined tax revenue: $ 3757.61 Billions</p>
-<p>reformed law combined tax revenue: $ 3757.61 Billions</p>
-<p>offset combined tax revenue:  3757.61 Billions</p>
-<p>year:  2025</p>
-<p>current law combined tax revenue: $ 3952.99 Billions</p>
-<p>reformed law combined tax revenue: $ 4053.78 Billions</p>
-<p>offset combined tax revenue:  4023.51 Billions</p>
-<p>year:  2026</p>
-<p>current law combined tax revenue: $ 4353.22 Billions</p>
-<p>reformed law combined tax revenue: $ 4458.41 Billions</p>
-<p>offset combined tax revenue:  4423.9 Billions</p>
-<p>year:  2027</p>
-<p>current law combined tax revenue: $ 4543.83 Billions</p>
-<p>reformed law combined tax revenue: $ 4653.24 Billions</p>
-<p>offset combined tax revenue:  4617.23 Billions</p>
-<p>year:  2028</p>
-<p>current law combined tax revenue: $ 4737.26 Billions</p>
-<p>reformed law combined tax revenue: $ 4850.96 Billions</p>
-<p>offset combined tax revenue:  4813.43 Billions</p>
-<p>year:  2029</p>
-<p>current law combined tax revenue: $ 4935.73 Billions</p>
-<p>reformed law combined tax revenue: $ 5053.9 Billions</p>
-<p>offset combined tax revenue:  5014.79 Billions</p>
-<p>year:  2030</p>
-<p>current law combined tax revenue: $ 5139.73 Billions</p>
-<p>reformed law combined tax revenue: $ 5262.54 Billions</p>
-<p>offset combined tax revenue:  5221.78 Billions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Year&#39;</span><span class="p">:</span> <span class="n">year_list</span><span class="p">,</span> <span class="s1">&#39;Baseline Tototal Revenue&#39;</span><span class="p">:</span> <span class="n">cur_list</span><span class="p">,</span> <span class="s1">&#39;Reform Tototal Revenue (no offset)&#39;</span><span class="p">:</span> <span class="n">reform_list</span><span class="p">,</span>
+                   <span class="s1">&#39;Reform Tototal Revenue with offset&#39;</span><span class="p">:</span> <span class="n">offset_list</span><span class="p">,</span> <span class="s2">&quot;Diff: Reform - Baseline&quot;</span><span class="p">:</span> <span class="n">base_ref_diff</span><span class="p">,</span>
+                   <span class="s1">&#39;Diff: Offset - Reform&#39;</span><span class="p">:</span> <span class="n">ref_offset_diff</span><span class="p">,</span> <span class="s2">&quot;Diff: Offset - Baseline&quot;</span><span class="p">:</span> <span class="n">base_offset_diff</span>
+                  <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Baseline Tototal Revenue</th>
+      <th>Reform Tototal Revenue (no offset)</th>
+      <th>Reform Tototal Revenue with offset</th>
+      <th>Diff: Reform - Baseline</th>
+      <th>Diff: Offset - Reform</th>
+      <th>Diff: Offset - Baseline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2024</td>
+      <td>3757.61</td>
+      <td>3757.61</td>
+      <td>3757.61</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2025</td>
+      <td>3952.99</td>
+      <td>4053.78</td>
+      <td>4023.51</td>
+      <td>100.79</td>
+      <td>-30.27</td>
+      <td>70.52</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2026</td>
+      <td>4353.22</td>
+      <td>4458.41</td>
+      <td>4423.90</td>
+      <td>105.19</td>
+      <td>-34.51</td>
+      <td>70.68</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2027</td>
+      <td>4543.83</td>
+      <td>4653.24</td>
+      <td>4617.23</td>
+      <td>109.41</td>
+      <td>-36.01</td>
+      <td>73.40</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2028</td>
+      <td>4737.26</td>
+      <td>4850.96</td>
+      <td>4813.43</td>
+      <td>113.70</td>
+      <td>-37.53</td>
+      <td>76.17</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2029</td>
+      <td>4935.73</td>
+      <td>5053.90</td>
+      <td>5014.79</td>
+      <td>118.17</td>
+      <td>-39.11</td>
+      <td>79.06</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2030</td>
+      <td>5139.73</td>
+      <td>5262.54</td>
+      <td>5221.78</td>
+      <td>122.81</td>
+      <td>-40.76</td>
+      <td>82.05</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2031</td>
+      <td>5348.20</td>
+      <td>5475.84</td>
+      <td>5433.37</td>
+      <td>127.64</td>
+      <td>-42.47</td>
+      <td>85.17</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2032</td>
+      <td>5549.99</td>
+      <td>5682.67</td>
+      <td>5638.45</td>
+      <td>132.68</td>
+      <td>-44.22</td>
+      <td>88.46</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2033</td>
+      <td>5781.67</td>
+      <td>5918.52</td>
+      <td>5872.84</td>
+      <td>136.85</td>
+      <td>-45.68</td>
+      <td>91.17</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10 year 2024-2033</td>
+      <td>48100.23</td>
+      <td>48100.23</td>
+      <td>48816.91</td>
+      <td>1067.24</td>
+      <td>-350.56</td>
+      <td>716.68</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </section>
 </section>
 
