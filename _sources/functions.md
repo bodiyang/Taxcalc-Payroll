@@ -38,13 +38,14 @@ So we consider wage and employer side payroll for total compensation calculation
 
 Total Compensation = Wage + Employer side FICA Social Security Tax Liability + Employer side FICA Medicare Tax Liability 
 
+We will use the short note for variables below:
+- Wages: wages and pension, from employer paid to employee
+- OASDIrate: employer side OASDI social security tax rate
+- HIrate: employer side HI medicare hospital insurance tax rate
+- OASDImax: OASDI social security tax maximum taxable value
 
-Wages: wages and pension, from employer paid to employee
-OASDIrate: employer side OASDI social security tax rate
-HIrate: employer side HI medicare hospital insurance tax rate
-OASDImax: OASDI social security tax maximum taxable value
 
-To be noticed, OASDI social security tax have a maximum taxable value, $118500 in 2016. For wages below this value, the wages will be taxed by the actual value of the wages; for wages above this value, the employee will be taxed by this OASID maximum taxable value.
+To be noticed, OASDI social security tax have a maximum taxable value, $118500 in 2016. For wages below this value, the wages will be taxed by the actual value of the wages; for wages above this value, the employee will be taxed by this OASDI maximum taxable value.
 
 
 (1) For employee whose wage is below the OASDI taxable maximum value:
@@ -64,7 +65,7 @@ $$
 By combining the two equations above, we have:
 
 $$
-Wage_{policy} = \frac{Wage_base * (1 + OASDIrate_{base}+ HIrate_{base})}{1 + OASDIrate_{policy} + HIrate_{policy}}
+Wage_{policy} = \frac{Wage_{base} * (1 + OASDIrate_{base}+ HIrate_{base})}{1 + OASDIrate_{policy} + HIrate_{policy}}
 $$
 
     
@@ -89,11 +90,15 @@ Wage_{policy} = \frac{Total Compensation - OASDI_{policy} * OASDImax}{1 + HI_{po
 $$
 
 
-    
+We will then use the Wage after the reform & offset effect to calculate the new income and payroll tax liability.
 
 
+### Case Analysis
 
+This [recipe 3](https://bodiyang.github.io/Taxcalc-Payroll/recipes/recipe3.html) will be helpful to learn the effect from offset. The recipe is a comparison between a payroll tax reform implemented upon the employer side versus the employee side. Result shows the latter reform will raise more revenue.
 
+### Performance
 
-### Performance 
+It is known that Congressional Budget Office take the offset effect into consideration when producing revenue projections. Taxcalc-Payroll's performance is in line with the CBO's estimation.
 
+As a reference, this [document of budget options](https://www.cbo.gov/budget-options/54805) shows CBO's estimation of revenue change from the rise of Social Security payroll tax rate by 1% (0.5% on each side of employer and employee). Please be noted that this document is produced in 2018. So we need to be aware of the inflation effect when we compare Taxcalc-Payroll's estimation (current year) with this CBO document (2018).

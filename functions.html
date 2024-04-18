@@ -67,6 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'functions';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data for Taxcalc-Payroll" href="usage/data.html" />
+    <link rel="prev" title="Structural overview" href="usage/overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -169,9 +171,10 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="usage/starting.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/overview.html">Structural overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/data.html">Data for Taxcalc-Payroll</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="guide/python_interface.html">Python interface</a></li>
@@ -441,6 +444,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#employer-side-payroll-offset-function">Employer Side Payroll Offset Function</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brief">Brief</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methodology">Methodology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-analysis">Case Analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 </ul>
 </li>
@@ -483,11 +487,14 @@ document.write(`
 </ul>
 <p>So we consider wage and employer side payroll for total compensation calculation.</p>
 <p>Total Compensation = Wage + Employer side FICA Social Security Tax Liability + Employer side FICA Medicare Tax Liability</p>
-<p>Wages: wages and pension, from employer paid to employee
-OASDIrate: employer side OASDI social security tax rate
-HIrate: employer side HI medicare hospital insurance tax rate
-OASDImax: OASDI social security tax maximum taxable value</p>
-<p>To be noticed, OASDI social security tax have a maximum taxable value, $118500 in 2016. For wages below this value, the wages will be taxed by the actual value of the wages; for wages above this value, the employee will be taxed by this OASID maximum taxable value.</p>
+<p>We will use the short note for variables below:</p>
+<ul class="simple">
+<li><p>Wages: wages and pension, from employer paid to employee</p></li>
+<li><p>OASDIrate: employer side OASDI social security tax rate</p></li>
+<li><p>HIrate: employer side HI medicare hospital insurance tax rate</p></li>
+<li><p>OASDImax: OASDI social security tax maximum taxable value</p></li>
+</ul>
+<p>To be noticed, OASDI social security tax have a maximum taxable value, $118500 in 2016. For wages below this value, the wages will be taxed by the actual value of the wages; for wages above this value, the employee will be taxed by this OASDI maximum taxable value.</p>
 <p>(1) For employee whose wage is below the OASDI taxable maximum value:</p>
 <p>Under the baseline policy:</p>
 <div class="math notranslate nohighlight">
@@ -502,7 +509,7 @@ Total Compensation_{policy} = Wage_{policy} + Wage_{policy} * OASDIrate_{policy}
 <p>By combining the two equations above, we have:</p>
 <div class="math notranslate nohighlight">
 \[
-Wage_{policy} = \frac{Wage_base * (1 + OASDIrate_{base}+ HIrate_{base})}{1 + OASDIrate_{policy} + HIrate_{policy}}
+Wage_{policy} = \frac{Wage_{base} * (1 + OASDIrate_{base}+ HIrate_{base})}{1 + OASDIrate_{policy} + HIrate_{policy}}
 \]</div>
 <p>(2) For employee whose wage is above the OASDI taxable maximum value:</p>
 <p>Under the baseline policy:</p>
@@ -520,9 +527,16 @@ Total Compensation_{policy} = Wage_{policy} + OASDImax * OASDI_{policy} + Wage_{
 \[
 Wage_{policy} = \frac{Total Compensation - OASDI_{policy} * OASDImax}{1 + HI_{policy}}
 \]</div>
+<p>We will then use the Wage after the reform &amp; offset effect to calculate the new income and payroll tax liability.</p>
+</section>
+<section id="case-analysis">
+<h3>Case Analysis<a class="headerlink" href="#case-analysis" title="Permalink to this heading">#</a></h3>
+<p>This <a class="reference external" href="https://bodiyang.github.io/Taxcalc-Payroll/recipes/recipe3.html">recipe 3</a> will be helpful to learn the effect from offset. The recipe is a comparison between a payroll tax reform implemented upon the employer side versus the employee side. Result shows the latter reform will raise more revenue.</p>
 </section>
 <section id="performance">
 <h3>Performance<a class="headerlink" href="#performance" title="Permalink to this heading">#</a></h3>
+<p>It is known that Congressional Budget Office take the offset effect into consideration when producing revenue projections. Taxcalc-Payroll’s performance is in line with the CBO’s estimation.</p>
+<p>As a reference, this <a class="reference external" href="https://www.cbo.gov/budget-options/54805">document of budget options</a> shows CBO’s estimation of revenue change from the rise of Social Security payroll tax rate by 1% (0.5% on each side of employer and employee). Please be noted that this document is produced in 2018. So we need to be aware of the inflation effect when we compare Taxcalc-Payroll’s estimation (current year) with this CBO document (2018).</p>
 </section>
 </section>
 </section>
@@ -557,6 +571,24 @@ Wage_{policy} = \frac{Total Compensation - OASDI_{policy} * OASDImax}{1 + HI_{po
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="usage/overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Structural overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="usage/data.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data for Taxcalc-Payroll</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -576,6 +608,7 @@ Wage_{policy} = \frac{Total Compensation - OASDI_{policy} * OASDImax}{1 + HI_{po
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#employer-side-payroll-offset-function">Employer Side Payroll Offset Function</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brief">Brief</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methodology">Methodology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-analysis">Case Analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
 </ul>
 </li>
