@@ -5,6 +5,7 @@ parts:
   chapters:
   - file: usage/starting
   - file: usage/overview
+  - file: functions
   - file: usage/data
   - file: guide/index
     sections:
