@@ -474,58 +474,51 @@ document.write(`
 <p>Modeling method follows the JCT article <a class="reference external" href="https://www.jct.gov/publications/2016/jcx-89-16/">THE INCOME AND PAYROLL TAX OFFSET TO CHANGES IN PAYROLL TAX REVENUES</a>.</p>
 <p>We hold the assumption that total compensation from the employer to the employee always remain the same regardless of any implemented policy reforms.</p>
 <p>Under this assumption, an increase on the employer side payroll tax rate will result in a decrease in the employee’s wages. The decrease of wages will then result in a decrease of tax revenue from the employee side, both income tax revenue and payroll tax revenue.</p>
-<p><span class="math notranslate nohighlight">\(\
-Total Compensation = Wage + Employer Side Payroll Tax Liability + Non-Taxable Benefit
-\)</span></p>
+<p>Total Compensation = Wage + Employer Side Payroll Tax Liability + Non-Taxable Benefit</p>
 <p>Note:</p>
 <ul class="simple">
 <li><p>Pension is included in the Wage variable</p></li>
 <li><p>Payroll tax is consisted of OASDI social security tax and HI medicare hospital insurance tax</p></li>
 <li><p>Non-taxable benefit is not considered in our model, because our data sets (PUF &amp; CPS) do not capture the information of this item. (The overall contribution from non-taxable benefit to the value of total compensation should also not be very significant).</p></li>
 </ul>
-<p>So we consider the following components for total compensation calculation:</p>
-<div class="math notranslate nohighlight">
-\[\
-Wages: wages and pension, from employer paid to employee
-FICA_ss_employer: employer side OASDI social security tax liability 
-FICA_mc_employer: employer side HI medicare hospital insurance tax liability
-\]</div>
-<div class="math notranslate nohighlight">
-\[\
-Total Compensation = Wage + FICA_ss_employer + FICA_mc_employer
-\]</div>
+<p>So we consider wage and employer side payroll for total compensation calculation.</p>
+<p>Total Compensation = Wage + Employer side FICA Social Security Tax Liability + Employer side FICA Medicare Tax Liability</p>
+<p>Wages: wages and pension, from employer paid to employee
+OASDIrate: employer side OASDI social security tax rate
+HIrate: employer side HI medicare hospital insurance tax rate
+OASDImax: OASDI social security tax maximum taxable value</p>
 <p>To be noticed, OASDI social security tax have a maximum taxable value, $118500 in 2016. For wages below this value, the wages will be taxed by the actual value of the wages; for wages above this value, the employee will be taxed by this OASID maximum taxable value.</p>
 <p>(1) For employee whose wage is below the OASDI taxable maximum value:</p>
 <p>Under the baseline policy:</p>
 <div class="math notranslate nohighlight">
 \[
-Total Compensation_{base} = Wage_{base} + Wage_{base} * FICA_ss_employer tax rate_{base} + Wage_{base} * FICA_mc_employer tax rate_{base}
+Total Compensation_{base} = Wage_{base} + Wage_{base} * OASDIrate_{base} + Wage_{base} * HIrate_{base}
 \]</div>
 <p>Under the reform policy:</p>
 <div class="math notranslate nohighlight">
 \[
-Total Compensation_{policy} = Wage_{policy} + Wage_{policy} * FICA_ss_employer tax rate_{policy} + Wage_{policy} * FICA_mc_employer tax rate_{policy}
+Total Compensation_{policy} = Wage_{policy} + Wage_{policy} * OASDIrate_{policy} + Wage_{policy} * HIrate_{policy}
 \]</div>
 <p>By combining the two equations above, we have:</p>
 <div class="math notranslate nohighlight">
 \[
-Wage_{policy} = \frac{Wage_base * (1 + FICA_ss_employer tax rate_base+ FICA_mc_employer tax rate_base)}{1 + FICA_ss_employer tax rate_policy + FICA_mc_employer tax rate_policy}
+Wage_{policy} = \frac{Wage_base * (1 + OASDIrate_{base}+ HIrate_{base})}{1 + OASDIrate_{policy} + HIrate_{policy}}
 \]</div>
 <p>(2) For employee whose wage is above the OASDI taxable maximum value:</p>
 <p>Under the baseline policy:</p>
 <div class="math notranslate nohighlight">
 \[
-Total Compensation_{base} = Wage_{base} + OASDI max taxable amount * FICA_ss_employer tax rate_{base} + Wage_{base} * FICA_mc_employer tax rate_{base}
+Total Compensation_{base} = Wage_{base} + OASDImax * OASDI_{base} + Wage_{base} * HI_{base}
 \]</div>
 <p>Under the reform policy:</p>
 <div class="math notranslate nohighlight">
 \[
-Total Compensation_{policy} = Wage_{policy} + OASDI max taxable amount * FICA_ss_employer tax rate_{policy} + Wage_{policy} * FICA_mc_employer tax rate_{policy}
+Total Compensation_{policy} = Wage_{policy} + OASDImax * OASDI_{policy} + Wage_{policy} * HI_{policy}
 \]</div>
 <p>By combining the two equations above, we have:</p>
 <div class="math notranslate nohighlight">
 \[
-Wage_{policy} = \frac{Total Compensation - FICA_ss_employer tax rate_policy * OASDI max taxable amount}{1 + FICA_mc_employer tax rate_policy}
+Wage_{policy} = \frac{Total Compensation - OASDI_{policy} * OASDImax}{1 + HI_{policy}}
 \]</div>
 </section>
 <section id="performance">
