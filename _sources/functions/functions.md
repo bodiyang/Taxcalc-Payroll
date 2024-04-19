@@ -13,6 +13,7 @@ Core functions of Taxcalc-Payroll are consisted of the payroll tax liability cal
 Payroll tax calculation functions are located in [`calcfunctions.py`](https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/calcfunctions.py). The functions are used to calculate FICA and SECA tax liability.
 
 `EI_PayrollTax`: Compute part of total OASDI+HI payroll taxes and earned income variables.
+
 `AdditionalMedicareTax`: Computes Additional Medicare Tax (Form 8959) included in payroll taxes.
 
 The payroll tax calculation functions are inherited from Tax-Calculator and the usage remain the same. 
