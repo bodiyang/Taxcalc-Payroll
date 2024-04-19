@@ -20,6 +20,10 @@ parts:
     - file: recipes/recipe1
     - file: recipes/recipe2
     - file: recipes/recipe3
+- caption: Functions
+  chapters:
+  - file: functions/model_interaction
+  - file: functions/functions
 - caption: About
   chapters:
   - file: about/history

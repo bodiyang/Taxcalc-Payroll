@@ -5,17 +5,28 @@ Functions & Methodology
 
 Core functions of Taxcalc-Payroll are consisted of the payroll tax liability calculation functions and the employer side payroll offset function. The functions are are hosted in `calcfunctions.py` and `payrolloffset.py`. 
 
-Payroll tax liability functions can be used to calculate the FICA and SECA tax liability. These functions are inherited from Tax-Calculator and the usage remain the same. Please refer to this [recipe 1](https://bodiyang.github.io/Taxcalc-Payroll/recipes/recipe1.html), as the guide for tax revenue estimations and projections.
 
-Employer side payroll offset function can be used to measure the effect of employee side tax revenue offset, from a policy reform of the employer side payroll tax. Please refer to [recipe 2](https://bodiyang.github.io/Taxcalc-Payroll/recipes/recipe2.html).
+## Payroll Tax Calculation Functions
 
+### Brief
+
+Payroll tax calculation functions are located in [`calcfunctions.py`](https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/calcfunctions.py). The functions are used to calculate FICA and SECA tax liability.
+
+`EI_PayrollTax`: Compute part of total OASDI+HI payroll taxes and earned income variables.
+`AdditionalMedicareTax`: Computes Additional Medicare Tax (Form 8959) included in payroll taxes.
+
+The payroll tax calculation functions are inherited from Tax-Calculator and the usage remain the same. 
+Please refer to this [recipe 1](https://bodiyang.github.io/Taxcalc-Payroll/recipes/recipe1.html), as the guide for tax revenue estimations and projections.
 
 ## Employer Side Payroll Offset Function
-
 
 ### Brief
 
 Whenever government has a policy reform to raise the payroll tax rate from the employer, it is expected that more revenue would be collected from the employer side. However, another effect would happen at the same time, that there would be a decrease of the tax revenue from the employee side. This is known to be the employer side payroll offset effect.
+
+Core function `employer_payroll_offset` is located in [payrolloffset.py](https://github.com/bodiyang/Taxcalc-Payroll/blob/master/taxcalcpayroll/payrolloffset.py). Employer side payroll offset function can be used to measure the effect of employee side tax revenue offset, from a policy reform of the employer side payroll tax. 
+
+Please refer to [recipe 2](https://bodiyang.github.io/Taxcalc-Payroll/recipes/recipe2.html) for the usage.
 
 
 ### Methodology
