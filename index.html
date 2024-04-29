@@ -191,7 +191,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Functions</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="functions/model_interaction.html">Model Interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functions/functions.html">Functions &amp; Methodology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/functions.html">Functions and Methodology</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
 <ul class="nav bd-sidenav">
@@ -440,10 +440,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#brief">Brief</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intro">Intro</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-of-taxcalc-payroll">Functions of Taxcalc-Payroll</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-parallel-project-with-tax-calculator">A parallel project with Tax-Calculator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-parallel-project-with-tax-calculator">A Parallel Project with Tax-Calculator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-release">Latest release</a></li>
 </ul>
@@ -459,22 +458,19 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="taxcalc-payroll">
 <h1>Taxcalc-Payroll<a class="headerlink" href="#taxcalc-payroll" title="Permalink to this heading">#</a></h1>
-<section id="brief">
-<h2>Brief<a class="headerlink" href="#brief" title="Permalink to this heading">#</a></h2>
 <p>Taxcalc-Payroll is a microsimulation model for static analysis of
 USA federal payroll taxes.</p>
 <p>Taxcalc-Payroll is developed by Bodi Yang (github &#64;<a class="reference external" href="https://github.com/bodiyang">bodiyang</a>),
 from American Enterprise Institute. Contact: <a class="reference external" href="mailto:bodi&#46;yang&#37;&#52;&#48;aei&#46;org">bodi<span>&#46;</span>yang<span>&#64;</span>aei<span>&#46;</span>org</a></p>
 <p>If you have questions about or would like to contribute to the project, please contact or
 submit an issue at the model’s repository.</p>
-</section>
 <section id="intro">
 <h2>Intro<a class="headerlink" href="#intro" title="Permalink to this heading">#</a></h2>
-<p>You can install the Taxcalc-Payroll from github.</p>
+<p>You can install the Taxcalc-Payroll from GitHub.</p>
 <p>Taxcalc-Payroll interacts with other models in the
-<a class="reference external" href="https://www.ospc.org/">AEI Open Source Policy Center</a> to conduct non-static
+<a class="reference external" href="https://www.ospc.org/">AEI’s Open Source Policy Center</a> to conduct non-static
 analysis.</p>
-<p>When using <a class="reference external" href="https://github.com/PSLmodels/taxdata#about-taxdata-repository">micro data</a>
+<p>When using <a class="reference external" href="https://github.com/PSLmodels/taxdata#about-taxdata-repository">microdata</a>
 that represent the USA population, Taxcalc-Payroll can estimate the aggregate
 revenue and distributional effects of tax reforms under static analysis
 assumptions. Taxcalc-Payroll can also process custom-created data on one or more filing
@@ -484,36 +480,33 @@ units permitting analysis of how tax reforms affect certain people.</p>
 </section>
 <section id="functions-of-taxcalc-payroll">
 <h2>Functions of Taxcalc-Payroll<a class="headerlink" href="#functions-of-taxcalc-payroll" title="Permalink to this heading">#</a></h2>
-<p>The core tax calculation functions of the model are consisted of
-(1) payroll tax calculation functions  (2) employer side payroll tax offset function</p>
+<p>The model’s core tax calculation functions are (1) payroll tax calculation functions, and
+(2) employer-side payroll tax offset function</p>
 </section>
 <section id="a-parallel-project-with-tax-calculator">
-<h2>A parallel project with Tax-Calculator<a class="headerlink" href="#a-parallel-project-with-tax-calculator" title="Permalink to this heading">#</a></h2>
+<h2>A Parallel Project with Tax-Calculator<a class="headerlink" href="#a-parallel-project-with-tax-calculator" title="Permalink to this heading">#</a></h2>
 <p>Tax-Calculator and Taxcalc-Payroll are the microsimulation models for federal tax analysis.
 They are parallel projects with different focus on inomce tax analysis and on payroll tax analysis.
-However, the two models are highly integrated. Users can do both income tax and payroll tax
-analysis from either model.</p>
+However, the two models are highly integrated. Users can perform both income tax and payroll tax
+analysis using either model.</p>
 <p>Please read <a class="reference internal" href="about/history.html"><span class="doc">History</span></a>, to learn more details of the relationship between two models.</p>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
-<p>Taxcalc-Payroll can simulate an enormous number of tax reforms because tax policy
-is parameterized using over 200 parameters that can be changed by users
-<strong>without doing any programming</strong>.
-And even a reform that is not able to be characterized using
-currently-available parameters can be simulated by writing supplementary Python
-code that characterizes the reform.</p>
-<p>Taxcalc-Payroll can estimate for each filing unit the marginal tax rate
-generated by a small change in income.
-Marginal tax rates can be generated for eighteen different kinds of income.
-And marginal tax rates can be estimated under any parametric tax reform.</p>
+<p>Taxcalc-Payroll can simulate an enormous number of tax reforms, because it parameterizes tax policy
+using over 200 parameters, that users can change <strong>without doing any programming</strong>. And even a reform
+that is not able to be characterized using currently-available parameters can be simulated by writing
+supplementary Python code that characterizes the reform.</p>
+<p>For each filing unit, Taxcalc-Payroll can estimate the marginal tax rate generated by a small change
+in income. It can generate marginal tax rates for 18 different kinds of income and estimate marginal
+tax rates under any parametric tax reform.</p>
 <p>Taxcalc-Payroll is extensively tested using hundreds of unit and integration
 tests that achieve complete code coverage.
 Also, there is an ongoing cross-model validation effort that uses large
 randomly-generated samples of filing units to compare results generated by
 Taxcalc-Payroll with results from other tax models.
-The cross-model validation work with NBER’s TAXSIM model is described
-<a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/tree/master/taxcalc/validation">here</a>.</p>
+The cross-model validation work with the National Bureau of Economic Research’s
+TAXSIM  is described <a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator/tree/master/taxcalc/validation">here</a>.</p>
 </section>
 <section id="latest-release">
 <h2>Latest release<a class="headerlink" href="#latest-release" title="Permalink to this heading">#</a></h2>
@@ -588,10 +581,9 @@ The cross-model validation work with NBER’s TAXSIM model is described
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#brief">Brief</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intro">Intro</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-of-taxcalc-payroll">Functions of Taxcalc-Payroll</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-parallel-project-with-tax-calculator">A parallel project with Tax-Calculator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-parallel-project-with-tax-calculator">A Parallel Project with Tax-Calculator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest-release">Latest release</a></li>
 </ul>
