@@ -23,7 +23,7 @@ The first phase of testing checks the formatting of the Python code
 against a PEP8-like standard.  Assuming you are in the top-level
 directory of the repository, run these tests by doing:
 ```
-pycodestyle taxcalc
+pycodestyle taxcalcpayroll
 ```
 
 No messages indicate the tests pass.  Fix any errors.  When you
@@ -36,9 +36,9 @@ pycodestyle --ignore=E501,E121 PATH_TO_JSON_FILE
 ```
 where you replace `PATH_TO_JSON_FILE` with the relative path to the
 JSON file you changed.  So, for example, if you edited the
-`policy_current_law.json` file in the `taxcalc` subdirectory, you
+`policy_current_law.json` file in the `taxcalcpayroll` subdirectory, you
 would replace `PATH_TO_JSON_FILE` with
-`taxcalc/policy_current_law.json`.
+`taxcalcpayroll/policy_current_law.json`.
 
 ## Testing with pytest
 
@@ -70,7 +70,7 @@ you want to do just a quick test), run the second-phase of testing as
 follows at the command prompt in the Taxcalc-Payroll directory at the
 top of the repository directory tree:
 ```
-cd taxcalc
+cd taxcalcpayroll
 pytest -m "not requires_pufcsv and not pre_release" -n4
 cd ..
 ```
@@ -90,7 +90,7 @@ directory tree (but **never** add it to your repository) and run the
 second-phase of testing as follows at the command prompt in the
 top-level directory:
 ```
-cd taxcalc
+cd taxcalcpayroll
 pytest -m "not pre_release" -n4
 cd ..
 ```
@@ -108,7 +108,7 @@ Just before releasing a new version of Taxcalc-Payroll or just after
 adding a new parameter to `policy_current_law.json`, you should also
 execute the pre-release tests using this command:
 ```
-cd taxcalc
+cd taxcalcpayroll
 pytest -m pre_release -n4
 cd ..
 ``` 
@@ -147,7 +147,7 @@ After an enhancement or bug fix, you may be convinced that the new and
 different second-phase test results are, in fact, correct.  How do you
 eliminate the test failures?  For all but the few tests that require
 the `puf.csv` file or the `cps.csv` file as input, simply edit the
-appropriate `taxcalc/tests/test_*.py` file so that the test passes
+appropriate `taxcalcpayroll/tests/test_*.py` file so that the test passes
 when you rerun pytest.  If there are failures for the tests that write
 results files, read the test error message for instructions about how
 to update the test results.
