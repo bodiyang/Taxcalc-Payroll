@@ -458,52 +458,6 @@ document.write(`
 <p><strong>Taxcalc-Payroll Policy</strong></p>
 <section id="taxcalcpayroll-policy">
 <h2>taxcalcpayroll.policy<a class="headerlink" href="#taxcalcpayroll-policy" title="Permalink to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="taxcalcpayroll.policy.Policy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">taxcalcpayroll.policy.</span></span><span class="sig-name descname"><span class="pre">Policy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gfactors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_reading_defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/taxcalcpayroll/policy.html#Policy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#taxcalcpayroll.policy.Policy" title="Permalink to this definition">#</a></dt>
-<dd><p>Policy is a subclass of the Tax-Calculator’s Policy class,
-In fact, Taxcalc-Payroll’s Policy class is excatly the same as
-the Tax-Calculator’s Policy class.
-Therefore, inherits its methods (none of which are shown here).</p>
-<p>Constructor for the federal tax policy class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>class instance</strong></p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#taxcalcpayroll.policy.Policy" title="taxcalcpayroll.policy.Policy">Policy</a></p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="taxcalcpayroll.policy.Policy.implement_reform">
-<span class="sig-name descname"><span class="pre">implement_reform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_warnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/taxcalc/policy.html#Policy.implement_reform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#taxcalcpayroll.policy.Policy.implement_reform" title="Permalink to this definition">#</a></dt>
-<dd><p>Implement reform using Tax-Calculator syled reforms/adjustments. Users
-may also use the adjust method with ParamTools styled reforms.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="taxcalcpayroll.policy.Policy.parameter_list">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parameter_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/taxcalc/policy.html#Policy.parameter_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#taxcalcpayroll.policy.Policy.parameter_list" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns list of parameter names in the policy_current_law.json file.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="taxcalcpayroll.policy.Policy.read_json_reform">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_json_reform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/taxcalc/policy.html#Policy.read_json_reform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#taxcalcpayroll.policy.Policy.read_json_reform" title="Permalink to this definition">#</a></dt>
-<dd><p>Return a reform dictionary suitable for use with implement_reform
-method generated from the specified JSON object, which can be None or
-a string containing a local filename, a URL beginning with ‘http’
-pointing to a valid JSON file hosted online, or a valid JSON text.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="taxcalcpayroll.policy.Policy.set_rates">
-<span class="sig-name descname"><span class="pre">set_rates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/taxcalc/policy.html#Policy.set_rates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#taxcalcpayroll.policy.Policy.set_rates" title="Permalink to this definition">#</a></dt>
-<dd><p>Initialize taxcalc indexing data.</p>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 </section>
 
