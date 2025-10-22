@@ -9,4 +9,4 @@ Taxcalc-Payroll is a microsimulation model for static
 analysis of USA federal payroll taxes.
 
 
-Developed by: Bodi Yang, bodi.yang@aei.org
+Developed by: Bodi Yang, bodiyang1@gmail.com
